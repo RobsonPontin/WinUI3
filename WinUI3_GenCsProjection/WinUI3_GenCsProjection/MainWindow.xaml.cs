@@ -32,6 +32,7 @@ namespace WinUI3_GenCsProjection
         private void myButton_Click(object sender, RoutedEventArgs e)
         {
             myButton.Content = "Clicked";
+
             MyWinRtClass dd = new MyWinRtClass();
             dd.MyLuckyNumber = 45;
         }

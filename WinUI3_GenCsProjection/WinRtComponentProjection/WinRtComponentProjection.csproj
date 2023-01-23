@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RuntimeIdentifiers>AnyCPU</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.1" />
+      <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221109.1" />
+      <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WinRtComponent\WinRtComponent.vcxproj" />
+  </ItemGroup>
+
+  <!--CsWinRT properties-->
+  <PropertyGroup>
+  	<!--Specify namespaces to create a C# projection for-->
+	<CsWinRTIncludes>WinRtComponent</CsWinRTIncludes>
+	<!--Set output path for generated source files/projection dll to OutDir (defined in Directory.Build.props)-->
+	<CsWinRTGeneratedFilesDir>$(OutDir)</CsWinRTGeneratedFilesDir>
+  </PropertyGroup>
+</Project>
