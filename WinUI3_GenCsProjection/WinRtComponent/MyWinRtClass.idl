@@ -1,0 +1,13 @@
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+
+namespace WinRtComponent
+{
+    [default_interface]
+    runtimeclass MyWinRtClass
+    {
+        MyWinRtClass();
+
+        Int32 MyLuckyNumber{ get; set; };
+    }
+}

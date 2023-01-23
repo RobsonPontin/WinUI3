@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WinUI3_GenCsProjection (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WinUI3_GenCsProjection (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

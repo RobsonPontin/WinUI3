@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/WinUI3_GenCsProjection/WinUI3_GenCsProjection/bin/x86/Debug/net6.0-windows10.0.19041.0/win10-x86
+/WinUI3_GenCsProjection/WinUI3_GenCsProjection/obj
+/WinUI3_GenCsProjection/.vs/WinUI3_GenCsProjection
+/WinUI3_GenCsProjection/Debug/WinRtComponent
+/WinUI3_GenCsProjection/packages/Microsoft.Windows.CppWinRT.2.0.220929.3/build/native
+/WinUI3_GenCsProjection/packages/Microsoft.Windows.CppWinRT.2.0.220929.3/bin
+/WinUI3_GenCsProjection/packages
+/WinUI3_GenCsProjection/WinRtComponent/Generated Files
+/WinUI3_GenCsProjection/WinRtComponent/Debug
