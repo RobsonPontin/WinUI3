@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinUI3_GenCsProjection", "W
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinRtComponent", "WinRtComponent\WinRtComponent.vcxproj", "{E07BCDDF-D7EE-4641-B946-AF9186704931}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinRtComponentProjection", "WinRtComponentProjection\WinRtComponentProjection.csproj", "{0BC3654A-DD47-4AC9-AD1B-31856CA987C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinRtComponentProjection", "WinRtComponentProjection\WinRtComponentProjection.csproj", "{0BC3654A-DD47-4AC9-AD1B-31856CA987C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

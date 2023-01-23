@@ -2,18 +2,14 @@
   <PropertyGroup>
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-    <RuntimeIdentifiers>AnyCPU</RuntimeIdentifiers>
-    <UseWinUI>true</UseWinUI>
+	<Platform>AnyCPU</Platform>
+	<!-- Workaround for MSB3271 error on processor architecture mismatch -->
+	<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
   </PropertyGroup>
 
   <ItemGroup>
+	  <ProjectReference Include="..\WinRtComponent\WinRtComponent.vcxproj" />
 	  <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.1" />
-      <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221109.1" />
-      <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\WinRtComponent\WinRtComponent.vcxproj" />
   </ItemGroup>
 
   <!--CsWinRT properties-->
