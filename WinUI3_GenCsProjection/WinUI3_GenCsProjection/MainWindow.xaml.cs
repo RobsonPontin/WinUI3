@@ -15,7 +15,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-
+using WinRtComponent;
 
 namespace WinUI3_GenCsProjection
 {
@@ -32,6 +32,8 @@ namespace WinUI3_GenCsProjection
         private void myButton_Click(object sender, RoutedEventArgs e)
         {
             myButton.Content = "Clicked";
+            MyWinRtClass dd = new MyWinRtClass();
+            dd.MyLuckyNumber = 45;
         }
     }
 }

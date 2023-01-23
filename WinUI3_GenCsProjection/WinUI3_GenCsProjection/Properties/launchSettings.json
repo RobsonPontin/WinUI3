@@ -1,7 +1,8 @@
 {
   "profiles": {
     "WinUI3_GenCsProjection (Package)": {
-      "commandName": "MsixPackage"
+      "commandName": "MsixPackage",
+      "nativeDebugging": true
     },
     "WinUI3_GenCsProjection (Unpackaged)": {
       "commandName": "Project"
