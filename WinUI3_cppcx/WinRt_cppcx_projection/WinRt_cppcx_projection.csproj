@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<Platform>AnyCPU</Platform>
+		<!-- Workaround for MSB3271 error on processor architecture mismatch -->
+		<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+	</PropertyGroup>
+	
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.1" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\WinRt_cppcx\WinRt_cppcx.vcxproj" />
+	</ItemGroup>
+
+	<!--CsWinRT properties-->
+	<PropertyGroup>
+		<!--Specify namespaces to create a C# projection for-->
+		<CsWinRTIncludes>WinRt_cppcx</CsWinRTIncludes>
+		<!--Set output path for generated source files/projection dll to OutDir (defined in Directory.Build.props)-->
+		<CsWinRTGeneratedFilesDir>$(OutDir)</CsWinRTGeneratedFilesDir>
+	</PropertyGroup>
+</Project>
