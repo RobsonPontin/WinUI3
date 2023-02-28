@@ -22,4 +22,14 @@
 		<!--Set output path for generated source files/projection dll to OutDir (defined in Directory.Build.props)-->
 		<CsWinRTGeneratedFilesDir>$(OutDir)</CsWinRTGeneratedFilesDir>
 	</PropertyGroup>
+
+	<!--Properties for generating the NuGet package-->
+	<PropertyGroup>
+		<GeneratedNugetDir>.\nuget\</GeneratedNugetDir>
+		<NuspecFile>$(GeneratedNugetDir)WinRt_cppcx_projection.nuspec</NuspecFile>
+		<!--Specify output path for the generated *.nupkg file-->
+		<OutputPath>$(GeneratedNugetDir)</OutputPath>
+		<!--Set the property below to false if you do not want to generate a NuGet package on build-->
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
 </Project>

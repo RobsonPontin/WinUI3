@@ -8,7 +8,7 @@
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <MinimalCoreWin>true</MinimalCoreWin>
     <ProjectGuid>{1420a4cd-4243-4462-9db5-9f916f357abc}</ProjectGuid>
-    <ProjectName>WinUI3App</ProjectName>
+    <ProjectName>WinUI3App_cpp</ProjectName>
     <RootNamespace>WinUI3_cppcx</RootNamespace>
     <!--
       $(TargetName) should be same as $(RootNamespace) so that the produced binaries (.exe/.pri/etc.)
