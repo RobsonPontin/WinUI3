@@ -9,7 +9,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinRt_cppcx", "WinRt_cppcx\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinUI3App_cs", "WinUI3App_cs\WinUI3App_cs.csproj", "{B3CE7460-84D7-43C9-A3EA-ADC7BBEE773A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinRt_cppcx_projection", "WinRt_cppcx_projection\WinRt_cppcx_projection.csproj", "{E2B9C0E9-9D87-48C5-A56C-1460A64B0A18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinRt_cppcx_projection", "WinRt_cppcx_projection\WinRt_cppcx_projection.csproj", "{E2B9C0E9-9D87-48C5-A56C-1460A64B0A18}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{F27CDF07-21F6-4C12-BDA9-7E4E1DED4463}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,6 +130,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1420A4CD-4243-4462-9DB5-9F916F357ABC} = {F27CDF07-21F6-4C12-BDA9-7E4E1DED4463}
+		{B3CE7460-84D7-43C9-A3EA-ADC7BBEE773A} = {F27CDF07-21F6-4C12-BDA9-7E4E1DED4463}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {07145A16-41F4-44F3-B6F3-525DE0DE3839}
