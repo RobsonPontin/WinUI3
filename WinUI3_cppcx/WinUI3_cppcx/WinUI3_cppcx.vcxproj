@@ -166,6 +166,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WinRt_cppcx\WinRt_cppcx.vcxproj">
+      <Project>{b60ff5cb-5ad7-40f1-83d2-8dabb9b2422b}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <!--
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
     Explorer "Package and Publish" context menu entry to be enabled for this project even if

@@ -32,6 +32,9 @@ namespace winrt::WinUI3_cppcx::implementation
 
     void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
     {
+        WinRt_cppcx::ClassCppCx myTestClass{};
+        auto myStr = myTestClass.GetStringValue();
+
         myButton().Content(box_value(L"Clicked"));
     }
 }
