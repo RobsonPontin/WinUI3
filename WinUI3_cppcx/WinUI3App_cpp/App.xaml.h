@@ -5,7 +5,7 @@
 
 #include "App.xaml.g.h"
 
-namespace winrt::WinUI3_cppcx::implementation
+namespace winrt::WinUI3App_cpp::implementation
 {
     struct App : AppT<App>
     {

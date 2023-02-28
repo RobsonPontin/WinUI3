@@ -1,5 +1,5 @@
 ========================================================================
-    WinUI3_cppcx Project Overview
+    WinUI3App_cpp Project Overview
 ========================================================================
 
 This project demonstrates how to get started writing WinUI3 apps directly

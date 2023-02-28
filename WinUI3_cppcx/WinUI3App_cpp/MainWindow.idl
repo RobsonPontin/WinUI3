@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation and Contributors.
 // Licensed under the MIT License.
 
-namespace WinUI3_cppcx
+namespace WinUI3App_cpp
 {
     [default_interface]
     runtimeclass MainWindow : Microsoft.UI.Xaml.Window
