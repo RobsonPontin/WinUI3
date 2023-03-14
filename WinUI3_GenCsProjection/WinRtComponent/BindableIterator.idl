@@ -1,0 +1,13 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+
+import "BindableVector.idl";
+
+namespace WinRtComponent
+{
+    [bindable]
+    [default_interface]
+    runtimeclass BindableIterator : Microsoft.UI.Xaml.Interop.IBindableIterator
+    {
+        BindableIterator(Microsoft.UI.Xaml.Interop.IBindableVector bindableVector);
+    }
+}

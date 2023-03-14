@@ -4,9 +4,11 @@
 namespace WinRtComponent
 {
     [default_interface]
-    runtimeclass MyWinRtClass
+    runtimeclass MyWinRtClass : Microsoft.UI.Xaml.Interop.INotifyCollectionChanged
     {
         MyWinRtClass();
+
+        void TestCollection();
 
         Int32 MyLuckyNumber{ get; set; };
     }

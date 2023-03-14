@@ -104,12 +104,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BindableIterator.h" />
+    <ClInclude Include="BindableVector.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="MyWinRtClass.h">
       <DependentUpon>MyWinRtClass.cpp</DependentUpon>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BindableIterator.cpp" />
+    <ClCompile Include="BindableVector.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -117,6 +121,8 @@
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="BindableIterator.idl" />
+    <Midl Include="BindableVector.idl" />
     <Midl Include="MyWinRtClass.idl">
       <SubType>Code</SubType>
       <DependentUpon>MyWinRtClass.cpp</DependentUpon>

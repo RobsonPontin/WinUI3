@@ -38,7 +38,7 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WinRtComponent\WinRtComponent.vcxproj" />
+    <ProjectReference Include="..\WinRtComponentProjection\WinRtComponentProjection.csproj" />
   </ItemGroup>
 
   <!--CsWinRT properties-->

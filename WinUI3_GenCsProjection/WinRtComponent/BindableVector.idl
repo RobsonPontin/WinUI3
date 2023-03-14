@@ -1,0 +1,11 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+
+namespace WinRtComponent
+{
+    [bindable]
+    [default_interface]
+    runtimeclass BindableVector : Microsoft.UI.Xaml.Interop.IBindableVector, Microsoft.UI.Xaml.Interop.IBindableVectorView
+    {
+        BindableVector();
+    }
+}

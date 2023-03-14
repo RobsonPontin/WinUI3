@@ -24,6 +24,8 @@ namespace WinUI3_GenCsProjection
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        MyWinRtClass m_myWinrtClass;
+
         public MainWindow()
         {
             this.InitializeComponent();
@@ -31,10 +33,27 @@ namespace WinUI3_GenCsProjection
 
         private void myButton_Click(object sender, RoutedEventArgs e)
         {
-            myButton.Content = "Clicked";
+            if (m_myWinrtClass == null)
+            {
+                m_myWinrtClass = new MyWinRtClass();
+                m_myWinrtClass.CollectionChanged += M_myWinrtClass_CollectionChanged; ;
+            }
 
-            MyWinRtClass dd = new MyWinRtClass();
-            dd.MyLuckyNumber = 45;
+            m_myWinrtClass.TestCollection();
+        }
+
+        private async void M_myWinrtClass_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            var newItems = e.NewItems;
+
+            try
+            {
+                var count = newItems.Count;
+            }
+            catch (Exception ex)
+            {
+                // exception
+            }
         }
     }
 }

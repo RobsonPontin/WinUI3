@@ -8,17 +8,29 @@
     <Filter Include="Generated Files">
       <UniqueIdentifier>{926ab91d-31b4-48c3-b9a4-e681349f27f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Vector">
+      <UniqueIdentifier>{74b2e742-b253-4641-a6e6-60b986e26f49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="MyWinRtClass.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="BindableIterator.cpp">
+      <Filter>Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="BindableVector.cpp">
+      <Filter>Vector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Midl Include="Class.idl" />
+    <ClInclude Include="BindableIterator.h">
+      <Filter>Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="BindableVector.h">
+      <Filter>Vector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinRtComponent.def" />
@@ -26,5 +38,13 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="BindableIterator.idl">
+      <Filter>Vector</Filter>
+    </Midl>
+    <Midl Include="BindableVector.idl">
+      <Filter>Vector</Filter>
+    </Midl>
   </ItemGroup>
 </Project>
