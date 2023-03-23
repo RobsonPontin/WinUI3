@@ -62,15 +62,20 @@ namespace WinUI3App_cs
          * 3. AppWindow.Destroying
          * 4. Process terminated.
          * 
+         */
+
+        /*
          * B. Shutting down with AppWindow.Destroy() and then Window.Close()
-         * 
+         *
          * 1. AppWindow.Destroy()
          * 2. AppWindow.Destroying
          * 3. Window.Close() - called inside the Destroying event handler
          * 4. Window.Closed
          * 5. AppWindow.Destroying
          * 6. Process terminated.
-         * 
+         */
+        
+        /* 
          * C. Shutting down with Window.Close() and AppWindow.Destroy()
          * 
          * 1. Window.Close()
@@ -82,6 +87,15 @@ namespace WinUI3App_cs
          * 
          * NOTE: calling AppWindow.Destroy() inside Window.Closed event does not cause 
          * multiple triggers of AppWindow.Destroying, but the process still get's stuck and never terminated.
+         */
+
+        /*
+         * D. Shutting down with Close button on titlebar
+         * 
+         * 1. AppWindow.Closing
+         * 2. Window.Closed
+         * 3. AppWindow.Destroying
+         * 4. Process terminated.
          */
 
         private void AppWindow_Destroying(AppWindow sender, object args)
