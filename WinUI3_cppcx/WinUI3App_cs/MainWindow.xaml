@@ -42,6 +42,16 @@
             <TextBlock 
                 x:Name="tbText" 
                 FontSize="24"/>
+
+            <TextBlock 
+                x:Name="tbText2" 
+                FontSize="24"/>
+
+            <ProgressRing
+                x:Name="progressRing"
+                IsEnabled="true"
+                Height="300"
+                Width="300"/>
         </StackPanel>
     </Grid>
 </Window>

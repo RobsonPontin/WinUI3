@@ -38,7 +38,7 @@ namespace WinUI3App_cs
             m_window = new MainWindow();
             m_window.Closed += Window_Closed;
 
-            m_dispatcherQueue = m_window.DispatcherQueue;
+            m_dispatcherQueue = DispatcherQueue.GetForCurrentThread();
             m_dispatcherQueue.ShutdownStarting += DispatcherQueue_ShutdownStarting;
             m_dispatcherQueue.ShutdownCompleted += DispatcherQueue_ShutdownCompleted;
 

@@ -4,8 +4,12 @@
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.Foundation;
+using Windows.Storage;
+using Windows.Storage.FileProperties;
 
 namespace WinUI3App_cs
 {
@@ -37,6 +41,7 @@ namespace WinUI3App_cs
             switch (exitType)
             {
                 case 0:
+                    this.Content = null;
                     this.Close();
                     break;
 
@@ -54,20 +59,51 @@ namespace WinUI3App_cs
         }
 
         int m_dispatcherRuns = 0;
-        private void btnTestDispatcher_Click(object sender, RoutedEventArgs e)
+        BasicProperties m_basicProps;
+        private async void btnTestDispatcher_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < 200; i++)
+            Windows.Storage.StorageFolder installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var folder = await StorageFolder.GetFolderFromPathAsync(installedLocation.Path);
+            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Wide310x150Logo.scale-200.png"));
+
+            string tempFileName = "myFile";
+
+            for (int i = 0; i < 20000; i++)
             {
-                this.DispatcherQueue.TryEnqueue(async () =>
+                await Task.Delay(1);
+
+                this.DispatcherQueue?.TryEnqueue(async () =>
                 {
-                    m_dispatcherRuns++;
+                    tbText.Text = "[Debug][Test] Tasks left: " + m_dispatcherRuns.ToString();
 
-                    Random random = new();
+                    if (m_basicProps == null)
+                    {
+                       await Task.Delay(10);
+                        m_basicProps = await file.GetBasicPropertiesAsync();
+                    }
 
-                    await Task.Delay(random.Next(1000));
-
-                    tbText.Text = "[Debug][Test] Running dispatcher #" + m_dispatcherRuns.ToString() + "...";                  
+                    await folder.CreateFileAsync(tempFileName, CreationCollisionOption.ReplaceExisting);
                 });
+
+                this.DispatcherQueue?.TryEnqueue(async () =>
+                {
+                    if (m_basicProps != null)
+                    {
+                        tbText2.Text = "[Debug][Test] Tasks left: " + m_basicProps.DateModified.ToString();
+                        m_basicProps = null;
+                    }
+
+                    try
+                    {
+                        var myfile = await folder.GetFileAsync(tempFileName);
+                        await myfile.DeleteAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                });
+
+                m_dispatcherRuns++;
             }
         }
     }
