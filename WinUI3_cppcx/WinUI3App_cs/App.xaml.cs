@@ -5,6 +5,7 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Dispatching;
 using System.Diagnostics;
+using Microsoft.UI.Xaml.Controls;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -16,6 +17,7 @@ namespace WinUI3App_cs
     /// </summary>
     public partial class App : Application
     {
+        bool m_isWindowActivated = false;
         private Window m_window;
         private AppWindow m_appWindow;
         private DispatcherQueue m_dispatcherQueue;
@@ -29,13 +31,25 @@ namespace WinUI3App_cs
             this.InitializeComponent();
         }
 
+        public void Shutdown()
+        {
+            m_window?.DispatcherQueue?.TryEnqueue(DispatcherQueuePriority.Normal, async () => 
+            {
+                // Force all UI elements to unload
+                m_window.Content = null;
+                m_window.Close();
+            });
+        }
+
         /// <summary>
         /// Invoked when the application is launched.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
-        {
+        {            
             m_window = new MainWindow();
+
+            m_window.Activated += Window_Activated;
             m_window.Closed += Window_Closed;
 
             m_dispatcherQueue = DispatcherQueue.GetForCurrentThread();
@@ -52,6 +66,23 @@ namespace WinUI3App_cs
             m_appWindow.Destroying += AppWindow_Destroying;
 
             m_window.Activate();
+        }
+
+        private void Window_Activated(object sender, WindowActivatedEventArgs args)
+        {
+            if (m_window != null && !m_isWindowActivated) 
+            {
+                var frame = m_window.Content as Frame;
+                if (frame == null)
+                {
+                    m_isWindowActivated = true;
+
+                    var rootFrame = new Frame();
+                    m_window.Content = rootFrame;
+
+                    rootFrame.Navigate(typeof(MainPage), args);
+                }
+            }
         }
 
         /*
@@ -74,7 +105,7 @@ namespace WinUI3App_cs
          * 5. AppWindow.Destroying
          * 6. Process terminated.
          */
-        
+
         /* 
          * C. Shutting down with Window.Close() and AppWindow.Destroy()
          * 
