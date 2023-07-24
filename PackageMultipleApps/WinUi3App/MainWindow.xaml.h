@@ -5,7 +5,7 @@
 
 #include "MainWindow.g.h"
 
-namespace winrt::PackageMultipleApps::implementation
+namespace winrt::WinUi3App::implementation
 {
     struct MainWindow : MainWindowT<MainWindow>
     {
@@ -16,7 +16,7 @@ namespace winrt::PackageMultipleApps::implementation
     };
 }
 
-namespace winrt::PackageMultipleApps::factory_implementation
+namespace winrt::WinUi3App::factory_implementation
 {
     struct MainWindow : MainWindowT<MainWindow, implementation::MainWindow>
     {

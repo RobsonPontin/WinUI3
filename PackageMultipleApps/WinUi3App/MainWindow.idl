@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation and Contributors.
 // Licensed under the MIT License.
 
-namespace PackageMultipleApps
+namespace WinUi3App
 {
     [default_interface]
     runtimeclass MainWindow : Microsoft.UI.Xaml.Window
