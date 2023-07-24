@@ -13,6 +13,8 @@ using namespace Windows::UI::Xaml::Navigation;
 using namespace UwpApp;
 using namespace UwpApp::implementation;
 
+#define ENABLE_START_WINUI_3_APP 1
+
 /// <summary>
 /// Creates the singleton application object.  This is the first line of authored code
 /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -40,6 +42,10 @@ App::App()
 /// <param name="e">Details about the launch request and process.</param>
 void App::OnLaunched(LaunchActivatedEventArgs const& e)
 {
+#ifdef ENABLE_START_WINUI_3_APP
+    // Attempt to launch the WinUI 3 application from here
+    winrt::Windows::ApplicationModel::FullTrustProcessLauncher::LaunchFullTrustProcessForCurrentAppAsync();
+#else
     Frame rootFrame{ nullptr };
     auto content = Window::Current().Content();
     if (content)
@@ -93,6 +99,7 @@ void App::OnLaunched(LaunchActivatedEventArgs const& e)
             Window::Current().Activate();
         }
     }
+#endif
 }
 
 /// <summary>
@@ -115,4 +122,11 @@ void App::OnSuspending([[maybe_unused]] IInspectable const& sender, [[maybe_unus
 void App::OnNavigationFailed(IInspectable const&, NavigationFailedEventArgs const& e)
 {
     throw hresult_error(E_FAIL, hstring(L"Failed to load Page ") + e.SourcePageType().Name);
+}
+
+int __stdcall wWinMain(HINSTANCE, HINSTANCE, PWSTR, int)
+{
+    Windows::UI::Xaml::Application::Start([](auto&&) { ::winrt::make<winrt::UwpApp::implementation::App>(); });
+
+    return 0;
 }

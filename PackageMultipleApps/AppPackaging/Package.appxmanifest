@@ -47,7 +47,8 @@
       </uap:VisualElements>
 		
       <Extensions>
-	    <desktop:Extension Category="windows.fullTrustProcess" Executable="WinUi3App\WinUi3App.exe" />
+	    <desktop:Extension Category="windows.fullTrustProcess"
+						   Executable="WinUi3App\WinUi3App.exe" />
       </Extensions>
 	</Application>
   </Applications>
