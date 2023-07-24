@@ -147,10 +147,8 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\*.png">
-      <Link>Assets\%(RecursiveDir)%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
+	  <!-- NOTE: only PackageMultipleApps deploy assets. -->
+	  <!--<Image Include="Assets\*.png" />-->
   </ItemGroup>
   <!--
     Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging

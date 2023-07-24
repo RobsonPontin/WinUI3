@@ -3,6 +3,10 @@
 #include "App.h"
 #include "MainPage.h"
 
+#include <stdio.h>
+#include <conio.h>
+#include <tchar.h>
+
 using namespace winrt;
 using namespace Windows::ApplicationModel;
 using namespace Windows::ApplicationModel::Activation;
@@ -13,7 +17,7 @@ using namespace Windows::UI::Xaml::Navigation;
 using namespace UwpApp;
 using namespace UwpApp::implementation;
 
-#define ENABLE_START_WINUI_3_APP 1
+#define ENABLE_START_WINUI_3_APP 0
 
 /// <summary>
 /// Creates the singleton application object.  This is the first line of authored code
@@ -42,7 +46,10 @@ App::App()
 /// <param name="e">Details about the launch request and process.</param>
 void App::OnLaunched(LaunchActivatedEventArgs const& e)
 {
-#ifdef ENABLE_START_WINUI_3_APP
+#if(ENABLE_START_WINUI_3_APP)
+
+    _tprintf(TEXT("!!!!!!!!!!!!!!!!!!!!!!!!!!!!OnLaunched.\n"));
+
     // Attempt to launch the WinUI 3 application from here
     winrt::Windows::ApplicationModel::FullTrustProcessLauncher::LaunchFullTrustProcessForCurrentAppAsync();
 #else
@@ -126,6 +133,8 @@ void App::OnNavigationFailed(IInspectable const&, NavigationFailedEventArgs cons
 
 int __stdcall wWinMain(HINSTANCE, HINSTANCE, PWSTR, int)
 {
+    _tprintf(TEXT("!!!!!!!!!!!!!!!!!!!!!!!!!!!!wWinMain.\n"));
+
     Windows::UI::Xaml::Application::Start([](auto&&) { ::winrt::make<winrt::UwpApp::implementation::App>(); });
 
     return 0;
