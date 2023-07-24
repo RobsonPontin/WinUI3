@@ -8,7 +8,7 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="a1f6aa11-3a12-4b5f-b6df-01ce77a3283a"
+    Name="Winappsdk.AppPackaging.wasdk"
     Publisher="CN=robsonpontin"
     Version="1.0.0.0" />
 
