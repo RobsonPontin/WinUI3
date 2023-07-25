@@ -43,7 +43,7 @@
 
       <Extensions>
 		<desktop:Extension Category="windows.fullTrustProcess" 
-						   Executable="WinUi3App\WinUi3App.exe"/>
+						   Executable="WinUi3App.exe"/>
       </Extensions>
 	</Application>
   </Applications>

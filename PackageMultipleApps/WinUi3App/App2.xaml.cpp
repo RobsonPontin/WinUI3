@@ -3,7 +3,7 @@
 
 #include "pch.h"
 
-#include "App.xaml.h"
+#include "App2.xaml.h"
 #include "MainWindow.xaml.h"
 
 using namespace winrt;
@@ -21,7 +21,7 @@ using namespace WinUi3App::implementation;
 /// Initializes the singleton application object.  This is the first line of authored code
 /// executed, and as such is the logical equivalent of main() or WinMain().
 /// </summary>
-App::App()
+App2::App2()
 {
     InitializeComponent();
 
@@ -41,8 +41,17 @@ App::App()
 /// Invoked when the application is launched.
 /// </summary>
 /// <param name="e">Details about the launch request and process.</param>
-void App::OnLaunched(LaunchActivatedEventArgs const&)
+void App2::OnLaunched(LaunchActivatedEventArgs const&)
 {
-    window = make<MainWindow>();
+    window = Window();
+    auto rootFrame = Frame();
+    auto txtBlock = TextBlock();
+    txtBlock.Text(L"WinUI 3 Application (UI Created from code)");
+    rootFrame.Content(txtBlock);
+    window.Content(rootFrame);
+
+    // TODO: keep getting resource not found
+    //window = make<MainWindow>();
+
     window.Activate();
 }

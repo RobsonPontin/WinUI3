@@ -3,13 +3,14 @@
 
 #pragma once
 
-#include "App.xaml.g.h"
+#include "App2.xaml.g.h"
 
 namespace winrt::WinUi3App::implementation
 {
-    struct App : AppT<App>
+    // NOTE: renamed "App" to "App2" since during deployment of package it conflicted with "UWP App".
+    struct App2 : AppT<App2>
     {
-        App();
+        App2();
 
         void OnLaunched(Microsoft::UI::Xaml::LaunchActivatedEventArgs const&);
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Application
-    x:Class="WinUi3App.App"
+    x:Class="WinUi3App.App2"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:WinUi3App">

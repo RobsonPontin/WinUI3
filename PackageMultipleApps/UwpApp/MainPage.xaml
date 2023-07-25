@@ -9,7 +9,12 @@
 
     <StackPanel HorizontalAlignment="Center"
                 VerticalAlignment="Center">
+        
         <TextBlock FontSize="20"
                    Text="UWP Application"/>
+
+        <Button x:Name="myButton"
+                Click="LaunchWinUi3_ClickHandler"
+                Content="Launch WinUI 3 App"/>
     </StackPanel>
 </Page>
