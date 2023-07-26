@@ -52,3 +52,6 @@
 /PackageMultipleApps/WinUi3App/x64/Debug/WinUi3App.tlog
 /PackageMultipleApps/WinUi3App/x64/Debug
 *.user
+/PackageMultipleApps/AppPackaging/AppPackaging.assets.cache
+/PackageMultipleApps/WinUi3AppCs/obj
+/PackageMultipleApps/WinUi3AppCs/bin/x64/Debug/net7.0-windows10.0.22621.0/win10-x64
