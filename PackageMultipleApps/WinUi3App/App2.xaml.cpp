@@ -46,7 +46,7 @@ void App2::OnLaunched(LaunchActivatedEventArgs const&)
     window = Window();
     auto rootFrame = Frame();
     auto txtBlock = TextBlock();
-    txtBlock.Text(L"WinUI 3 Application (UI Created from code)");
+    txtBlock.Text(L"WinUI 3 C++ Application (UI Created from code)");
     rootFrame.Content(txtBlock);
     window.Content(rootFrame);
 

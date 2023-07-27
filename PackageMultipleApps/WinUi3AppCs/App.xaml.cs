@@ -42,6 +42,10 @@ namespace WinUi3AppCs
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             m_window = new Window();
+            var rootFrame = new Frame();
+            rootFrame.Content = new TextBlock { Text = "WinUI 3 C# Application (UI Created from code)" };
+            m_window.Content = rootFrame;
+
             m_window.Activate();
         }
 
