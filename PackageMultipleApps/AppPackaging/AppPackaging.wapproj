@@ -43,7 +43,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
     <NoWarn>$(NoWarn);NU1702</NoWarn>
-    <EntryPointProjectUniqueName>..\UwpApp\UwpApp.vcxproj</EntryPointProjectUniqueName>
+    <EntryPointProjectUniqueName>..\UwpConsoleApp\UwpConsoleApp.vcxproj</EntryPointProjectUniqueName>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -69,7 +69,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UwpApp\UwpApp.vcxproj" />
+    <ProjectReference Include="..\UwpConsoleApp\UwpConsoleApp.vcxproj" />
     <ProjectReference Include="..\WinUi3App\WinUi3App.vcxproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
     </ProjectReference>

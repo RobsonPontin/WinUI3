@@ -52,3 +52,6 @@
 /PackageMultipleApps/WinUi3App/x64/Debug/WinUi3App.tlog
 /PackageMultipleApps/WinUi3App/x64/Debug
 *.user
+/PackageMultipleApps/UwpConsoleApp/Generated Files/winrt
+/PackageMultipleApps/UwpConsoleApp/x64/Debug
+/PackageMultipleApps/x64/Debug/UwpConsoleApp
