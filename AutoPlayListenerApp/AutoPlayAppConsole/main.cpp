@@ -4,13 +4,11 @@
  * Source: https://learn.microsoft.com/en-us/windows/uwp/cpp-and-winrt-apis/author-coclasses
  */
 
-
 #include "pch.h"
 
 #include "AutoPlayHandler.h"
 #include "AppLauncher.h"
 #include "InputParser.h"
-
 
 using namespace winrt;
 using namespace Windows::Foundation;
@@ -33,8 +31,10 @@ int main(int argc, char** argv)
     {
         // Setup COM registry
 
-        register_autoPlayHandler();
-        update_registry();
+        auto autoPlayMng = std::unique_ptr<AutoPlayHandlerRegManager>();
+        
+        autoPlayMng.get()->register_autoPlayHandler();
+        autoPlayMng.get()->update_registry();
     }
     else if (input.cmdOptionExists("-ls"))
     {

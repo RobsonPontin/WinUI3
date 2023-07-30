@@ -10,4 +10,3 @@ struct AppLauncher
         winrt::hstring const& packageFamilyName,
         winrt::hstring const& commandLineUri);
 };
-

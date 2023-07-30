@@ -46,102 +46,109 @@ namespace winrt::AutoPlayApp
 
     // ####### COM Helper types and functions
 
-    void register_autoPlayHandler()
+    class AutoPlayHandlerRegManager
     {
-        DWORD registration{};
+    public: 
 
-        winrt::check_hresult(::CoRegisterClassObject(
-            AutoPlayApp::AUTO_PLAY_HANDLER_GUID,
-            make<AutoPlayApp::AutoPlayHandler_factory>().get(),
-            CLSCTX_LOCAL_SERVER,
-            REGCLS_SINGLEUSE,
-            &registration));
-    }
+        AutoPlayHandlerRegManager() = default;
 
-    struct prop_variant : PROPVARIANT
-    {
-        prop_variant() noexcept : PROPVARIANT{}
+        void register_autoPlayHandler()
         {
+            DWORD registration{};
+
+            winrt::check_hresult(::CoRegisterClassObject(
+                AutoPlayApp::AUTO_PLAY_HANDLER_GUID,
+                make<AutoPlayApp::AutoPlayHandler_factory>().get(),
+                CLSCTX_LOCAL_SERVER,
+                REGCLS_SINGLEUSE,
+                &registration));
         }
 
-        ~prop_variant() noexcept
+        struct prop_variant : PROPVARIANT
         {
-            clear();
-        }
-
-        void clear() noexcept
-        {
-            WINRT_VERIFY_(S_OK, ::PropVariantClear(this));
-        }
-    };
-
-    struct registry_traits
-    {
-        using type = HKEY;
-
-        static void close(type value) noexcept
-        {
-            WINRT_VERIFY_(ERROR_SUCCESS, ::RegCloseKey(value));
-        }
-
-        static constexpr type invalid() noexcept
-        {
-            return nullptr;
-        }
-    };
-
-    using registry_key = winrt::handle_type<registry_traits>;
-
-    std::wstring get_module_path()
-    {
-        std::wstring path(100, L'?');
-        uint32_t path_size{};
-        DWORD actual_size{};
-
-        do
-        {
-            path_size = static_cast<uint32_t>(path.size());
-            actual_size = ::GetModuleFileName(nullptr, path.data(), path_size);
-
-            if (actual_size + 1 > path_size)
+            prop_variant() noexcept : PROPVARIANT{}
             {
-                path.resize(path_size * 2, L'?');
             }
-        } while (actual_size + 1 > path_size);
 
-        path.resize(actual_size);
-        return path;
-    }
+            ~prop_variant() noexcept
+            {
+                clear();
+            }
 
-    void update_registry()
-    {
-        std::wstring key_path{ LR"(SOFTWARE\Classes\CLSID\{????????-????-????-????-????????????})" };
-        ::StringFromGUID2(AutoPlayApp::AUTO_PLAY_HANDLER_GUID, key_path.data() + 23, 39);
-        key_path += LR"(\LocalServer32)";
-        registry_key key;
+            void clear() noexcept
+            {
+                WINRT_VERIFY_(S_OK, ::PropVariantClear(this));
+            }
+        };
 
-        winrt::check_win32(::RegCreateKeyEx(
-            HKEY_CURRENT_USER,
-            key_path.c_str(),
-            0,
-            nullptr,
-            0,
-            KEY_WRITE,
-            nullptr,
-            key.put(),
-            nullptr));
-        ::RegDeleteValue(key.get(), nullptr);
+        struct registry_traits
+        {
+            using type = HKEY;
 
-        std::wstring path{ get_module_path() };
+            static void close(type value) noexcept
+            {
+                WINRT_VERIFY_(ERROR_SUCCESS, ::RegCloseKey(value));
+            }
 
-        winrt::check_win32(::RegSetValueEx(
-            key.get(),
-            nullptr,
-            0,
-            REG_SZ,
-            reinterpret_cast<BYTE const*>(path.c_str()),
-            static_cast<uint32_t>((path.size() + 1) * sizeof(wchar_t))));
+            static constexpr type invalid() noexcept
+            {
+                return nullptr;
+            }
+        };
 
-        std::wcout << L"In " << key_path << L", registered local server at " << path << std::endl;
-    }
+        using registry_key = winrt::handle_type<registry_traits>;
+
+        std::wstring get_module_path()
+        {
+            std::wstring path(100, L'?');
+            uint32_t path_size{};
+            DWORD actual_size{};
+
+            do
+            {
+                path_size = static_cast<uint32_t>(path.size());
+                actual_size = ::GetModuleFileName(nullptr, path.data(), path_size);
+
+                if (actual_size + 1 > path_size)
+                {
+                    path.resize(path_size * 2, L'?');
+                }
+            } while (actual_size + 1 > path_size);
+
+            path.resize(actual_size);
+            return path;
+        }
+
+        void update_registry()
+        {
+            std::wstring key_path{ LR"(SOFTWARE\Classes\CLSID\{????????-????-????-????-????????????})" };
+            ::StringFromGUID2(AutoPlayApp::AUTO_PLAY_HANDLER_GUID, key_path.data() + 23, 39);
+            key_path += LR"(\LocalServer32)";
+            registry_key key;
+
+            winrt::check_win32(::RegCreateKeyEx(
+                HKEY_CURRENT_USER,
+                key_path.c_str(),
+                0,
+                nullptr,
+                0,
+                KEY_WRITE,
+                nullptr,
+                key.put(),
+                nullptr));
+            ::RegDeleteValue(key.get(), nullptr);
+
+            std::wstring path{ get_module_path() };
+
+            winrt::check_win32(::RegSetValueEx(
+                key.get(),
+                nullptr,
+                0,
+                REG_SZ,
+                reinterpret_cast<BYTE const*>(path.c_str()),
+                static_cast<uint32_t>((path.size() + 1) * sizeof(wchar_t))));
+
+            std::wcout << L"In " << key_path << L", registered local server at " << path << std::endl;
+        }
+    };
 }

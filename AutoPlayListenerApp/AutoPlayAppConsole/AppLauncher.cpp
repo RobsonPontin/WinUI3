@@ -58,6 +58,4 @@ winrt::Windows::Foundation::IAsyncAction AppLauncher::ProtocolLaunchURIAsync(
     inputData.Insert(L"activation", winrt::box_value(L"autoPlay"));
 
     co_await winrt::Windows::System::Launcher::LaunchUriAsync(packageFamiliyNameUri, options, inputData);
-
-    co_return;
 }
