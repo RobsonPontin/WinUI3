@@ -19,7 +19,7 @@ const winrt::hstring AUTO_PLAY_APP_PACKAGE_NAME { L"Rpontin.Winui.AutoPlayApp_9y
 
 int main(int argc, char** argv)
 {
-    //init_apartment();
+
 
     InputParser input(argc, argv);
 
@@ -31,10 +31,12 @@ int main(int argc, char** argv)
     {
         // Setup COM registry
 
+        init_apartment(); // auto init COM
+
         auto autoPlayMng = std::unique_ptr<AutoPlayHandlerRegManager>();
-        
-        autoPlayMng.get()->register_autoPlayHandler();
-        autoPlayMng.get()->update_registry();
+
+        autoPlayMng->register_autoPlayHandler();
+        autoPlayMng->update_registry();
     }
     else if (input.cmdOptionExists("-ls"))
     {

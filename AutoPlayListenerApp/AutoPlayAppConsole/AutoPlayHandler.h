@@ -139,16 +139,17 @@ namespace winrt::AutoPlayApp
             ::RegDeleteValue(key.get(), nullptr);
 
             std::wstring path{ get_module_path() };
+            std::wstring pathWithCommand = path + L" -lp"; // append -lp command to launch with protocol
 
             winrt::check_win32(::RegSetValueEx(
                 key.get(),
                 nullptr,
                 0,
                 REG_SZ,
-                reinterpret_cast<BYTE const*>(path.c_str()),
-                static_cast<uint32_t>((path.size() + 1) * sizeof(wchar_t))));
+                reinterpret_cast<BYTE const*>(pathWithCommand.c_str()),
+                static_cast<uint32_t>((pathWithCommand.size() + 1) * sizeof(wchar_t))));
 
-            std::wcout << L"In " << key_path << L", registered local server at " << path << std::endl;
+            std::wcout << L"In " << key_path << L", registered local server at " << pathWithCommand << std::endl;
         }
     };
 }

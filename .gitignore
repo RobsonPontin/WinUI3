@@ -67,3 +67,7 @@
 /AutoPlayListenerApp/AutoPlayAppPackage.WAP/bin/x64/Debug
 /AutoPlayListenerApp/AutoPlayAppPackage.WAP/obj
 *.cache
+/AutoPlayListenerApp/AutoPlayApp/x64/Release
+/AutoPlayListenerApp/AutoPlayAppConsole/x64/Release
+/AutoPlayListenerApp/AutoPlayAppPackage.WAP/bin/x64/Release
+/AutoPlayListenerApp/x64/Release
