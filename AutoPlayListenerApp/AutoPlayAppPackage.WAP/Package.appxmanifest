@@ -9,21 +9,21 @@
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
-  <Identity
-    Name="Rpontin.Winui.AutoPlayApp"
-    Publisher="CN=robsonpontin"
-    Version="1.0.0.0" />
+	<Identity
+	  Name="Rpontin.Winui.AutoPlayApp"
+	  Publisher="CN=robsonpontin"
+	  Version="1.0.0.0" />
 
   <Properties>
     <DisplayName>AutoPlayApp</DisplayName>
     <PublisherDisplayName>robsonpontin</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
-  <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
-    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
-  </Dependencies>
+	<Dependencies>
+		<TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+		<TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+	</Dependencies>
 
   <Resources>
     <Resource Language="x-generate"/>
@@ -34,16 +34,17 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="AutoPlayApp"
-        Description="AutoPlayApp"
+        DisplayName="AutoPlayAppPackage.WAP"
+        Description="AutoPlayAppPackage.WAP"
         BackgroundColor="transparent"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        Square150x150Logo="Images\Square150x150Logo.png"
+        Square44x44Logo="Images\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Images\SplashScreen.png" />
       </uap:VisualElements>
-
+		
 		<Extensions>
+			<!-- TODO: not sure if this works or how to make it work? -->
 			<uap5:Extension
 				Category="windows.appExecutionAlias"
 				Executable="AutoPlayApp.exe"
@@ -52,7 +53,7 @@
 					<uap5:ExecutionAlias Alias="AutoPlayApp.exe" />
 				</uap5:AppExecutionAlias>
 			</uap5:Extension>
-            
+
 			<!-- NOTE: custom protocol launch defined to listen to "wp-autoplayapp" 
 			     requests from the AutoPlayAppConsole.exe CLI tool. -->
 			<uap:Extension Category="windows.protocol">
@@ -61,12 +62,16 @@
 				</uap:Protocol>
 			</uap:Extension>
 
-		</Extensions>
-			
+			<!-- NOTE: bring the console/cli app to the package. -->
+			<desktop:Extension Category="windows.fullTrustProcess"
+							   Executable="AutoPlayAppConsole.exe" />
+
+	  </Extensions>
 	</Application>
   </Applications>
 
   <Capabilities>
+    <Capability Name="internetClient" />
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
 </Package>

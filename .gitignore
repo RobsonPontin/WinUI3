@@ -64,3 +64,6 @@
 /WinUI3_WinAppSDK/WinUI3_WinAppSDK/obj
 /AutoPlayListenerApp/.vs/AutoPlayListenerApp
 /.vs
+/AutoPlayListenerApp/AutoPlayAppPackage.WAP/bin/x64/Debug
+/AutoPlayListenerApp/AutoPlayAppPackage.WAP/obj
+*.cache
