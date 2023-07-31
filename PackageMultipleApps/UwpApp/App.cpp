@@ -17,7 +17,7 @@ using namespace Windows::UI::Xaml::Navigation;
 using namespace UwpApp;
 using namespace UwpApp::implementation;
 
-#define ENABLE_START_WINUI_3_APP 0
+#define ENABLE_START_WINUI_3_APP 1
 
 /// <summary>
 /// Creates the singleton application object.  This is the first line of authored code
@@ -52,6 +52,15 @@ void App::OnLaunched(LaunchActivatedEventArgs const& e)
 
     // Attempt to launch the WinUI 3 application from here
     winrt::Windows::ApplicationModel::FullTrustProcessLauncher::LaunchFullTrustProcessForCurrentAppAsync();
+
+    /* Wait some time for confirmation of UWP launched succefully and then quite the application.
+     * The problem with this approach is that once we call "Application::Current().Exit()" the 
+     * "RuntimeBroker.exe" will keep running even after closing the WinUI 3 app.
+     */
+    using namespace std::chrono_literals;
+    std::this_thread::sleep_for(50ms);
+
+    Application::Current().Exit();
 #else
     Frame rootFrame{ nullptr };
     auto content = Window::Current().Content();
