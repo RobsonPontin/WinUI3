@@ -44,14 +44,7 @@ App2::App2()
 void App2::OnLaunched(LaunchActivatedEventArgs const&)
 {
     window = Window();
-    auto rootFrame = Frame();
-    auto txtBlock = TextBlock();
-    txtBlock.Text(L"WinUI 3 Application (UI Created from code)");
-    rootFrame.Content(txtBlock);
-    window.Content(rootFrame);
-
-    // TODO: keep getting resource not found
-    //window = make<MainWindow>();
+    window = make<MainWindow>();
 
     window.Activate();
 }
