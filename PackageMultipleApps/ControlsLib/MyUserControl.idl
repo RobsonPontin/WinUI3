@@ -1,0 +1,12 @@
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+
+namespace ControlsLib
+{
+    [default_interface]
+    runtimeclass MyUserControl : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        MyUserControl();
+        Int32 MyProperty;
+    }
+}

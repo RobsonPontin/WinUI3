@@ -71,3 +71,11 @@
 /AutoPlayListenerApp/AutoPlayAppConsole/x64/Release
 /AutoPlayListenerApp/AutoPlayAppPackage.WAP/bin/x64/Release
 /AutoPlayListenerApp/x64/Release
+/PackageMultipleApps/ControlsLib/Generated Files
+/PackageMultipleApps/ControlsLib/x64
+/PackageMultipleApps/UwpApp/x64/Release
+/PackageMultipleApps/UwpConsoleApp/x64/Release
+/PackageMultipleApps/WinUi3App/x64/Release
+/PackageMultipleApps/AppPackaging/bin/x64/Release
+/PackageMultipleApps/AppPackaging/BundleArtifacts
+/PackageMultipleApps/AppPackaging/AppPackaging.assets.cache

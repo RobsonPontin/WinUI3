@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.WindowsAppSDK.1.3.230502000\build\native\Microsoft.WindowsAppSDK.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.1.3.230502000\build\native\Microsoft.WindowsAppSDK.props')" />
   <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22621.755\build\Microsoft.Windows.SDK.BuildTools.props" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22621.755\build\Microsoft.Windows.SDK.BuildTools.props')" />
   <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.220929.3\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.220929.3\build\native\Microsoft.Windows.CppWinRT.props')" />
@@ -7,26 +7,18 @@
     <CppWinRTOptimized>true</CppWinRTOptimized>
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <MinimalCoreWin>true</MinimalCoreWin>
-    <ProjectGuid>{679b80a3-09ce-4584-87ad-f2e12e65f8ed}</ProjectGuid>
-    <ProjectName>WinUi3App</ProjectName>
-    <RootNamespace>WinUi3App</RootNamespace>
-    <!--
-      $(TargetName) should be same as $(RootNamespace) so that the produced binaries (.exe/.pri/etc.)
-      have a name that matches the .winmd
-    -->
-    <TargetName>$(RootNamespace)</TargetName>
+    <ProjectGuid>{eef6cf0e-b061-462d-a7af-b746510ac13e}</ProjectGuid>
+    <ProjectName>ControlsLib</ProjectName>
+    <RootNamespace>ControlsLib</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>16.0</MinimumVisualStudioVersion>
-    <AppContainerApplication>false</AppContainerApplication>
-    <AppxPackage>false</AppxPackage>
+    <AppContainerApplication>true</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
-    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition=" '$(WindowsTargetPlatformVersion)' == '' ">10.0.22621.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
+    <DesktopCompatible>true</DesktopCompatible>
     <UseWinUI>true</UseWinUI>
-    <EnableMsixTooling>true</EnableMsixTooling>
-	<!-- NOTE: since we will deploy 2 apps to the output we rename one of the resources to avoid overwriting. -->
-    <ProjectPriFileName>resource2.pri</ProjectPriFileName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ItemGroup Label="ProjectConfigurations">
@@ -56,9 +48,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <GenerateManifest>false</GenerateManifest>
     <DesktopCompatible>true</DesktopCompatible>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
@@ -73,10 +66,13 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -84,7 +80,14 @@
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
       <WarningLevel>Level4</WarningLevel>
       <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <PreprocessorDefinitions>_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
+      <ModuleDefinitionFile>ControlsLib.def</ModuleDefinitionFile>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
@@ -101,42 +104,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Manifest Include="app.manifest" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="MyUserControl.xaml.h">
+      <DependentUpon>MyUserControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="App2.xaml.h">
-      <DependentUpon>App2.xaml</DependentUpon>
-    </ClInclude>
-    <ClInclude Include="MainWindow.xaml.h">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <ClInclude Include="Class.h">
+      <DependentUpon>Class.cpp</DependentUpon>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App2.xaml" />
-    <Page Include="MainWindow.xaml" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="MyUserControl.xaml.cpp">
+      <DependentUpon>MyUserControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="App2.xaml.cpp">
-      <DependentUpon>App2.xaml</DependentUpon>
-    </ClCompile>
-    <ClCompile Include="MainWindow.xaml.cpp">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </ClCompile>
+    <ClCompile Include="Class.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="App2.idl">
+    <Midl Include="Class.idl">
       <SubType>Code</SubType>
-      <DependentUpon>App2.xaml</DependentUpon>
+      <DependentUpon>Class.cpp</DependentUpon>
     </Midl>
-    <Midl Include="MainWindow.idl">
+    <Midl Include="MyUserControl.idl">
+      <DependentUpon>MyUserControl.xaml</DependentUpon>
       <SubType>Code</SubType>
-      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ControlsLib.def" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt">
@@ -144,31 +144,10 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <!-- NOTE: only PackageMultipleApps deploy assets. -->
-    <!--<Image Include="Assets\*.png" />-->
-    <ProjectReference Include="..\ControlsLib\ControlsLib.vcxproj">
-      <Project>{eef6cf0e-b061-462d-a7af-b746510ac13e}</Project>
-    </ProjectReference>
+    <Page Include="MyUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
-  <!--
-    Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
-    Tools extension to be activated for this project even if the Windows App SDK Nuget
-    package has not yet been restored.
-  -->
-  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-    <ProjectCapability Include="Msix" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <!--
-    Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
-    Explorer "Package and Publish" context menu entry to be enabled for this project even if
-    the Windows App SDK Nuget package has not yet been restored.
-  -->
-  <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-    <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
-  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.220929.3\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.220929.3\build\native\Microsoft.Windows.CppWinRT.targets')" />
