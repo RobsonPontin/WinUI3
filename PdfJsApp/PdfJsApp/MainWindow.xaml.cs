@@ -16,7 +16,7 @@ using Windows.Storage;
 using Windows.UI;
 
 
-namespace PdfViewerApp
+namespace PdfJsApp
 {
     public sealed partial class MainWindow : Window
     {

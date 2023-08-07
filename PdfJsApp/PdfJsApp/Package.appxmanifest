@@ -15,7 +15,7 @@
   <mp:PhoneIdentity PhoneProductId="e3b0a75b-be2b-4e20-9b59-498c7b40d377" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>PdfViewerApp</DisplayName>
+    <DisplayName>PdfJsApp</DisplayName>
     <PublisherDisplayName>robsonpontin</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -34,8 +34,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="PdfViewerApp"
-        Description="PdfViewerApp"
+        DisplayName="PdfJsApp"
+        Description="PdfJsApp"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">

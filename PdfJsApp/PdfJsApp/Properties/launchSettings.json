@@ -1,9 +1,9 @@
 {
   "profiles": {
-    "PdfViewerApp (Package)": {
+    "PdfJsApp (Package)": {
       "commandName": "MsixPackage"
     },
-    "PdfViewerApp (Unpackaged)": {
+    "PdfJsApp (Unpackaged)": {
       "commandName": "Project"
     }
   }
