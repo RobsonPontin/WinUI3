@@ -108,6 +108,15 @@ namespace PdfJsApp
             }
         }
 
+        private void PreviewBrowser_WebMessageReceived(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs args)
+        {
+            /* 
+             * In the "Viewer.js" I added an event to notify webview when a text copy event has been raised
+             * which will build a json object, example: "{"CopyText":["text/plain","this is the text copied..."]}"
+             */
+            var msg = args.WebMessageAsJson;
+        }
+
         private async void PreviewBrowser_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
         {
             // empty
