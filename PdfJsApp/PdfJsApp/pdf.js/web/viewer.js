@@ -14342,9 +14342,15 @@ class TextLayerBuilder {
         const selection = document.getSelection();
         event.clipboardData.setData("text/plain", (0, _ui_utils.removeNullCharacters)((0, _pdfjsLib.normalizeUnicode)(selection.toString())));
 
-        // NOTE: TEST: notify WebView2 on the recent copied text to clipboard        
+        // TEST: notify WebView2 on the recent copied text to clipboard        
         var wvEventNotifyData = {};
         wvEventNotifyData.CopyText = ["text/plain", selection.toString()];
+
+        // Update the shared host object
+          let result = chrome.webview.hostObjects.sync.pdfEvents; 
+          result.lastCopiedText = selection.toString();
+
+        // Notify event back to WebView2
         window.chrome.webview.postMessage(wvEventNotifyData);
       }
       event.preventDefault();

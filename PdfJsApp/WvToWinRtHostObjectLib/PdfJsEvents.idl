@@ -1,0 +1,15 @@
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+
+namespace WvToWinRtHostObjectLib
+{
+    [default_interface]
+    runtimeclass PdfJsEvents
+    {
+        PdfJsEvents();
+
+        String LastCopiedText{ get; set; };
+    
+        void RunTestCall();
+    }
+}

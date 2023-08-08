@@ -13,6 +13,7 @@
         <WebView2 x:Name="PreviewBrowser"
                   CoreWebView2Initialized="PreviewBrowser_CoreWebView2Initialized"
                   WebMessageReceived="PreviewBrowser_WebMessageReceived"
+                  NavigationStarting="PreviewBrowser_NavigationStarting"
                   NavigationCompleted="PreviewBrowser_NavigationCompleted"/>
 
     </Grid>

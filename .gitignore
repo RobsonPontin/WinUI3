@@ -82,3 +82,12 @@
 /PdfJsApp/.vs
 /PdfJsApp/PdfJsApp/bin/x64/Debug/net6.0-windows10.0.19041.0/win10-x64
 /PdfJsApp/PdfJsApp/obj
+/PdfJsApp/packages
+/PdfJsApp/PdfJsApp/bin/x64/Debug
+/PdfJsApp/x64/Debug
+/PdfJsApp/WvToWinRtAdapter/Generated Files
+/PdfJsApp/WvToWinRtAdapter/x64/Debug
+/PdfJsApp/WvToWinRtAdapterCsProjection/bin/Debug
+/PdfJsApp/WvToWinRtAdapterCsProjection/obj
+/PdfJsApp/WvToWinRtHostObjectLib/Generated Files
+/PdfJsApp/WvToWinRtHostObjectLib/x64/Debug

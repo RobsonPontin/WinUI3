@@ -1,32 +1,23 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Storage;
 using Windows.UI;
-
+using WvToWinRtHostObjectLib;
 
 namespace PdfJsApp
 {
     public sealed partial class MainWindow : Window
     {
         private bool _isWindowInit = false;
+        private PdfJsEvents _pdfJsEvents;
 
         public MainWindow()
         {
             this.InitializeComponent();
 
             this.Activated += MainWindow_Activated;
+
+            _pdfJsEvents = new PdfJsEvents();
         }
 
         private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
@@ -55,33 +46,15 @@ namespace PdfJsApp
             // transparent background when loading the page
             PreviewBrowser.DefaultBackgroundColor = Color.FromArgb(0, 0, 0, 0);
 
-            // NOTE: settings to keep in mind, so far no need to tweak them
-            //PreviewBrowser.CoreWebView2.Settings.IsWebMessageEnabled = true;
-            //PreviewBrowser.CoreWebView2.Settings.IsScriptEnabled = true;
-            //PreviewBrowser.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
-            //PreviewBrowser.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
-            //PreviewBrowser.CoreWebView2.Settings.AreDevToolsEnabled = false;
-            //PreviewBrowser.CoreWebView2.Settings.AreHostObjectsAllowed = false;
-            //PreviewBrowser.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
-            //PreviewBrowser.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;   
-
-            PreviewBrowser.CoreWebView2.Settings.HiddenPdfToolbarItems =
-                Microsoft.Web.WebView2.Core.CoreWebView2PdfToolbarItems.ZoomIn
-                | Microsoft.Web.WebView2.Core.CoreWebView2PdfToolbarItems.ZoomOut
-                | Microsoft.Web.WebView2.Core.CoreWebView2PdfToolbarItems.Search
-                | Microsoft.Web.WebView2.Core.CoreWebView2PdfToolbarItems.PageLayout
-                | Microsoft.Web.WebView2.Core.CoreWebView2PdfToolbarItems.PageSelector
-                | Microsoft.Web.WebView2.Core.CoreWebView2PdfToolbarItems.Bookmarks
-                | Microsoft.Web.WebView2.Core.CoreWebView2PdfToolbarItems.FitPage
-                | Microsoft.Web.WebView2.Core.CoreWebView2PdfToolbarItems.FullScreen
-                | Microsoft.Web.WebView2.Core.CoreWebView2PdfToolbarItems.Rotate
-                | Microsoft.Web.WebView2.Core.CoreWebView2PdfToolbarItems.SaveAs
-                | Microsoft.Web.WebView2.Core.CoreWebView2PdfToolbarItems.Print
-                | Microsoft.Web.WebView2.Core.CoreWebView2PdfToolbarItems.Save
-                | Microsoft.Web.WebView2.Core.CoreWebView2PdfToolbarItems.MoreSettings;
-
             try
             {
+                // Setup the host objects to do the native-to-web projection and enable access
+                var dispatchAdapter = new WvToWinRtAdapter.DispatchAdapter();
+
+                sender.CoreWebView2.AddHostObjectToScript(
+                    "pdfEvents",
+                    dispatchAdapter.WrapObject(_pdfJsEvents, dispatchAdapter));
+
                 string siteHostName = "pdfViewer.example";
                 string siteFolderMappped = "pdf.js";
 
@@ -118,9 +91,17 @@ namespace PdfJsApp
              * which will build a json object, example: "{"CopyText":["text/plain","this is the text copied..."]}"
              */
             var msg = args.WebMessageAsJson;
+
+            // Ensure the host objecgt has also updated the data from the web-side
+            var lastCopiedText = _pdfJsEvents.LastCopiedText;
         }
 
         private void PreviewBrowser_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+        {
+            // empty
+        }
+
+        private void PreviewBrowser_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
         {
             // empty
         }
