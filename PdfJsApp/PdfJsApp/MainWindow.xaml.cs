@@ -50,7 +50,7 @@ namespace PdfJsApp
             }
         }
 
-        private async void PreviewBrowser_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
+        private void PreviewBrowser_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
         {
             // transparent background when loading the page
             PreviewBrowser.DefaultBackgroundColor = Color.FromArgb(0, 0, 0, 0);
@@ -82,13 +82,16 @@ namespace PdfJsApp
 
             try
             {
+                string siteHostName = "pdfViewer.example";
+                string siteFolderMappped = "pdf.js";
+
                 // Set the folder mapping and enable full permission with CORS to use cross-origin resource sharing
                 PreviewBrowser.CoreWebView2.SetVirtualHostNameToFolderMapping(
-                    "pdfViewer.example",
-                    "pdf.js",
+                    siteHostName,
+                    siteFolderMappped,
                     Microsoft.Web.WebView2.Core.CoreWebView2HostResourceAccessKind.Allow);
 
-                PreviewBrowser.Source = new Uri("https://pdfViewer.example/web/viewer.html");
+                PreviewBrowser.Source = new Uri("https://" + siteHostName + "/web/viewer.html");
 
                 /* NOTE: Uncomment the following line if you would like to debug JavaScript code
                  * 
@@ -102,7 +105,7 @@ namespace PdfJsApp
                  */
                 //PreviewBrowser.CoreWebView2.OpenDevToolsWindow();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // todo:
             }
@@ -117,7 +120,7 @@ namespace PdfJsApp
             var msg = args.WebMessageAsJson;
         }
 
-        private async void PreviewBrowser_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+        private void PreviewBrowser_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
         {
             // empty
         }
