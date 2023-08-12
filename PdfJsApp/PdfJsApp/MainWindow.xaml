@@ -6,15 +6,11 @@
     xmlns:local="using:PdfJsApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pdfjsviewer="using:PdfJsViewer"
     mc:Ignorable="d"
     Title="PDf.js App">
 
     <Grid>
-        <WebView2 x:Name="PreviewBrowser"
-                  CoreWebView2Initialized="PreviewBrowser_CoreWebView2Initialized"
-                  WebMessageReceived="PreviewBrowser_WebMessageReceived"
-                  NavigationStarting="PreviewBrowser_NavigationStarting"
-                  NavigationCompleted="PreviewBrowser_NavigationCompleted"/>
-
+        <pdfjsviewer:PdfJsViewer/>
     </Grid>
 </Window>
