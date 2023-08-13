@@ -144,6 +144,9 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="CommonStyles.xaml">
+      <DeploymentContent>true</DeploymentContent>
+    </Page>
     <Page Include="MyUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>

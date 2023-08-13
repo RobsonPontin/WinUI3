@@ -27,4 +27,9 @@
 #include <winrt/Microsoft.UI.Dispatching.h>
 #include <wil/cppwinrt_helpers.h>
 
+// Including C++/WinRt component
 #include "winrt/ControlsLib.h"
+
+// Including C#/WinRt component into this C++/WinRt app
+#include <winrt/ControlsLibCs.h>
+#include <winrt/ControlsLibCs.ControlsLibCs_XamlTypeInfo.h>

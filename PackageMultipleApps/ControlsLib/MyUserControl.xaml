@@ -8,8 +8,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock> This is a sample User Control. </TextBlock>
+    <UserControl.Resources>
+        <ResourceDictionary Source="ms-appx:///ControlsLib/CommonStyles.xaml" />
+    </UserControl.Resources>    
+    
+    <StackPanel 
+        Margin="{StaticResource ControlsLibDefaultMargin}"
+        BorderBrush="{StaticResource ControlsLibDefaultBorderColor}"
+        BorderThickness="2"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+        <TextBlock> My C++/WinRT User Control. </TextBlock>
         <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
     </StackPanel>
 </UserControl>

@@ -25,7 +25,7 @@
     <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
-	<!-- NOTE: since we will deploy 2 apps to the output we rename one of the resources to avoid overwriting. -->
+    <!-- NOTE: since we will deploy 2 apps to the output we rename one of the resources to avoid overwriting. -->
     <ProjectPriFileName>resource2.pri</ProjectPriFileName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -146,6 +146,9 @@
   <ItemGroup>
     <!-- NOTE: only PackageMultipleApps deploy assets. -->
     <!--<Image Include="Assets\*.png" />-->
+    <ProjectReference Include="..\ControlsLib.CS\ControlsLibCs.csproj">
+      <Project>{6c673ef4-49ac-4d94-976f-e47564f46f7a}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\ControlsLib\ControlsLib.vcxproj">
       <Project>{eef6cf0e-b061-462d-a7af-b746510ac13e}</Project>
     </ProjectReference>

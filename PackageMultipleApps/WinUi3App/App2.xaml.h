@@ -16,5 +16,7 @@ namespace winrt::WinUi3App::implementation
 
     private:
         winrt::Microsoft::UI::Xaml::Window window{ nullptr };
+
+        void MergeResource(hstring const& resourcePath);
     };
 }
