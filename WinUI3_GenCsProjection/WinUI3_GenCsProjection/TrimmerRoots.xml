@@ -1,8 +1,0 @@
-﻿<linker>
-	<!-- NOTE: trying to fix issue with CsWinRt: https://github.com/microsoft/CsWinRT/issues/1319 -->
-	<assembly fullname="WinRT.Runtime">
-		<type fullname="WinRT.TypeExtensions">
-			<method name="GetAuthoringMetadataType" />
-		</type>
-	</assembly>
-</linker>

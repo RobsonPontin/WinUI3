@@ -10,6 +10,9 @@
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
+    <!-- NOTE: temporary fix to address Full trimming (default)
+	     which would also trim UserControls and Xaml auto generated code. -->
+    <TrimMode>partial</TrimMode>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,10 +23,6 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TrimmerRootDescriptor Include="TrimmerRoots.xml" />
   </ItemGroup>
 
   <ItemGroup>
