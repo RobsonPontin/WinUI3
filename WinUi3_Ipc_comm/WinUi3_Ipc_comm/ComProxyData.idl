@@ -1,0 +1,10 @@
+namespace IpcApp
+{
+	[default_interface]
+	runtimeclass ComProxyData
+	{
+		ComProxyData();
+
+		String Data{ get; set; };
+	}
+}

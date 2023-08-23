@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+  IgnorableNamespaces="uap rescap">
+
+  <Identity
+    Name="Winappsdk.IpcApp"
+    Publisher="CN=robsonpontin"
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="d6565ce5-5c4b-4a67-8a90-92eed6e02c3a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>WinUi3_Ipc_comm</DisplayName>
+    <PublisherDisplayName>robsonpontin</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="$targetentrypoint$">
+      <uap:VisualElements
+        DisplayName="WinUi3_Ipc_comm"
+        Description="WinUi3_Ipc_comm"
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+
+
+	<Extensions>
+		<uap5:Extension Category="windows.activatableClass.outOfProcessServer">
+			<uap5:OutOfProcessServer ServerName="IpcComServer" RunFullTrust="true">
+				<uap5:Path>IpcComServer.exe</uap5:Path>
+				<uap5:Instancing>singleInstance</uap5:Instancing>
+				<uap5:ActivatableClass
+				  ActivatableClassId="IpcComServer.Stringable" />
+			
+		</uap5:OutOfProcessServer>
+		</uap5:Extension>
+
+
+		<!-- NOTE: bring the console/cli app to the package. -->
+		<desktop:Extension Category="windows.fullTrustProcess"
+						   Executable="IpcComServer.exe" />
+	</Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>
