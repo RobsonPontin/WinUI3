@@ -10,7 +10,7 @@
 #include <iostream>
 
 // Provided by the AppHost NuGet package and installed as an SDK pack
-#include <nethost.h>
+//#include <nethost.h>
 
 // Header files copied from https://github.com/dotnet/runtime/tree/main/src/native/corehost
 #include <coreclr_delegates.h>
@@ -25,7 +25,7 @@
 using string_t = std::basic_string<char_t>;
 
 
-namespace CsCppApp
+namespace CsCppApp::Service
 {
     // Globals to hold hostfxr exports
     hostfxr_initialize_for_runtime_config_fn init_fptr;
@@ -33,7 +33,7 @@ namespace CsCppApp
     hostfxr_close_fn close_fptr;
 
     // Forward declarations
-    bool load_hostfxr();
+    bool load_hostfxr(const wchar_t* rootPath);
     load_assembly_and_get_function_pointer_fn get_dotnet_load_assembly(const char_t* assembly);
 
     void* load_library(const char_t* path)
@@ -50,17 +50,12 @@ namespace CsCppApp
     }
 
     // Using the nethost library, discover the location of hostfxr and get exports
-    bool load_hostfxr()
+    bool load_hostfxr(const wchar_t* rootPath)
     {
-        // Pre-allocate a large buffer for the path to hostfxr
-        char_t buffer[MAX_PATH];
-        size_t buffer_size = sizeof(buffer) / sizeof(char_t);
-        int rc = get_hostfxr_path(buffer, &buffer_size, nullptr);
-        if (rc != 0)
-            return false;
+        std::wstring hostfxrPath = std::wstring(rootPath) + STR("hostfxr.dll");
 
         // Load hostfxr and get desired exports
-        void* lib = load_library(buffer);
+        void* lib = load_library(hostfxrPath.c_str());
         init_fptr = (hostfxr_initialize_for_runtime_config_fn)get_export(lib, "hostfxr_initialize_for_runtime_config");
         get_delegate_fptr = (hostfxr_get_runtime_delegate_fn)get_export(lib, "hostfxr_get_runtime_delegate");
         close_fptr = (hostfxr_close_fn)get_export(lib, "hostfxr_close");
@@ -95,13 +90,15 @@ namespace CsCppApp
     }
 
 
-	bool DotNetHost::Load()
+	bool DotNetHost::Load(HINSTANCE hInstance)
 	{
         // Get the current executable's directory
         // This sample assumes the managed assembly to load and its runtime configuration file are next to the host
         char_t host_path[MAX_PATH];
 
-        auto size = ::GetFullPathNameW(NULL, sizeof(host_path) / sizeof(char_t), host_path, nullptr);
+        //wchar_t buffer[MAX_PATH];
+        auto size = GetModuleFileNameW(hInstance, host_path, MAX_PATH);
+
         assert(size != 0);
 
         string_t root_path = host_path;
@@ -112,7 +109,7 @@ namespace CsCppApp
         //
         // STEP 1: Load HostFxr and get exported hosting functions
         //
-        if (!load_hostfxr())
+        if (!load_hostfxr(root_path.c_str()))
         {
             assert(false && "Failure: load_hostfxr()");
             return EXIT_FAILURE;
