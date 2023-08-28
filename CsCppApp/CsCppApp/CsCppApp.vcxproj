@@ -25,6 +25,9 @@
     <WindowsTargetPlatformMinVersion>10.0.17763.0</WindowsTargetPlatformMinVersion>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
+    <!-- NOTE: avoid all .NET runtime dependencies to be loaded on startup which slows down the Native app.
+	The idea here is do it by demand instead and load only when we need to acces managed libs. -->
+    <XamlCodeGenerationControlFlags>DoNotGenerateOtherProviders</XamlCodeGenerationControlFlags>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ItemGroup Label="ProjectConfigurations">
@@ -107,6 +110,7 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="App.xaml.g-fix.h" />
     <ClInclude Include="coreclr_delegates.h" />
     <ClInclude Include="DotNetHost.h" />
     <ClInclude Include="hostfxr.h" />

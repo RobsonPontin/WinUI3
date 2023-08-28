@@ -25,6 +25,8 @@ App::App()
 {
     InitializeComponent();
 
+    InitializeXamlProvider();
+
 #if defined _DEBUG && !defined DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION
     UnhandledException([this](IInspectable const&, UnhandledExceptionEventArgs const& e)
     {
@@ -35,6 +37,11 @@ App::App()
         }
     });
 #endif
+}
+
+void App::InitializeXamlProvider()
+{
+    AddOtherProvider(::winrt::Microsoft::UI::Xaml::XamlTypeInfo::XamlControlsXamlMetaDataProvider());
 }
 
 /// <summary>
