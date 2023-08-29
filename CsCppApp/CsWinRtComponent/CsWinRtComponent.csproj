@@ -17,11 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="MyUserControl.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="MyUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <ProjectReference Include="..\NativeHost\NativeHost.csproj" />
   </ItemGroup>
 </Project>

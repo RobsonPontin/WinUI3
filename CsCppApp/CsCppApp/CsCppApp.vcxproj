@@ -111,10 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.g-fix.h" />
-    <ClInclude Include="coreclr_delegates.h" />
-    <ClInclude Include="DotNetHost.h" />
-    <ClInclude Include="hostfxr.h" />
-    <ClInclude Include="nethost.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -128,7 +124,6 @@
     <Page Include="MainWindow.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DotNetHost.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

@@ -4,7 +4,6 @@
 #pragma once
 
 #include "MainWindow.g.h"
-#include "DotNetHost.h"
 
 namespace winrt::CsCppApp::implementation
 {
@@ -16,7 +15,6 @@ namespace winrt::CsCppApp::implementation
         void btnCsWinRtLauncher_Click(Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
 
     private:
-        std::shared_ptr<::CsCppApp::Service::DotNetHost> m_dotNetHost{ nullptr };
         winrt::Microsoft::UI::Xaml::Markup::IXamlMetadataProvider m_metadataProvider{ nullptr };
 
         /// <summary>

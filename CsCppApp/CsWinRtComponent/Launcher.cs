@@ -1,10 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Markup;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace CsWinRtComponent
 {
@@ -21,6 +16,18 @@ namespace CsWinRtComponent
             contentDialog.Content = "This is a dialog opened from a C#/WinRt Component";
             
             _ = contentDialog.ShowAsync();
+        }
+    }
+
+    /// <summary>
+    /// The only reason this exist is to satisfy the WinRT.Host.dll which will insist
+    /// to declare an InProcessServer in the AppxManifest.xml.
+    /// </summary>
+    public sealed class LauncherDummy
+    {
+        static public void Run()
+        {
+            Debug.WriteLine("Running " + nameof(LauncherDummy));
         }
     }
 }

@@ -18,13 +18,11 @@ namespace winrt::CsCppApp::implementation
     MainWindow::MainWindow()
     {
         InitializeComponent();
-
-        m_dotNetHost = std::make_unique<::CsCppApp::Service::DotNetHost>();
     }
 
     void MainWindow::btnInitializeDotNet_Click(Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args)
     {
-        m_dotNetHost->Load();
+        GetXamlMetadataProvider();
     }
 
     void MainWindow::btnCsWinRtLauncher_Click(Windows::Foundation::IInspectable const& /*sender*/, Microsoft::UI::Xaml::RoutedEventArgs const& /*args*/)
