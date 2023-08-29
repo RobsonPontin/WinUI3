@@ -34,7 +34,6 @@ namespace winrt::CsCppApp::implementation
             ::winrt::Microsoft::UI::Xaml::Application::LoadComponent(*this, resourceLocator);
         }
 
-
         void AddOtherProvider(::winrt::Microsoft::UI::Xaml::Markup::IXamlMetadataProvider const& otherProvider)
         {
             // This is the fix from the generated original.

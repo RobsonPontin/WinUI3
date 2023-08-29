@@ -1,8 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-<!-- NOTE: this project is based on:
- https://github.com/microsoft/CsWinRT/issues/1141
- https://github.com/jlaanstra/CsWinRT/commit/cd116cbc3fd93c4f7295972c454de1c610a3da59#diff-311c0d785847546fa8a82270d50fdb644cc909a736a4c508c9d7e733f21be821
- -->
   <PropertyGroup>
     <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
 	  <Platforms>x64;x86;ARM64</Platforms>
