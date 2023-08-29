@@ -6,13 +6,18 @@
     xmlns:local="using:CsCppApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:cswinrtcomponent="using:CsWinRtComponent"
     mc:Ignorable="d">
 
-    <StackPanel 
-        Orientation="Horizontal"
+    <StackPanel
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
-        <cswinrtcomponent:MyUserControl/>
+        <Button x:Name="btnInitializeDotNet"
+                Content="Initialize .NET self-contained dlls."
+                Click="btnInitializeDotNet_Click"/>
+
+        <Button x:Name="btnCsWinRtLauncher"
+                Margin="0 5 0 0"
+                Content="Open Dialog from C# component"
+                Click="btnCsWinRtLauncher_Click"/>
     </StackPanel>
 </Window>

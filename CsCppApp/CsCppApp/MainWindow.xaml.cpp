@@ -7,11 +7,11 @@
 #include "MainWindow.g.cpp"
 #endif
 
+#include <App.xaml.h>
+
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace winrt::CsCppApp::implementation
 {
@@ -20,13 +20,36 @@ namespace winrt::CsCppApp::implementation
         InitializeComponent();
     }
 
-    int32_t MainWindow::MyProperty()
+    void MainWindow::btnInitializeDotNet_Click(Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args)
     {
-        throw hresult_not_implemented();
+        GetXamlMetadataProvider();
     }
 
-    void MainWindow::MyProperty(int32_t /* value */)
+    void MainWindow::btnCsWinRtLauncher_Click(Windows::Foundation::IInspectable const& /*sender*/, Microsoft::UI::Xaml::RoutedEventArgs const& /*args*/)
     {
-        throw hresult_not_implemented();
+        OpenDialog();
+    }
+
+    void MainWindow::OpenDialog()
+    {
+        GetXamlMetadataProvider();
+
+        CsWinRtComponent::Launcher::OpenDialogAsync(*this);
+    }
+
+    winrt::Microsoft::UI::Xaml::Markup::IXamlMetadataProvider MainWindow::GetXamlMetadataProvider()
+    {
+        if (m_metadataProvider == nullptr)
+        {
+            m_metadataProvider = winrt::CsWinRtComponent::CsWinRtComponent_XamlTypeInfo::XamlMetaDataProvider();
+
+            auto currentApp = winrt::Microsoft::UI::Xaml::Application::Current().try_as<winrt::CsCppApp::implementation::App>();
+            if (currentApp)
+            {
+                currentApp->AddOtherProvider(winrt::CsWinRtComponent::CsWinRtComponent_XamlTypeInfo::XamlMetaDataProvider());
+            }
+        }
+
+        return m_metadataProvider;
     }
 }

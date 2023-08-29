@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "App.xaml.g.h"
+#include "App.xaml.g-fix.h"
 
 namespace winrt::CsCppApp::implementation
 {
@@ -15,5 +15,7 @@ namespace winrt::CsCppApp::implementation
 
     private:
         winrt::Microsoft::UI::Xaml::Window window{ nullptr };
+
+        void InitializeXamlProvider();
     };
 }
