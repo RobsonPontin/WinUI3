@@ -12,7 +12,8 @@
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
         <Button x:Name="btnInitializeDotNet"
-                Content="Initialize .NET self-contained dlls."/>
+                Content="Initialize .NET self-contained dlls."
+                Click="btnInitializeDotNet_Click"/>
 
         <Button x:Name="btnCsWinRtLauncher"
                 Margin="0 5 0 0"

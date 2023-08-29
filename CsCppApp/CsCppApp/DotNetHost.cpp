@@ -11,6 +11,12 @@
 
 // Provided by the AppHost NuGet package and installed as an SDK pack
 //#include <nethost.h>
+#if __has_include("nethost.h")
+#include <nethost.h>
+#else
+#error Project build required to resolve NetHost directory.  Individual compilation not supported.
+#endif
+
 
 // Header files copied from https://github.com/dotnet/runtime/tree/main/src/native/corehost
 #include <coreclr_delegates.h>
@@ -52,7 +58,15 @@ namespace CsCppApp::Service
     // Using the nethost library, discover the location of hostfxr and get exports
     bool load_hostfxr(const wchar_t* rootPath)
     {
+        // TODO: remove it, just for testing.
         std::wstring hostfxrPath = std::wstring(rootPath) + STR("hostfxr.dll");
+
+        //// Pre-allocate a large buffer for the path to hostfxr
+        //char_t buffer[MAX_PATH];
+        //size_t buffer_size = sizeof(buffer) / sizeof(char_t);
+        //int rc = get_hostfxr_path(buffer, &buffer_size, nullptr);
+        //if (rc != 0)
+        //    return false;
 
         // Load hostfxr and get desired exports
         void* lib = load_library(hostfxrPath.c_str());
@@ -90,8 +104,10 @@ namespace CsCppApp::Service
     }
 
 
-	bool DotNetHost::Load(HINSTANCE hInstance)
+	bool DotNetHost::Load()
 	{
+        HINSTANCE hInstance = GetModuleHandle(NULL);
+
         // Get the current executable's directory
         // This sample assumes the managed assembly to load and its runtime configuration file are next to the host
         char_t host_path[MAX_PATH];
@@ -118,7 +134,7 @@ namespace CsCppApp::Service
         //
         // STEP 2: Initialize and start the .NET Core runtime
         //
-        const string_t config_path = root_path + STR("DotNetLib.runtimeconfig.json");
+        const string_t config_path = root_path + STR("CsCppApp.runtimeconfig.json");
         load_assembly_and_get_function_pointer_fn load_assembly_and_get_function_pointer = nullptr;
         load_assembly_and_get_function_pointer = get_dotnet_load_assembly(config_path.c_str());
         assert(load_assembly_and_get_function_pointer != nullptr && "Failure: get_dotnet_load_assembly()");

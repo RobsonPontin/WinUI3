@@ -107,3 +107,5 @@
 /CsCppApp/packages
 /CsCppApp/x64/Debug/CsCppApp
 /CsCppApp/CsApp/obj
+/CsCppApp/NativeHost/bin/x64/Debug/net7.0-windows10.0.19041.0/win-x64
+/CsCppApp/NativeHost/obj

@@ -114,6 +114,7 @@
     <ClInclude Include="coreclr_delegates.h" />
     <ClInclude Include="DotNetHost.h" />
     <ClInclude Include="hostfxr.h" />
+    <ClInclude Include="nethost.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>

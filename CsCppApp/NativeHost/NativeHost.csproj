@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+<!-- NOTE: this project is based on:
+ https://github.com/microsoft/CsWinRT/issues/1141
+ https://github.com/jlaanstra/CsWinRT/commit/cd116cbc3fd93c4f7295972c454de1c610a3da59#diff-311c0d785847546fa8a82270d50fdb644cc909a736a4c508c9d7e733f21be821
+ -->
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+	  <Platforms>x64;x86;ARM64</Platforms>
+	  <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+
+	  <IsPackable>false</IsPackable>
+	  <EnableDynamicLoading>true</EnableDynamicLoading>
+	  <SelfContained>true</SelfContained>
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+	  <!-- Enable self-contained -->
+	  <DnneSelfContained_Experimental>true</DnneSelfContained_Experimental>
+	  <DnneAddGeneratedBinaryToProject>true</DnneAddGeneratedBinaryToProject>
+  </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Platform)'=='x86'">
+		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Platform)'=='x64'">
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DNNE" Version="2.0.5" />
+	</ItemGroup>
+
+	<Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+</Project>

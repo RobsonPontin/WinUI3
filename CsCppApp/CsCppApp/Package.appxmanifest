@@ -45,6 +45,18 @@
     </Application>
   </Applications>
 
+	<!-- To host the CsWinRtComponent using the NativeHost.cs with DNNE, you must add this activatable class entry -->
+	<!--<Extensions>
+		<Extension Category="windows.activatableClass.inProcessServer">
+			<InProcessServer>
+				<Path>NativeHostNE.dll</Path>
+				--><!--<ActivatableClass ActivatableClassId="CsWinRtComponent.Launcher" ThreadingModel="both" />--><!--
+				<ActivatableClass ActivatableClassId="CsWinRtComponent.CsWinRtComponent_XamlTypeInfo.XamlMetaDataProvider" ThreadingModel="both" />
+				<ActivatableClass ActivatableClassId="CsWinRtComponent.MyUserControl" ThreadingModel="both" />
+			</InProcessServer>
+		</Extension>
+	</Extensions>-->
+	
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
