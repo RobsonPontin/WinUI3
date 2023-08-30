@@ -58,6 +58,19 @@ namespace NativeAotApp::Wrappers
 		return winrt::to_hstring(getNameImport());
 	}
 
+	winrt::hstring MyDotNetLibWrapper::GetNameFromList()
+	{
+		typedef char* (*myFunc)();
+		myFunc getNameImport = (myFunc)symLoad(m_hInstance, "getNameFromList");
+		if (getNameImport == NULL)
+		{
+			auto error = GetLastError();
+			return L"";
+		}
+
+		return winrt::to_hstring(getNameImport());
+	}
+
 	int MyDotNetLibWrapper::FileExists(TCHAR* file)
 	{
 		WIN32_FIND_DATA FindFileData;

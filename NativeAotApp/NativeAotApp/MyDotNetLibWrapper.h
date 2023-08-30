@@ -9,6 +9,7 @@ namespace NativeAotApp::Wrappers
 
 		int GetValue();
 		winrt::hstring GetName();
+		winrt::hstring GetNameFromList();
 
 		bool Initialize();
 
