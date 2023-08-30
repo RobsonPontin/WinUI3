@@ -117,3 +117,12 @@
 /NativeAotApp/MyDotNetLib/bin/Release/net7.0/win-x64
 /NativeAotApp/MyDotNetLib/obj
 /NativeAotApp/.vs/NativeAotApp
+/DotNetSelfContainedNativeApp/CsWinRtComponent/obj
+/DotNetSelfContainedNativeApp/CsWinRtComponent/bin/x64/Debug/net7.0-windows10.0.19041.0
+/DotNetSelfContainedNativeApp/NativeApp/Generated Files
+/DotNetSelfContainedNativeApp/NativeApp/x64/Debug
+/DotNetSelfContainedNativeApp/NativeHost/bin/x64/Debug/net7.0-windows10.0.19041.0/win-x64
+/DotNetSelfContainedNativeApp/NativeHost/obj
+/DotNetSelfContainedNativeApp/packages
+/DotNetSelfContainedNativeApp/x64/Debug/NativeApp
+/DotNetSelfContainedNativeApp/.vs
