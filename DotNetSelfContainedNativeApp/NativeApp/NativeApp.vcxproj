@@ -91,6 +91,10 @@
     <ClCompile>
       <PreprocessorDefinitions>_DEBUG;DISABLE_XAML_GENERATED_MAIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <!-- NOTE: this is a workaround to guarantee all .NET runtime dlls are copied over to the AppX in the x64 build. -->
+    <PostBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">XCOPY "$(SolutionDir)NativeHost\bin\x64\Debug\net7.0-windows10.0.19041.0\win-x64" "$(TargetDir)\AppX\" /S /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
