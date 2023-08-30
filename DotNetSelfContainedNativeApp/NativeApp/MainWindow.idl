@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation and Contributors.
 // Licensed under the MIT License.
 
-namespace CsCppApp
+namespace NativeApp
 {
     [default_interface]
     runtimeclass MainWindow : Microsoft.UI.Xaml.Window

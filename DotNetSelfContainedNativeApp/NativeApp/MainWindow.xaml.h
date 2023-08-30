@@ -5,7 +5,7 @@
 
 #include "MainWindow.g.h"
 
-namespace winrt::CsCppApp::implementation
+namespace winrt::NativeApp::implementation
 {
     struct MainWindow : MainWindowT<MainWindow>
     {
@@ -32,7 +32,7 @@ namespace winrt::CsCppApp::implementation
     };
 }
 
-namespace winrt::CsCppApp::factory_implementation
+namespace winrt::NativeApp::factory_implementation
 {
     struct MainWindow : MainWindowT<MainWindow, implementation::MainWindow>
     {

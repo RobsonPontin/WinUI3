@@ -5,7 +5,7 @@
 
 #include "App.xaml.g-fix.h"
 
-namespace winrt::CsCppApp::implementation
+namespace winrt::NativeApp::implementation
 {
     struct App : AppT<App>
     {
