@@ -9,3 +9,7 @@ Before running the app, publish the .NET library as NativeAOT using dotnet CLI t
 1. Navigate to the library folder `..\MyDotNetLib`
 2. Open PowerShell and run `dotnet publish -r win-x64 -c Release`
 3. Run the NativeAotApp
+
+### References
+- https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot
+- https://github.com/dotnet/samples/tree/main/core/nativeaot/HelloWorld
