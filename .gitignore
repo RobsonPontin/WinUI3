@@ -109,3 +109,11 @@
 /CsCppApp/CsApp/obj
 /CsCppApp/NativeHost/bin/x64/Debug/net7.0-windows10.0.19041.0/win-x64
 /CsCppApp/NativeHost/obj
+/NativeAotApp/NativeAotApp/Generated Files
+/NativeAotApp/NativeAotApp/Release
+/NativeAotApp/NativeAotApp/x64/Debug
+/NativeAotApp/packages
+/NativeAotApp/x64/Debug/NativeAotApp
+/NativeAotApp/MyDotNetLib/bin/Release/net7.0/win-x64
+/NativeAotApp/MyDotNetLib/obj
+/NativeAotApp/.vs/NativeAotApp
