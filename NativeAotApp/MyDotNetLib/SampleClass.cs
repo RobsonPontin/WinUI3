@@ -19,5 +19,25 @@ namespace MyDotNetLib
 
             return myName;
         }
+
+        [UnmanagedCallersOnly(EntryPoint = "getNameFromList")]
+        public static IntPtr GetNameFromList()
+        {
+            // Simple test to see how compiling this library to NativeAOT will handle Collection and Linq .NET dependencies
+            List<string> myNames = new List<string>
+            {
+                "John",
+                "Rick",
+                "Ana",
+                "Lisa"                
+            };
+
+            var nameFound = myNames.Where<string>(x => x == "Ana").First();
+
+            // Assign pointer of the concatenated string to sumPointer
+            IntPtr myName = Marshal.StringToCoTaskMemAnsi(nameFound);
+
+            return myName;
+        }
     }
 }
