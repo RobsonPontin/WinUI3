@@ -8,8 +8,8 @@
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <MinimalCoreWin>true</MinimalCoreWin>
     <ProjectGuid>{04a71235-9fc9-43c5-8227-8c93d2754098}</ProjectGuid>
-    <ProjectName>CsCppApp</ProjectName>
-    <RootNamespace>CsCppApp</RootNamespace>
+    <ProjectName>NativeApp</ProjectName>
+    <RootNamespace>NativeApp</RootNamespace>
     <!--
       $(TargetName) should be same as $(RootNamespace) so that the produced binaries (.exe/.pri/etc.)
       have a name that matches the .winmd

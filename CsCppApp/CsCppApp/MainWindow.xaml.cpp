@@ -13,7 +13,7 @@ using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 
 
-namespace winrt::CsCppApp::implementation
+namespace winrt::NativeApp::implementation
 {
     MainWindow::MainWindow()
     {
@@ -43,7 +43,7 @@ namespace winrt::CsCppApp::implementation
         {
             m_metadataProvider = winrt::CsWinRtComponent::CsWinRtComponent_XamlTypeInfo::XamlMetaDataProvider();
 
-            auto currentApp = winrt::Microsoft::UI::Xaml::Application::Current().try_as<winrt::CsCppApp::implementation::App>();
+            auto currentApp = winrt::Microsoft::UI::Xaml::Application::Current().try_as<winrt::NativeApp::implementation::App>();
             if (currentApp)
             {
                 currentApp->AddOtherProvider(winrt::CsWinRtComponent::CsWinRtComponent_XamlTypeInfo::XamlMetaDataProvider());
