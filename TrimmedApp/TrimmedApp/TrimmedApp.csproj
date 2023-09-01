@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <RootNamespace>TrimmedApp</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;ARM64</Platforms>
@@ -10,6 +10,11 @@
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
+    <!-- NOTE: expand the trim warnings to identify each individual one. Very spammy but very useful. -->
+    <TrimmerSingleWarn>false</TrimmerSingleWarn>
+    <!-- NOTE: useful for libraries that cannot be trimmed for a variety of reasons
+         one example is CsWinRt libs which have a known runtime crash if not trimming partially.-->
+    <TrimMode>partial</TrimMode>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +33,12 @@
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
+  <!-- NOTE: list here all extra dependencies which we would like to check if they are trimmable or not. -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Graph" Version="5.25.0" />
+    <PackageReference Include="Microsoft.Graph.Core" Version="3.0.10" />
+  </ItemGroup>	
+	
   <!-- 
     Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
     Tools extension to be activated for this project even if the Windows App SDK Nuget
