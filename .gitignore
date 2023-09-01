@@ -129,3 +129,6 @@
 /NativeAotApp/.vs/ProjectEvaluation
 /DotNetSelfContainedNativeApp/NativeHost/bin/ARM64/Debug/net7.0-windows10.0.19041.0
 /DotNetSelfContainedNativeApp/NativeHost/bin/x64/Release/net7.0-windows10.0.19041.0/win-x64
+/TrimmedApp/TrimmedApp/bin/x86/Debug/net6.0-windows10.0.19041.0/win10-x86
+/TrimmedApp/.vs/TrimmedApp
+/TrimmedApp/TrimmedApp/obj
