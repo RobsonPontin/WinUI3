@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TrimmedApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TrimmedApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
