@@ -1,5 +1,6 @@
 #pragma once
 
+#include "LibraryInfo.h"
 
 namespace NativeAotApp::Wrappers
 {
@@ -13,6 +14,7 @@ namespace NativeAotApp::Wrappers
 		int GetValue();
 		winrt::hstring GetName();
 		winrt::hstring GetNameFromList();
+		void GetLibraryInfo();
 
 		bool Initialize();
 

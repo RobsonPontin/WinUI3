@@ -26,6 +26,7 @@ namespace winrt::NativeAotApp::implementation
             auto val = m_myDotNetLibWrapper->GetValue();
             auto name = m_myDotNetLibWrapper->GetName();
             auto nameFromList = m_myDotNetLibWrapper->GetNameFromList();
+            m_myDotNetLibWrapper->GetLibraryInfo();
         }        
     }
 }

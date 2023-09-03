@@ -43,42 +43,21 @@ namespace MyDotNetLib
             return myName;
         }
 
-        #region JSON Serialization
-
-        private static readonly LibraryInfo LibraryInformation = new()
+        [UnmanagedCallersOnly(EntryPoint = "getLibraryInfo")]
+        public static nint GetLibraryInfo()
         {
-            DotNetVersion = "7",
-            DotNetType = DotNetType.Core
-        };
-
-        [UnmanagedCallersOnly(EntryPoint = "getSerializedLibraryInfo")]
-        public static nint GetSerializedLibraryInfo()
-        {
-            var serializedObject = JsonSerializer.Serialize(LibraryInformation, JsonContext.Default.LibraryInfo);
-            var length = Encoding.UTF8.GetByteCount(serializedObject);
+            LibraryInfo libInfo = new()
+            {
+                DotNetVersion = "7",
+                DotNetType = DotNetType.Core
+            };
 
             // Allocate unmanaged memory block
-            var bufferPtr = Marshal.AllocHGlobal(length + 1); // + 1 is due to the null terminator.
+            var bufferPtr = Marshal.AllocHGlobal(Marshal.SizeOf<LibraryInfo>());
 
-            var buffer = StringToBuffer(bufferPtr, length);
-
-            Encoding.UTF8.GetBytes(serializedObject, buffer);
-
-            // Add null terminator
-            Marshal.WriteByte(bufferPtr, length, 0);
+            Marshal.StructureToPtr(libInfo, bufferPtr, false);
 
             return bufferPtr;
         }
-
-        /// <summary>
-        /// Get a buffer span with unsafe code / pointers.
-        /// </summary>
-        private static unsafe Span<byte> StringToBuffer(nint bufferPtr, int length)
-        {
-            // Write serialized object directly to unmanaged memory
-            return new Span<byte>(bufferPtr.ToPointer(), length);
-        }
-
-        #endregion
     }
 }

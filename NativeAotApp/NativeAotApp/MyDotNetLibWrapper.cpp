@@ -18,7 +18,6 @@ namespace NativeAotApp::Wrappers
 
 	bool MyDotNetLibWrapper::Initialize()
 	{
-		// Call sum function defined in C# shared library
 		m_hInstance = LoadLibraryA(LIB_PATH);
 		if (m_hInstance == NULL)
 		{
@@ -65,5 +64,23 @@ namespace NativeAotApp::Wrappers
 		}
 
 		return winrt::to_hstring(getNameImport());
+	}
+
+	void MyDotNetLibWrapper::GetLibraryInfo()
+	{
+		typedef uintptr_t(*fnGetLibraryInfo)();
+		auto getLibraryInfo = fnGetLibraryInfo(GetProcAddress(m_hInstance, "getLibraryInfo"));
+		if (getLibraryInfo == NULL)
+		{
+			// failure ?
+			return;
+		}
+
+		// Get pointer to object marshlled and then cast it to LibraryInfo type
+		uintptr_t libInfoPtr = getLibraryInfo();	
+		LibraryInfo* libInfo = reinterpret_cast<LibraryInfo*>(libInfoPtr);
+
+		auto dotNetVersion = libInfo->DotNetVersion;
+		auto dotNetType = libInfo->DotNetType;
 	}
 }

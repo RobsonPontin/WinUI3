@@ -13,11 +13,17 @@
     <ClCompile Include="MyDotNetLibWrapper.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="LibraryInfo.cpp">
+      <Filter>src\Json</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="MyDotNetLibWrapper.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="LibraryInfo.h">
+      <Filter>src\Json</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +55,9 @@
     </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{e595f8b0-d4a9-4612-89b5-d86082d9a2f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Json">
+      <UniqueIdentifier>{9854a202-a242-475c-9115-87e5ad5b04c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
