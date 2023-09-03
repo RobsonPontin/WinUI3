@@ -14,9 +14,6 @@ using namespace Microsoft::UI::Xaml::Navigation;
 using namespace winrt::NativeAotApp;
 using namespace winrt::NativeAotApp::implementation;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 /// <summary>
 /// Initializes the singleton application object.  This is the first line of authored code
 /// executed, and as such is the logical equivalent of main() or WinMain().

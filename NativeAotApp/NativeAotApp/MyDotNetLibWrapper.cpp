@@ -8,10 +8,6 @@
 #define symLoad GetProcAddress
 #pragma comment (lib, "ole32.lib")
 
-#ifndef F_OK
-#define F_OK    0
-#endif
-
 namespace NativeAotApp::Wrappers
 {
 	const char* LIB_PATH = "MyDotNetLib.dll"; // it should be AppX root folder alongside App.exe
@@ -22,7 +18,6 @@ namespace NativeAotApp::Wrappers
 
 	bool MyDotNetLibWrapper::Initialize()
 	{
-		// Call sum function defined in C# shared library
 		m_hInstance = LoadLibraryA(LIB_PATH);
 		if (m_hInstance == NULL)
 		{
@@ -71,16 +66,21 @@ namespace NativeAotApp::Wrappers
 		return winrt::to_hstring(getNameImport());
 	}
 
-	int MyDotNetLibWrapper::FileExists(TCHAR* file)
+	void MyDotNetLibWrapper::GetLibraryInfo()
 	{
-		WIN32_FIND_DATA FindFileData;
-		HANDLE handle = FindFirstFile(file, &FindFileData);
-		int found = handle != INVALID_HANDLE_VALUE;
-		if (found)
+		typedef uintptr_t(*fnGetLibraryInfo)();
+		auto getLibraryInfo = fnGetLibraryInfo(GetProcAddress(m_hInstance, "getLibraryInfo"));
+		if (getLibraryInfo == NULL)
 		{
-			//FindClose(&handle); this will crash
-			FindClose(handle);
+			// failure ?
+			return;
 		}
-		return found;
+
+		// Get pointer to object marshlled and then cast it to LibraryInfo type
+		uintptr_t libInfoPtr = getLibraryInfo();	
+		LibraryInfo* libInfo = reinterpret_cast<LibraryInfo*>(libInfoPtr);
+
+		auto dotNetVersion = libInfo->DotNetVersion;
+		auto dotNetType = libInfo->DotNetType;
 	}
 }

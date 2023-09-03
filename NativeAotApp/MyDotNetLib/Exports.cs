@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text.Json;
+using System.Text;
+using System.Reflection;
 
 namespace MyDotNetLib
 {
-    public class SampleClass
+    public class Exports
     {
         [UnmanagedCallersOnly(EntryPoint = "getValue")]
         public static int GetValue()
@@ -38,6 +41,23 @@ namespace MyDotNetLib
             IntPtr myName = Marshal.StringToCoTaskMemAnsi(nameFound);
 
             return myName;
+        }
+
+        [UnmanagedCallersOnly(EntryPoint = "getLibraryInfo")]
+        public static nint GetLibraryInfo()
+        {
+            LibraryInfo libInfo = new()
+            {
+                DotNetVersion = "7",
+                DotNetType = DotNetType.Core
+            };
+
+            // Allocate unmanaged memory block
+            var bufferPtr = Marshal.AllocHGlobal(Marshal.SizeOf<LibraryInfo>());
+
+            Marshal.StructureToPtr(libInfo, bufferPtr, false);
+
+            return bufferPtr;
         }
     }
 }
