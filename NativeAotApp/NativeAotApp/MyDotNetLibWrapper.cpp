@@ -8,10 +8,6 @@
 #define symLoad GetProcAddress
 #pragma comment (lib, "ole32.lib")
 
-#ifndef F_OK
-#define F_OK    0
-#endif
-
 namespace NativeAotApp::Wrappers
 {
 	const char* LIB_PATH = "MyDotNetLib.dll"; // it should be AppX root folder alongside App.exe
@@ -69,18 +65,5 @@ namespace NativeAotApp::Wrappers
 		}
 
 		return winrt::to_hstring(getNameImport());
-	}
-
-	int MyDotNetLibWrapper::FileExists(TCHAR* file)
-	{
-		WIN32_FIND_DATA FindFileData;
-		HANDLE handle = FindFirstFile(file, &FindFileData);
-		int found = handle != INVALID_HANDLE_VALUE;
-		if (found)
-		{
-			//FindClose(&handle); this will crash
-			FindClose(handle);
-		}
-		return found;
 	}
 }

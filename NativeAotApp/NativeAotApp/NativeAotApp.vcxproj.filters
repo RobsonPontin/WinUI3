@@ -4,20 +4,21 @@
     <ApplicationDefinition Include="App.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MainWindow.xaml" />
-  </ItemGroup>
-  <ItemGroup>
     <Midl Include="App.idl" />
     <Midl Include="MainWindow.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="MyDotNetLibWrapper.cpp" />
+    <ClCompile Include="MyDotNetLibWrapper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="MyDotNetLibWrapper.h" />
+    <ClInclude Include="MyDotNetLibWrapper.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -46,6 +47,9 @@
     <Filter Include="Assets">
       <UniqueIdentifier>{ed13c410-addd-48df-9df0-d199e6dca810}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{e595f8b0-d4a9-4612-89b5-d86082d9a2f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
@@ -58,6 +62,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="..\MyDotNetLib\bin\x64\Debug\net7.0\MyDotNetLib.dll" />
+    <None Include="..\MyDotNetLib\bin\Release\net7.0\win-x64\publish\MyDotNetLib.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainWindow.xaml">
+      <Filter>src</Filter>
+    </Page>
   </ItemGroup>
 </Project>

@@ -19,20 +19,8 @@ namespace winrt::NativeAotApp::implementation
         m_myDotNetLibWrapper = std::make_unique<::NativeAotApp::Wrappers::MyDotNetLibWrapper>();
     }
 
-    int32_t MainWindow::MyProperty()
-    {
-        throw hresult_not_implemented();
-    }
-
-    void MainWindow::MyProperty(int32_t /* value */)
-    {
-        throw hresult_not_implemented();
-    }
-
     void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
     {
-        myButton().Content(box_value(L"Clicked"));
-
         if (m_myDotNetLibWrapper->Initialize())
         {
             auto val = m_myDotNetLibWrapper->GetValue();

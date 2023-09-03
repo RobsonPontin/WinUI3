@@ -3,6 +3,9 @@
 
 namespace NativeAotApp::Wrappers
 {
+	/// <summary>
+	/// A wrapper around loading and accessing a .NET library published as AOT.
+	/// </summary>
 	struct MyDotNetLibWrapper : std::enable_shared_from_this<MyDotNetLibWrapper>
 	{
 		MyDotNetLibWrapper();
@@ -15,7 +18,5 @@ namespace NativeAotApp::Wrappers
 
 	private:
 		HINSTANCE m_hInstance;
-
-		int FileExists(TCHAR* file);
 	};
 }
