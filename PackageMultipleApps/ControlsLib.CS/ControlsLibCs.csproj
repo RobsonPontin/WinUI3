@@ -22,6 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ControlsLibCs_Dep\ControlsLibCs_Dep.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Update="CommonStylesCs.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -10,9 +10,6 @@ namespace winrt::WinUi3App::implementation
     struct MainWindow : MainWindowT<MainWindow>
     {
         MainWindow();
-
-        int32_t MyProperty();
-        void MyProperty(int32_t value);
     };
 }
 

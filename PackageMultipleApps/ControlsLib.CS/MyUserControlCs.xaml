@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controlslibcs_dep="using:ControlsLibCs_Dep"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -20,6 +21,10 @@
             VerticalAlignment="Center">
             <TextBlock> My C#/WinRT User Control.</TextBlock>
             <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+
+            <!-- TODO: AppPackaging is not able to copy "ControlsLibCs_Dep.dll to the AppX folder
+            so it needs to be fixed by manually copying the missing DLLs. -->
+            <!--<controlslibcs_dep:MyUserControlCs_Dep Margin="0 5 0 0"/>-->
         </StackPanel>
     </Grid>
 </UserControl>

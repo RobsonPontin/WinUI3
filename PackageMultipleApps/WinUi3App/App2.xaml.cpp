@@ -6,6 +6,8 @@
 #include "App2.xaml.h"
 #include "MainWindow.xaml.h"
 
+#include "winrt/Windows.Storage.h"
+
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Microsoft::UI::Xaml;
@@ -14,8 +16,7 @@ using namespace Microsoft::UI::Xaml::Navigation;
 using namespace WinUi3App;
 using namespace WinUi3App::implementation;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+winrt::hstring _lastActivationType = L"";
 
 /// <summary>
 /// Initializes the singleton application object.  This is the first line of authored code
@@ -37,24 +38,44 @@ App2::App2()
 #endif
 }
 
-void App2::MergeResource(hstring const& resourcePath)
+App2::App2(winrt::hstring const& activationType)
 {
-    auto dictionary = winrt::Microsoft::UI::Xaml::ResourceDictionary();
-    dictionary.Source(Windows::Foundation::Uri(resourcePath));
-    Resources().MergedDictionaries().Append(dictionary);
+    InitializeComponent();
+
+    _lastActivationType = activationType;
+
+#if defined _DEBUG && !defined DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION
+    UnhandledException([this](IInspectable const&, UnhandledExceptionEventArgs const& e)
+        {
+            if (IsDebuggerPresent())
+            {
+                auto errorMessage = e.Message();
+                __debugbreak();
+            }
+        });
+#endif
 }
 
 /// <summary>
 /// Invoked when the application is launched.
 /// </summary>
 /// <param name="e">Details about the launch request and process.</param>
-void App2::OnLaunched(LaunchActivatedEventArgs const&)
+void App2::OnLaunched(LaunchActivatedEventArgs const& e)
 {
-    /* Manually merge resources.
-     * Not really needed, but just showing that all dependency
-     * resources should be expected in their folder name. */
-    // MergeResource(L"ms-appx:///ControlsLib/CommonStyles.xaml");
-    // MergeResource(L"ms-appx:///ControlsLibCs/CommonStylesCs.xaml");
+    if (_lastActivationType == L"FileActivation")
+    {
+        // Attempt to retrieve last cached file in the UWP App to App Local settings:
+        auto localSettings = winrt::Windows::Storage::ApplicationData::Current().LocalSettings();
+        auto lastFileActivation = localSettings.Values().TryLookup(L"LastFileActivationKey");
+        if (lastFileActivation != nullptr)
+        {
+            auto lastFileActivationStr = lastFileActivation.try_as<winrt::hstring>();
+        }
+    }
+    else if (_lastActivationType == L"Launch")
+    {
+        // Normal launch, do nothing.
+    }
 
     window = Window();
     window = make<MainWindow>();

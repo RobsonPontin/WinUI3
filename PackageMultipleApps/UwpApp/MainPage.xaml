@@ -14,7 +14,18 @@
                    Text="UWP Application"/>
 
         <Button x:Name="myButton"
+                Margin="0 5 0 0"
                 Click="LaunchWinUi3_ClickHandler"
-                Content="Launch WinUI 3 App"/>
+                Content="Launch WinUI 3 App without Param"/>
+
+        <Button x:Name="btnLaunchParam1"
+                Margin="0 5 0 0"
+                Click="btnLaunchParam1_ClickHandler"
+                Content="Launch WinUI 3 App w/ Param 1 = Launch"/>
+
+        <Button x:Name="btnLaunchParam2"
+                Margin="0 5 0 0"
+                Click="btnLaunchParam2_ClickHandler"
+                Content="Launch WinUI 3 App w/ Param 2 = File Activation"/>
     </StackPanel>
 </Page>
