@@ -17,7 +17,7 @@ using namespace Windows::UI::Xaml::Navigation;
 using namespace UwpApp;
 using namespace UwpApp::implementation;
 
-#define ENABLE_START_WINUI_3_APP 1
+#define ENABLE_START_WINUI_3_APP 0
 
 /// <summary>
 /// Creates the singleton application object.  This is the first line of authored code

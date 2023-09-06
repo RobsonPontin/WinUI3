@@ -48,8 +48,23 @@
       </uap:VisualElements>
 		
       <Extensions>
-	    <desktop:Extension Category="windows.fullTrustProcess"
-						   Executable="WinUi3App.exe" />
+		  <desktop:Extension Category="windows.fullTrustProcess"
+							 Executable="WinUi3App.exe">
+			  <desktop:FullTrustProcess>
+				  <desktop:ParameterGroup GroupId="LaunchActivation" Parameters="/Launch"/>
+				  <desktop:ParameterGroup GroupId="FileActivation" Parameters="/FileActivation"/>
+			  </desktop:FullTrustProcess>			  
+		  </desktop:Extension>
+
+        <!-- NOTE: File activation for JPG. -->
+	    <uap:Extension Category="windows.fileTypeAssociation">
+		    <uap:FileTypeAssociation Name="imagetypes">
+			    <uap:SupportedFileTypes>
+				    <uap:FileType>.jpg</uap:FileType>
+			    </uap:SupportedFileTypes>
+		    </uap:FileTypeAssociation>
+	    </uap:Extension>
+
       </Extensions>
 	</Application>
   </Applications>

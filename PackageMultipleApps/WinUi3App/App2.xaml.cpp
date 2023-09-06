@@ -37,25 +37,12 @@ App2::App2()
 #endif
 }
 
-void App2::MergeResource(hstring const& resourcePath)
-{
-    auto dictionary = winrt::Microsoft::UI::Xaml::ResourceDictionary();
-    dictionary.Source(Windows::Foundation::Uri(resourcePath));
-    Resources().MergedDictionaries().Append(dictionary);
-}
-
 /// <summary>
 /// Invoked when the application is launched.
 /// </summary>
 /// <param name="e">Details about the launch request and process.</param>
 void App2::OnLaunched(LaunchActivatedEventArgs const& e)
 {
-    /* Manually merge resources.
-     * Not really needed, but just showing that all dependency
-     * resources should be expected in their folder name. */
-    // MergeResource(L"ms-appx:///ControlsLib/CommonStyles.xaml");
-    // MergeResource(L"ms-appx:///ControlsLibCs/CommonStylesCs.xaml");
-
     // TODO: Attempt to get UWP app arguments, does it work for all UWP activations?
     auto arg = e.UWPLaunchActivatedEventArgs();
     auto dd = arg.Kind();
