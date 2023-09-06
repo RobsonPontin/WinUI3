@@ -154,9 +154,6 @@
     <ProjectReference Include="..\ControlsLib.CS\ControlsLibCs.csproj">
       <Project>{6c673ef4-49ac-4d94-976f-e47564f46f7a}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\ControlsLibCs_Dep\ControlsLibCs_Dep.csproj">
-      <Project>{3a19115f-172c-439c-af4e-151de1856751}</Project>
-    </ProjectReference>
   </ItemGroup>
   <!--
     Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging

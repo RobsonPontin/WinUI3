@@ -22,7 +22,9 @@
             <TextBlock> My C#/WinRT User Control.</TextBlock>
             <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
 
-            <controlslibcs_dep:MyUserControlCs_Dep Margin="0 5 0 0"/>
+            <!-- TODO: AppPackaging is not able to copy "ControlsLibCs_Dep.dll to the AppX folder
+            so it needs to be fixed by manually copying the missing DLLs. -->
+            <!--<controlslibcs_dep:MyUserControlCs_Dep Margin="0 5 0 0"/>-->
         </StackPanel>
     </Grid>
 </UserControl>

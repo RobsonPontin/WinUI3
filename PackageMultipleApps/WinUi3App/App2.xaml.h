@@ -11,12 +11,11 @@ namespace winrt::WinUi3App::implementation
     struct App2 : AppT<App2>
     {
         App2();
+        App2(winrt::hstring const& activationType);
 
         void OnLaunched(Microsoft::UI::Xaml::LaunchActivatedEventArgs const&);
 
     private:
         winrt::Microsoft::UI::Xaml::Window window{ nullptr };
-
-        void MergeResource(hstring const& resourcePath);
     };
 }

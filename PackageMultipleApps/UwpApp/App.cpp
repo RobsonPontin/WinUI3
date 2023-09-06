@@ -7,6 +7,8 @@
 #include <conio.h>
 #include <tchar.h>
 
+#include <winrt/Windows.Storage.h>
+
 using namespace winrt;
 using namespace Windows::ApplicationModel;
 using namespace Windows::ApplicationModel::Activation;
@@ -39,12 +41,32 @@ App::App()
 #endif
 }
 
+void App::OnFileActivated(Windows::ApplicationModel::Activation::FileActivatedEventArgs const& e)
+{
+    // Get and save activation type/kind to local settings
+    if (e.Kind() == Windows::ApplicationModel::Activation::ActivationKind::File)
+    {
+        auto fileActArgs = e.as<Windows::ApplicationModel::Activation::FileActivatedEventArgs>();
+        auto file = fileActArgs.Files().GetAt(0);
+
+        auto localSettings = winrt::Windows::Storage::ApplicationData::Current().LocalSettings();
+        localSettings.Values().Insert(L"LastFileActivationKey", winrt::box_value(file.Path()));
+    }
+    
+    PerformLaunch(L"");
+}
+
 /// <summary>
 /// Invoked when the application is launched normally by the end user.  Other entry points
 /// will be used such as when the application is launched to open a specific file.
 /// </summary>
 /// <param name="e">Details about the launch request and process.</param>
 void App::OnLaunched(LaunchActivatedEventArgs const& e)
+{
+    PerformLaunch(e.Arguments());
+}
+
+void App::PerformLaunch(winrt::hstring const& arguments)
 {
 #if(ENABLE_START_WINUI_3_APP)
 
@@ -54,7 +76,7 @@ void App::OnLaunched(LaunchActivatedEventArgs const& e)
     winrt::Windows::ApplicationModel::FullTrustProcessLauncher::LaunchFullTrustProcessForCurrentAppAsync();
 
     /* Wait some time for confirmation of UWP launched succefully and then quite the application.
-     * The problem with this approach is that once we call "Application::Current().Exit()" the 
+     * The problem with this approach is that once we call "Application::Current().Exit()" the
      * "RuntimeBroker.exe" will keep running even after closing the WinUI 3 app.
      */
     using namespace std::chrono_literals;
@@ -79,41 +101,29 @@ void App::OnLaunched(LaunchActivatedEventArgs const& e)
 
         rootFrame.NavigationFailed({ this, &App::OnNavigationFailed });
 
-        if (e.PreviousExecutionState() == ApplicationExecutionState::Terminated)
-        {
-            // Restore the saved session state only when appropriate, scheduling the
-            // final launch steps after the restore is complete
-        }
-
-        if (e.PrelaunchActivated() == false)
-        {
-            if (rootFrame.Content() == nullptr)
-            {
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                rootFrame.Navigate(xaml_typename<UwpApp::MainPage>(), box_value(e.Arguments()));
-            }
-            // Place the frame in the current Window
-            Window::Current().Content(rootFrame);
-            // Ensure the current window is active
-            Window::Current().Activate();
-        }
+		if (rootFrame.Content() == nullptr)
+		{
+			// When the navigation stack isn't restored navigate to the first page,
+			// configuring the new page by passing required information as a navigation
+			// parameter
+			rootFrame.Navigate(xaml_typename<UwpApp::MainPage>(), box_value(arguments));
+		}
+		// Place the frame in the current Window
+		Window::Current().Content(rootFrame);
+		// Ensure the current window is active
+		Window::Current().Activate();        
     }
     else
     {
-        if (e.PrelaunchActivated() == false)
-        {
-            if (rootFrame.Content() == nullptr)
-            {
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                rootFrame.Navigate(xaml_typename<UwpApp::MainPage>(), box_value(e.Arguments()));
-            }
-            // Ensure the current window is active
-            Window::Current().Activate();
-        }
+		if (rootFrame.Content() == nullptr)
+		{
+			// When the navigation stack isn't restored navigate to the first page,
+			// configuring the new page by passing required information as a navigation
+			// parameter
+			rootFrame.Navigate(xaml_typename<UwpApp::MainPage>(), box_value(arguments));
+		}
+		// Ensure the current window is active
+		Window::Current().Activate();
     }
 #endif
 }
