@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <StackPanel>
-        <TextBlock Text="TThis is a User Control from CsWinRt component."/>
+        <TextBlock Text="This is a User Control from CsWinRt component."/>
         <Button Content="Click Me" Click="Button_Click"/>
     </StackPanel>
 </UserControl>

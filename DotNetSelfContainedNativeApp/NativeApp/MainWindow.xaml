@@ -8,16 +8,31 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d">
 
-    <StackPanel
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center">
-        <Button x:Name="btnInitializeDotNet"
-                Content="Initialize .NET self-contained dlls."
-                Click="btnInitializeDotNet_Click"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical"
+                    Margin="5 5 0 0">
+            <TextBlock Text="At this point once Native App has launched, none of the .NET runtime DLLs have been 
+                       &#x0a;loaded yet, so the idea is to load them by demand.
+                       &#x0a;This gives a very fast startup time for the app and a chance to proper handle the UX
+                       &#x0a;before loading the component that relies on .NET which will be slower to load."/>
+            <Button x:Name="btnInitializeDotNet"
+                    Margin="0 5 0 0"
+                    Content="Initialize .NET self-contained dlls."
+                    Click="btnInitializeDotNet_Click"/>
+        </StackPanel>
 
-        <Button x:Name="btnCsWinRtLauncher"
-                Margin="0 5 0 0"
-                Content="Open Dialog from C# component"
-                Click="btnCsWinRtLauncher_Click"/>
-    </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Margin="5 10 0 0">           
+            <TextBlock Text="Once all .NET runtime DLLs have been loaded we can now call any C# or Xaml code
+                       &#x0a;from the CS Lib."/>
+            <Button x:Name="btnCsWinRtLauncher"
+                    Margin="0 5 0 0"
+                    Content="Open Dialog from C# component"
+                    Click="btnCsWinRtLauncher_Click"/>
+        </StackPanel>
+    </Grid>
 </Window>
