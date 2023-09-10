@@ -91,10 +91,6 @@
     <ClCompile>
       <PreprocessorDefinitions>_DEBUG;DISABLE_XAML_GENERATED_MAIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <!-- NOTE: this is a workaround to guarantee all .NET runtime dlls are copied over to the AppX in the x64 build. -->
-    <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">XCOPY "$(SolutionDir)NativeHost\bin\x64\Debug\net7.0-windows10.0.19041.0\win-x64" "$(TargetDir)\AppX\" /S /Y</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
@@ -112,6 +108,12 @@
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="app.manifest" />
+  </ItemGroup>
+  <!-- NOTE: The Native Photos C++ app cannot copy the .NET SDK runtime dlls automatically, so we perform the copy ourselves by bringing all dlls to App AppX folder. -->
+  <ItemGroup>
+    <Content Include="$(SolutionDir)\src\NativeHost\bin\$(PlatformTarget)\$(Configuration)\net7.0-windows$(TargetPlatformVersion)\win-$(PlatformTarget)\*.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.g-fix.h" />
