@@ -15,10 +15,10 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical"
                     Margin="5 5 0 0">
-            <TextBlock Text="At this point on Native App launch, none of the .NET runtime DLLs have benn 
-                       &#x0a;loaded yet, so we can by demand load them.
+            <TextBlock Text="At this point once Native App has launched, none of the .NET runtime DLLs have been 
+                       &#x0a;loaded yet, so the idea is to load them by demand.
                        &#x0a;This gives a very fast startup time for the app and a chance to proper handle the UX
-                       &#x0a;of the component that relies on .NET which will be slower to load."/>
+                       &#x0a;before loading the component that relies on .NET which will be slower to load."/>
             <Button x:Name="btnInitializeDotNet"
                     Margin="0 5 0 0"
                     Content="Initialize .NET self-contained dlls."
@@ -28,7 +28,7 @@
         <StackPanel Grid.Row="1"
                     Margin="5 10 0 0">           
             <TextBlock Text="Once all .NET runtime DLLs have been loaded we can now call any C# or Xaml code
-                       &#x0a;from the libraries."/>
+                       &#x0a;from the CS Lib."/>
             <Button x:Name="btnCsWinRtLauncher"
                     Margin="0 5 0 0"
                     Content="Open Dialog from C# component"
