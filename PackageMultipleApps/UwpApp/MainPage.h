@@ -15,9 +15,9 @@ namespace winrt::UwpApp::implementation
         int32_t MyProperty();
         void MyProperty(int32_t value);
 
-        Windows::Foundation::IAsyncAction LaunchWinUi3_ClickHandler(IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
-        Windows::Foundation::IAsyncAction btnLaunchParam1_ClickHandler(IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
-        Windows::Foundation::IAsyncAction btnLaunchParam2_ClickHandler(IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);  
+        void LaunchWinUi3_ClickHandler(IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+        void btnLaunchParam1_ClickHandler(IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+        void btnLaunchParam2_ClickHandler(IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
     };
 }
 

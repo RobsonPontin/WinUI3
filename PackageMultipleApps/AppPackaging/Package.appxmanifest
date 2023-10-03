@@ -51,7 +51,7 @@
 		  <desktop:Extension Category="windows.fullTrustProcess"
 							 Executable="WinUi3App.exe">
 			  <desktop:FullTrustProcess>
-				  <desktop:ParameterGroup GroupId="LaunchActivation" Parameters="/Launch"/>
+				  <desktop:ParameterGroup GroupId="LaunchActivation" Parameters="/LaunchActivation"/>
 				  <desktop:ParameterGroup GroupId="FileActivation" Parameters="/FileActivation"/>
 			  </desktop:FullTrustProcess>			  
 		  </desktop:Extension>

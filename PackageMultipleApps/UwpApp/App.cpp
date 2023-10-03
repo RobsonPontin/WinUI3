@@ -8,6 +8,7 @@
 #include <tchar.h>
 
 #include <winrt/Windows.Storage.h>
+#include "FullTrustAppLauncher.h"
 
 using namespace winrt;
 using namespace Windows::ApplicationModel;
@@ -19,7 +20,7 @@ using namespace Windows::UI::Xaml::Navigation;
 using namespace UwpApp;
 using namespace UwpApp::implementation;
 
-#define ENABLE_START_WINUI_3_APP 0
+#define ENABLE_START_WINUI_3_APP 1
 
 /// <summary>
 /// Creates the singleton application object.  This is the first line of authored code
@@ -51,9 +52,13 @@ void App::OnFileActivated(Windows::ApplicationModel::Activation::FileActivatedEv
 
         auto localSettings = winrt::Windows::Storage::ApplicationData::Current().LocalSettings();
         localSettings.Values().Insert(L"LastFileActivationKey", winrt::box_value(file.Path()));
+
+        PerformLaunch(L"FileActivation");
     }
-    
-    PerformLaunch(L"");
+    else
+    {
+        PerformLaunch(L"");
+    }
 }
 
 /// <summary>
@@ -72,15 +77,22 @@ void App::PerformLaunch(winrt::hstring const& arguments)
 
     _tprintf(TEXT("!!!!!!!!!!!!!!!!!!!!!!!!!!!!OnLaunched.\n"));
 
-    // Attempt to launch the WinUI 3 application from here
-    winrt::Windows::ApplicationModel::FullTrustProcessLauncher::LaunchFullTrustProcessForCurrentAppAsync();
+    if (arguments == L"")
+    {
+        FullTrustAppLauncher::PerformLaunchActivation();
+    }
+    else
+    {
+        FullTrustAppLauncher::PerformFileActivation();
+    }
+
 
     /* Wait some time for confirmation of UWP launched succefully and then quite the application.
      * The problem with this approach is that once we call "Application::Current().Exit()" the
      * "RuntimeBroker.exe" will keep running even after closing the WinUI 3 app.
      */
     using namespace std::chrono_literals;
-    std::this_thread::sleep_for(50ms);
+    std::this_thread::sleep_for(250ms);
 
     Application::Current().Exit();
 #else
