@@ -10,12 +10,26 @@
     xmlns:cs="using:ControlsLibCs"
     mc:Ignorable="d">
 
-    <StackPanel HorizontalAlignment="Center" 
+    <Grid HorizontalAlignment="Center" 
                 VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
         <TextBlock FontSize="20"
+                   Grid.Row="0"
                    Text="WinUI 3 Application"/>
 
-        <cl:MyUserControl/>
-        <cs:MyUserControlCs />
-    </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal">
+            <cl:MyUserControl/>
+            <cs:MyUserControlCs />
+        </StackPanel>
+
+        <Image x:Name="image"
+               Grid.Row="2"
+               Loaded="image_Loaded"/>
+    </Grid>
 </Window>

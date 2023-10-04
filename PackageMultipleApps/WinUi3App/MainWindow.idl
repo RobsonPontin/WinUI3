@@ -7,5 +7,6 @@ namespace WinUi3App
     runtimeclass MainWindow : Microsoft.UI.Xaml.Window
     {
         MainWindow();
+        MainWindow(String filePath);
     }
 }

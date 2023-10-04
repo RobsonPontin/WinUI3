@@ -60,8 +60,9 @@ App2::App2(winrt::hstring const& activationType)
 /// Invoked when the application is launched.
 /// </summary>
 /// <param name="e">Details about the launch request and process.</param>
-void App2::OnLaunched(LaunchActivatedEventArgs const& e)
+void App2::OnLaunched(LaunchActivatedEventArgs const&)
 {
+    std::optional<hstring> lastFileActivated;
     if (_lastActivationType == L"FileActivation")
     {
         // Attempt to retrieve last cached file in the UWP App to App Local settings:
@@ -69,16 +70,21 @@ void App2::OnLaunched(LaunchActivatedEventArgs const& e)
         auto lastFileActivation = localSettings.Values().TryLookup(L"LastFileActivationKey");
         if (lastFileActivation != nullptr)
         {
-            auto lastFileActivationStr = lastFileActivation.try_as<winrt::hstring>();
+            lastFileActivated = lastFileActivation.try_as<winrt::hstring>();
         }
     }
-    else if (_lastActivationType == L"Launch")
+    else if (_lastActivationType == L"LaunchActivation")
     {
         // Normal launch, do nothing.
     }
 
-    window = Window();
-    window = make<MainWindow>();
+    if (lastFileActivated.has_value())
+    {
+        window = make<MainWindow>(lastFileActivated.value());
+    }
+    {
+        window = make<MainWindow>();
+    }
 
     window.Activate();
 }
