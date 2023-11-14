@@ -44,13 +44,15 @@
       </uap:VisualElements>
 		
 		<Extensions>
-			<!-- TODO: not sure if this works or how to make it work? -->
+			<!-- NOTE: this is to launch a packaged WinUI 3 app from command line by just calling "AutoPlayAppCL".
+			     The name of the of the alias needs to be different from the "AutoPlayApp.exe".
+			     recommended from discussion: https://github.com/microsoft/microsoft-ui-xaml/issues/3367. -->
 			<uap5:Extension
 				Category="windows.appExecutionAlias"
-				Executable="AutoPlayApp.exe"
-				EntryPoint="AutoPlayApp.App">
+				EntryPoint="Windows.FullTrustApplication"
+				Executable="AutoPlayApp.exe">
 				<uap5:AppExecutionAlias>
-					<uap5:ExecutionAlias Alias="AutoPlayApp.exe" />
+					<uap5:ExecutionAlias Alias="AutoPlayAppCL.exe" />
 				</uap5:AppExecutionAlias>
 			</uap5:Extension>
 
