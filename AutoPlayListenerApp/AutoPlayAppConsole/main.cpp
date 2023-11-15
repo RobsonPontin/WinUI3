@@ -48,7 +48,7 @@ int main(int argc, char** argv)
     {
         // Launch with Application Manager Interface (COM)
 
-        winrt::hstring appAumid = AUTO_PLAY_APP_PACKAGE_NAME + L"!AppId";
+        winrt::hstring appAumid = AUTO_PLAY_APP_PACKAGE_NAME + L"!App";
         AppLauncher::LaunchApp(appAumid.c_str());
     }
     else if (input.cmdOptionExists("-lp"))
