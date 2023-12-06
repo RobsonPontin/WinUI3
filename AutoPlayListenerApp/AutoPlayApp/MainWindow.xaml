@@ -8,7 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Get WPD Known devices.</Button>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Button x:Name="myButton" Margin="0 5 0 0" Click="myButton_Click">Get WPD Known devices</Button>
+        <Button x:Name="btnTestComServer" Margin="0 5 0 0" Click="btnTestComServer_Click" >Test COM Server</Button>
+        <Button x:Name="btnTestCmdLine" Margin="0 5 0 0" Click="btnTestCmdLine_Click">Test Command Line</Button>
     </StackPanel>
 </Window>

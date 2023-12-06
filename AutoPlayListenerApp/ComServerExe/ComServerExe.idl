@@ -1,0 +1,39 @@
+// ComServerExe.idl : IDL source for ComServerExe
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (ComServerExe.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(0d65aa60-f5c3-454c-bba6-61a2a7094ac0),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IAutoPlayHandler : IDispatch
+{
+	[propget, id(1), helpstring("property TestNumber")] HRESULT TestNumber([out, retval] long* testNumber);
+};
+[
+	uuid(8c755181-d4bb-4abe-8fee-e76f140e5dc6),
+	version(1.0),
+]
+library ComServerExeLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(a5402ef8-0beb-427d-ab14-2231593c419c)
+	]
+	coclass AutoPlayHandler
+	{
+		[default] interface IDropTarget;
+		interface IHWEventHandler;
+		interface IHWEventHandler2;
+	};
+};
+
+import "shobjidl.idl";

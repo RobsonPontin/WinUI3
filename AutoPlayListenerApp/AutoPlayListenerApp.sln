@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AutoPlayAppConsole", "AutoP
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "AutoPlayAppPackage.WAP", "AutoPlayAppPackage.WAP\AutoPlayAppPackage.WAP.wapproj", "{8261B174-2FE3-4972-B1D0-F223553BFC93}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ComServerExe", "ComServerExe\ComServerExe.vcxproj", "{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,26 @@ Global
 		{8261B174-2FE3-4972-B1D0-F223553BFC93}.Release|x86.ActiveCfg = Release|x86
 		{8261B174-2FE3-4972-B1D0-F223553BFC93}.Release|x86.Build.0 = Release|x86
 		{8261B174-2FE3-4972-B1D0-F223553BFC93}.Release|x86.Deploy.0 = Release|x86
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Debug|Any CPU.Build.0 = Debug|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Debug|ARM.ActiveCfg = Debug|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Debug|ARM.Build.0 = Debug|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Debug|ARM64.ActiveCfg = Debug|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Debug|ARM64.Build.0 = Debug|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Debug|x64.ActiveCfg = Debug|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Debug|x64.Build.0 = Debug|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Debug|x86.ActiveCfg = Debug|Win32
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Debug|x86.Build.0 = Debug|Win32
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Release|Any CPU.ActiveCfg = Release|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Release|Any CPU.Build.0 = Release|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Release|ARM.ActiveCfg = Release|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Release|ARM.Build.0 = Release|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Release|ARM64.ActiveCfg = Release|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Release|ARM64.Build.0 = Release|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Release|x64.ActiveCfg = Release|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Release|x64.Build.0 = Release|x64
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Release|x86.ActiveCfg = Release|Win32
+		{C5ABAC44-8A6E-46CE-814F-379905DFCD8E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

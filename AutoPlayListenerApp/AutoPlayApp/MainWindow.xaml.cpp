@@ -6,9 +6,15 @@
 #if __has_include("MainWindow.g.cpp")
 #include "MainWindow.g.cpp"
 #endif
+
+#include <atlbase.h>
+#include <atlcom.h>
+
 #include <iostream>
 #include <string>
 #include <Windows.h>
+#include <tchar.h>
+#include "shobjidl.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -74,5 +80,67 @@ namespace winrt::AutoPlayApp::implementation
             }
             ++i;
         }
+    }
+
+
+    // COM Server Interface
+    class DECLSPEC_UUID("a5402ef8-0beb-427d-ab14-2231593c419c")
+    AutoPlayHandler : public IHWEventHandler
+    {
+    public:
+
+    };
+
+    void winrt::AutoPlayApp::implementation::MainWindow::btnTestComServer_Click(IInspectable const&, RoutedEventArgs const&)
+    {
+        CComPtr<IHWEventHandler> atlSimpleObject;
+        HRESULT hr = atlSimpleObject.CoCreateInstance(__uuidof(AutoPlayHandler));
+        if (SUCCEEDED(hr))
+        {
+            auto hr = atlSimpleObject->Initialize(0);
+            if (SUCCEEDED(hr))
+            {
+                printf("Success!");
+            }
+        }
+
+        atlSimpleObject.Release();
+    }
+
+    winrt::Windows::Foundation::IAsyncAction winrt::AutoPlayApp::implementation::MainWindow::btnTestCmdLine_Click(IInspectable const&, RoutedEventArgs const&)
+    {
+        co_await winrt::resume_background();
+
+        STARTUPINFO si;
+        PROCESS_INFORMATION pi;
+
+        ZeroMemory(&si, sizeof(si));
+        si.cb = sizeof(si);
+        ZeroMemory(&pi, sizeof(pi));
+
+        // Replace this string with the command line you want to execute
+        TCHAR cmdLine[] = _T("D:\\Github\\WinUI3\\AutoPlayListenerApp\\AutoPlayAppPackage.WAP\\bin\\x64\\Debug\\AutoPlayAppConsole\\AutoPlayAppConsole.exe -lp");
+
+        // Start the child process.
+        if (!CreateProcess(NULL,   // No module name (use command line)
+            cmdLine,        // Command line
+            NULL,           // Process handle not inheritable
+            NULL,           // Thread handle not inheritable
+            FALSE,          // Set handle inheritance to FALSE
+            0,              // No creation flags
+            NULL,           // Use parent's environment block
+            NULL,           // Use parent's starting directory
+            &si,            // Pointer to STARTUPINFO structure
+            &pi)           // Pointer to PROCESS_INFORMATION structure
+            )
+        {
+            printf("CreateProcess failed (%d).\n", GetLastError());
+            co_return;
+        }
+
+        // Wait until child process exits.
+        WaitForSingleObject(pi.hProcess, INFINITE);
+
+        // Close process and thread handles
     }
 }

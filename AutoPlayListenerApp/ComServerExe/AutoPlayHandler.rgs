@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {a5402ef8-0beb-427d-ab14-2231593c419c} = s 'AutoPlayHandler class'
+		{
+			ForceRemove Programmable
+			LocalServer32 = s '%MODULE%'
+			{
+				val ServerExecutable = s '%MODULE_RAW%'
+			}
+			TypeLib = s '{8c755181-d4bb-4abe-8fee-e76f140e5dc6}'
+			Version = s '1.0'
+		}
+	}
+}
