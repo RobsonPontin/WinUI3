@@ -53,11 +53,10 @@ void App::OnLaunched(LaunchActivatedEventArgs const& args)
 
     if (iActivatedArgs.Kind() == ActivationKind::Protocol)
     {
-        auto protocol = iActivatedArgs.try_as<ProtocolActivatedEventArgs>();
-        auto data = protocol.Data();
-		if (data != nullptr)
+        auto protocol = iActivatedArgs.try_as<IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData>();
+		if (protocol != nullptr && protocol.Data() != nullptr)
 		{
-			auto argsData = data.Lookup(L"args");
+			auto argsData = protocol.Data().Lookup(L"args");
 			if (argsData != nullptr)
 			{
                 // Get all the arguments from protocol launch including the DeviceId from Autoplay "IHWEventHandler2::HandleEventWithHWND"
