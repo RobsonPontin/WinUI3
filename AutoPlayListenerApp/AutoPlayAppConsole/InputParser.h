@@ -10,8 +10,11 @@ public:
     InputParser(int& argc, char** argv)
     {
         for (int i = 1; i < argc; ++i)
+        {
             this->tokens.push_back(std::string(argv[i]));
+        }
     }
+
     /// @author iain
     const std::string& getCmdOption(const std::string& option) const
     {
@@ -21,14 +24,26 @@ public:
         {
             return *itr;
         }
+
         static const std::string empty_string("");
         return empty_string;
     }
+
     /// @author iain
     bool cmdOptionExists(const std::string& option) const
     {
-        return std::find(this->tokens.begin(), this->tokens.end(), option)
-            != this->tokens.end();
+        return std::find(this->tokens.begin(), this->tokens.end(), option) != this->tokens.end();
+    }
+
+    std::string Stringify()
+    {
+        std::string str;
+        for (int i = 0; i < tokens.size(); ++i)
+        {
+            str.append(tokens[i]);
+        }
+
+        return str;
     }
 private:
     std::vector <std::string> tokens;

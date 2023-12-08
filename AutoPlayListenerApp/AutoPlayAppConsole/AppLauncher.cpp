@@ -47,7 +47,8 @@ void AppLauncher::ShellLaunchApp(winrt::hstring const& packageFamilyName)
 
 winrt::Windows::Foundation::IAsyncAction AppLauncher::ProtocolLaunchURIAsync(
     winrt::hstring const& packageFamilyName, 
-    winrt::hstring const& commandLineUri)
+    winrt::hstring const& commandLineUri,
+    winrt::hstring const& args)
 {
     winrt::Windows::Foundation::Uri packageFamiliyNameUri { commandLineUri };
 
@@ -56,6 +57,7 @@ winrt::Windows::Foundation::IAsyncAction AppLauncher::ProtocolLaunchURIAsync(
 
     winrt::Windows::Foundation::Collections::ValueSet inputData;
     inputData.Insert(L"activation", winrt::box_value(L"autoPlay"));
+    inputData.Insert(L"args", winrt::box_value(args));
 
     co_await winrt::Windows::System::Launcher::LaunchUriAsync(packageFamiliyNameUri, options, inputData);
 }

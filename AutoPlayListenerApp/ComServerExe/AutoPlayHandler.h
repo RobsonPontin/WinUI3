@@ -9,6 +9,8 @@
 #error "Single-threaded COM objects are not properly supported on Windows CE platform, such as the Windows Mobile platforms that do not include full DCOM support. Define _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA to force ATL to support creating single-thread COM object's and allow use of it's single-threaded COM object implementations. The threading model in your rgs file was set to 'Free' as that is the only threading model supported in non DCOM Windows CE platforms."
 #endif
 
+#include <string>
+
 using namespace ATL;
 
 
@@ -24,7 +26,6 @@ class ATL_NO_VTABLE CAutoPlayHandler :
 public:
 	CAutoPlayHandler()
 	{
-		LaunchApp();
 	}
 
 DECLARE_REGISTRY_RESOURCEID(106)
@@ -47,9 +48,8 @@ END_COM_MAP()
 	{
 	}
 
-	HRESULT LaunchApp()
+	HRESULT LaunchApp(PCWSTR pszParams)
 	{
-		// Launch Photos ??
 		STARTUPINFO si;
 		PROCESS_INFORMATION pi;
 
@@ -57,12 +57,15 @@ END_COM_MAP()
 		si.cb = sizeof(si);
 		ZeroMemory(&pi, sizeof(pi));
 
-		// Replace this string with the command line you want to execute
-		TCHAR cmdLine[] = _T("D:\\Github\\WinUI3\\AutoPlayListenerApp\\AutoPlayAppPackage.WAP\\bin\\x64\\Debug\\AutoPlayAppConsole\\AutoPlayAppConsole.exe -lp");
+		std::wstring wStrModulePath = L"D:\\Github\\WinUI3\\AutoPlayListenerApp\\AutoPlayAppPackage.WAP\\bin\\x64\\Debug\\AutoPlayAppConsole\\AutoPlayAppConsole.exe -lp";
+		std::wstring wStrParams (pszParams);
+		
+		std::wstring sStrCmdline = wStrModulePath + L" " + wStrParams;
 
 		// Start the child process.
-		if (!CreateProcess(NULL,   // No module name (use command line)
-			cmdLine,        // Command line
+		if (!CreateProcess(
+			NULL,   // No module name (use command line)
+			(LPWSTR)sStrCmdline.c_str(),        // Command line
 			NULL,           // Process handle not inheritable
 			NULL,           // Thread handle not inheritable
 			FALSE,          // Set handle inheritance to FALSE
@@ -176,8 +179,11 @@ END_COM_MAP()
 		_In_ PCWSTR pszEventType,
 		_In_ HWND hwndOwner)
 	{
-		UNREFERENCED_PARAMETER(pszAltDeviceID);
-		UNREFERENCED_PARAMETER(hwndOwner);
+		 UNREFERENCED_PARAMETER(pszAltDeviceID);
+		 UNREFERENCED_PARAMETER(pszEventType);
+		 UNREFERENCED_PARAMETER(hwndOwner);
+
+		LaunchApp(pszDeviceID);
 
 		return S_OK;
 	}

@@ -29,7 +29,7 @@ namespace winrt::AutoPlayApp::implementation
         InitializeComponent();
 
         this->Title(L"AutoPlay listener App");
-;    }
+    }
 
     int32_t MainWindow::MyProperty()
     {

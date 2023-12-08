@@ -19,8 +19,6 @@ const winrt::hstring AUTO_PLAY_APP_PACKAGE_NAME { L"Rpontin.Winui.AutoPlayApp_9y
 
 int main(int argc, char** argv)
 {
-
-
     InputParser input(argc, argv);
 
     if (input.cmdOptionExists("-h"))
@@ -54,8 +52,13 @@ int main(int argc, char** argv)
     else if (input.cmdOptionExists("-lp"))
     {
         // Launch with Protocol Activation
+        auto hStr = winrt::to_hstring(input.Stringify());
 
-        auto protocolLaunchOp = AppLauncher::ProtocolLaunchURIAsync(AUTO_PLAY_APP_PACKAGE_NAME, WINDOWS_PROTOCOL_AUTO_PLAY_APP);
+        auto protocolLaunchOp = AppLauncher::ProtocolLaunchURIAsync(
+            AUTO_PLAY_APP_PACKAGE_NAME, 
+            WINDOWS_PROTOCOL_AUTO_PLAY_APP,
+            hStr);
+
         protocolLaunchOp.get(); // thread blocking
     }
 

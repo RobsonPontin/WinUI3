@@ -6,6 +6,8 @@
 #include "App.xaml.h"
 #include "MainWindow.xaml.h"
 
+#include <winrt/Microsoft.Windows.AppLifecycle.h>
+
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Microsoft::UI::Xaml;
@@ -42,6 +44,29 @@ App::App(winrt::hstring initCmdLine)
 /// <param name="e">Details about the launch request and process.</param>
 void App::OnLaunched(LaunchActivatedEventArgs const& args)
 {
+    using namespace Windows::ApplicationModel::Activation;
+    using namespace winrt::Microsoft::Windows::AppLifecycle;
+    using namespace winrt::Windows::ApplicationModel::Activation;
+
+    auto activatedArgs = AppInstance::AppInstance::GetCurrent().GetActivatedEventArgs();
+    auto iActivatedArgs = activatedArgs.Data().try_as<IActivatedEventArgs>();
+
+    if (iActivatedArgs.Kind() == ActivationKind::Protocol)
+    {
+        auto protocol = iActivatedArgs.try_as<ProtocolActivatedEventArgs>();
+        auto data = protocol.Data();
+		if (data != nullptr)
+		{
+			auto argsData = data.Lookup(L"args");
+			if (argsData != nullptr)
+			{
+                // Get all the arguments from protocol launch including the DeviceId from Autoplay "IHWEventHandler2::HandleEventWithHWND"
+				auto argsDataStr = argsData.as<hstring>();
+			}
+		}        
+    }
+
+    // kick off Window creation
     window = make<MainWindow>();
     window.Title(L"Init command line: " + m_initArgs);
     window.Activate();
