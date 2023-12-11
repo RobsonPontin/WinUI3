@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+  IgnorableNamespaces="uap uap3 rescap">
+
+  <Identity
+    Name="42b538c7-1541-4626-b6cf-f36ce985e1e9"
+    Publisher="CN=robsonpontin"
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="42b538c7-1541-4626-b6cf-f36ce985e1e9" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>COMServerApp (Package)</DisplayName>
+    <PublisherDisplayName>robsonpontin</PublisherDisplayName>
+    <Logo>Images\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="$targetentrypoint$">
+      <uap:VisualElements
+        DisplayName="COMServerApp (Package)"
+        Description="COMServerApp (Package)"
+        BackgroundColor="transparent"
+        Square150x150Logo="Images\Square150x150Logo.png"
+        Square44x44Logo="Images\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Images\SplashScreen.png" />
+      </uap:VisualElements>
+		
+      <Extensions>		  
+          <com:Extension Category="windows.comServer">			  
+			  <com:ComServer>				  
+				  <com:ExeServer Executable="COMServerApp.exe"
+								 DisplayName="COMServerApp">
+					  
+					  <com:Class Id="ea7aaf40-5e06-426b-adeb-c5d423b0507f" 
+								 DisplayName="ICOMServerAppSimpleInterface" />
+
+					  <com:Class Id="df2a6e21-9da3-4345-9d42-d234a548dad7"
+								 DisplayName="COMServerAppSimpleClass" />
+				  </com:ExeServer>
+			  </com:ComServer>
+          </com:Extension>
+      </Extensions>	      		
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>

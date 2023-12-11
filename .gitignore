@@ -143,3 +143,10 @@
 /AutoPlayListenerApp/ComServerExe/ComServerExe_i.h
 /AutoPlayListenerApp/ComServerExe/ComServerExe_p.c
 /AutoPlayListenerApp/ComServerExe/dlldata.c
+/COMServerApp/.vs/COMServerApp
+/COMServerApp/COMServerApp/COMServerApp/Generated Files
+/COMServerApp/COMServerApp/COMServerApp/x64/Debug
+/COMServerApp/COMServerApp/COMServerApp (Package)/bin/x64/Debug
+/COMServerApp/COMServerApp/COMServerApp (Package)/obj
+/COMServerApp/packages
+/COMServerApp/x64/Debug/COMServerApp
