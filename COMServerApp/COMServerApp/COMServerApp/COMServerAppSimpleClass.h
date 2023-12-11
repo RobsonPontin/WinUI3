@@ -23,6 +23,11 @@ struct __declspec(uuid("df2a6e21-9da3-4345-9d42-d234a548dad7")) COMServerAppSimp
     IPersist,
     ICOMServerAppSimpleInterface>
 {
+public:
+    COMServerAppSimpleClass()
+    {
+    }
+
     HRESULT __stdcall StartApp() noexcept override
     {
         // kicks off a main thread
@@ -43,6 +48,6 @@ struct __declspec(uuid("df2a6e21-9da3-4345-9d42-d234a548dad7")) COMServerAppSimp
 
     winrt::hstring ToString()
     {
-        return L"MyCoclass as a string";
+        return L"COMServerAppSimpleClass as a string";
     }
 };

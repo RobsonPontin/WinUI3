@@ -23,6 +23,8 @@ namespace winrt::COMServerApp::implementation
     void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
     {
         CComPtr<ICOMServerAppSimpleInterface> comServerInterface;
+
+        // TODO: this call will fail due to the App:wWinMain() that will return "0" right away.
         HRESULT hr = comServerInterface.CoCreateInstance(__uuidof(COMServerAppSimpleClass));
         if (SUCCEEDED(hr))
         {
