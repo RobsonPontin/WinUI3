@@ -70,16 +70,3 @@ void App::OnLaunched(LaunchActivatedEventArgs const& args)
     window.Title(L"Init command line: " + m_initArgs);
     window.Activate();
 }
-
-int __stdcall wWinMain(HINSTANCE /*hInstance*/, HINSTANCE /*hPrevInstance*/, PWSTR lpCmdline, int /*nCmdShow*/)
-{
-    winrt::init_apartment(winrt::apartment_type::single_threaded);      
-
-    // NOTE: if activated by command line we can get arguments, example using alias: "AutoPlayAppCL /start" 
-    std::wstring cmdLineStr(lpCmdline);
-
-    Microsoft::UI::Xaml::Application::Start([cmdLineStr](auto&&)
-        { 
-            ::winrt::make<App>(winrt::to_hstring(cmdLineStr.c_str()));
-        });
-}
