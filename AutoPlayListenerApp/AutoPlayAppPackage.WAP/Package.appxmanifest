@@ -5,9 +5,10 @@
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  xmlns:desktop3="http://schemas.microsoft.com/appx/manifest/desktop/windows10/3"
   xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  IgnorableNamespaces="uap desktop3 rescap">
 
 	<Identity
 	  Name="Rpontin.Winui.AutoPlayApp"
@@ -67,7 +68,19 @@
 			<!-- NOTE: bring the console/cli app to the package. -->
 			<desktop:Extension Category="windows.fullTrustProcess"
 							   Executable="AutoPlayAppConsole.exe" />
-
+			
+			<!-- NOTE: using AppxManifest extension for registering all AutoPlay handlers, it also guarantees that
+				on the uninstalling of the application, the handlers will be properly cleaned up.
+				Source: https://learn.microsoft.com/en-us/windows/apps/desktop/modernize/desktop-to-uwp-extensions-->
+			<desktop3:Extension Category="windows.autoPlayHandler">
+				<desktop3:AutoPlayHandler>
+					<desktop3:InvokeAction ActionDisplayName="Import app test" ProviderDisplayName="AutoPlay App Listener">
+						<desktop3:Content ContentEvent="ShowPicturesOnArrival" Verb="show" DropTargetHandler="a5402ef8-0beb-427d-ab14-2231593c419c" />
+						<desktop3:Content ContentEvent="PlayVideoFilesOnArrival" Verb="play" Parameters="%1" />
+						<desktop3:Device DeviceEvent="WPD\ImageSource" HWEventHandler="a5402ef8-0beb-427d-ab14-2231593c419c" InitCmdLine="/autoplay" />
+					</desktop3:InvokeAction>
+				</desktop3:AutoPlayHandler>
+			</desktop3:Extension>
 	  </Extensions>
 	</Application>
   </Applications>
