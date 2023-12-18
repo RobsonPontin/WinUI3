@@ -210,6 +210,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AppLauncher.h" />
     <ClInclude Include="AutoPlayHandler.h" />
     <ClInclude Include="ComServerExe_i.h" />
     <ClInclude Include="framework.h" />
@@ -218,6 +219,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AppLauncher.cpp" />
     <ClCompile Include="AutoPlayHandler.cpp" />
     <ClCompile Include="ComServerExe.cpp" />
     <ClCompile Include="ComServerExe_i.c">

@@ -9,7 +9,9 @@
 #error "Single-threaded COM objects are not properly supported on Windows CE platform, such as the Windows Mobile platforms that do not include full DCOM support. Define _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA to force ATL to support creating single-thread COM object's and allow use of it's single-threaded COM object implementations. The threading model in your rgs file was set to 'Free' as that is the only threading model supported in non DCOM Windows CE platforms."
 #endif
 
-#include <string>
+#include <thread>
+
+#include "AppLauncher.h"
 
 using namespace ATL;
 
@@ -46,46 +48,6 @@ END_COM_MAP()
 
 	void FinalRelease()
 	{
-	}
-
-	HRESULT LaunchApp(PCWSTR pszParams)
-	{
-		STARTUPINFO si;
-		PROCESS_INFORMATION pi;
-
-		ZeroMemory(&si, sizeof(si));
-		si.cb = sizeof(si);
-		ZeroMemory(&pi, sizeof(pi));
-
-		std::wstring wStrModulePath = L"D:\\Github\\WinUI3\\AutoPlayListenerApp\\AutoPlayAppPackage.WAP\\bin\\x64\\Debug\\AutoPlayAppConsole\\AutoPlayAppConsole.exe -lp";
-		std::wstring wStrParams (pszParams);
-		
-		std::wstring sStrCmdline = wStrModulePath + L" " + wStrParams;
-
-		// Start the child process.
-		if (!CreateProcess(
-			NULL,   // No module name (use command line)
-			(LPWSTR)sStrCmdline.c_str(),        // Command line
-			NULL,           // Process handle not inheritable
-			NULL,           // Thread handle not inheritable
-			FALSE,          // Set handle inheritance to FALSE
-			0,              // No creation flags
-			NULL,           // Use parent's environment block
-			NULL,           // Use parent's starting directory
-			&si,            // Pointer to STARTUPINFO structure
-			&pi)           // Pointer to PROCESS_INFORMATION structure
-			)
-		{
-			printf("CreateProcess failed (%d).\n", GetLastError());
-			return S_FALSE;
-		}
-
-		// Wait until child process exits.
-		WaitForSingleObject(pi.hProcess, INFINITE);
-
-		// Close process and thread handles
-
-		return S_OK;
 	}
 
 	// IDropTarget
@@ -179,11 +141,24 @@ END_COM_MAP()
 		_In_ PCWSTR pszEventType,
 		_In_ HWND hwndOwner)
 	{
-		 UNREFERENCED_PARAMETER(pszAltDeviceID);
-		 UNREFERENCED_PARAMETER(pszEventType);
-		 UNREFERENCED_PARAMETER(hwndOwner);
+		UNREFERENCED_PARAMETER(pszAltDeviceID);
+		UNREFERENCED_PARAMETER(pszEventType);
+		UNREFERENCED_PARAMETER(hwndOwner);
 
-		LaunchApp(pszDeviceID);
+		/* ATTENTION:
+		 * 
+		 * Handlers that implement this interface should return quickly from calls to 
+		 * IHWEventHandler2::HandleEventWithHWND so they won't block the AutoPlay dialog from closing.
+		 * 
+		 * For this reason, we create a new thread to handle the work of launching the app.
+		 */
+
+		std::thread thread([=]()
+			{
+				::ComServerExe::AppLauncher::StartWithParam(pszDeviceID);
+			});
+
+		thread.detach();
 
 		return S_OK;
 	}
