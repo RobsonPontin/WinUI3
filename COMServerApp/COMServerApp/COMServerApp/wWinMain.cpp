@@ -13,6 +13,10 @@ int __stdcall wWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, PWSTR l
      * away it will fail to start server on the COM class creation. 
      * 
      * TODO: how this could be handled? do we need a message loop to pump here? (ie. "CAtlExeModuleT::WinMain").
+     * 
+     * References:
+     * - https://github.com/microsoft/cppwinrt/issues/601
+     * - https://learn.microsoft.com/en-us/windows/uwp/cpp-and-winrt-apis/author-coclasses
      */
     std::wstring cmdLineStr(lpCmdline);
     if (cmdLineStr == L"-Embedding")
