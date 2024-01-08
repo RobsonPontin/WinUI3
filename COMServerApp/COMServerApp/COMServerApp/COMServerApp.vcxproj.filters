@@ -12,9 +12,11 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="wWinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="COMServerAppSimpleClass.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

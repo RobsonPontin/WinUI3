@@ -14,12 +14,17 @@ static constexpr GUID IDD_COMServer_App_Simple_Interface_clsid
     0xea7aaf40, 0x5e06, 0x426b, {0xad, 0xeb, 0xc5, 0xd4, 0x23, 0xb0, 0x50, 0x7f}
 };
 
+// TODO: COM interfaces need a proxy stub dll to be consumed.
 struct __declspec(uuid("ea7aaf40-5e06-426b-adeb-c5d423b0507f")) ICOMServerAppSimpleInterface : ::IUnknown
 {
     virtual HRESULT __stdcall StartApp() = 0;
 };
 
-struct __declspec(uuid("df2a6e21-9da3-4345-9d42-d234a548dad7")) COMServerAppSimpleClass : winrt::implements<COMServerAppSimpleClass, 
+// "df2a6e21-9da3-4345-9d42-d234a548dad7"
+static const GUID CLSID_COMServerAppSimpleClass =
+{ 0xdf2a6e21, 0x9da3, 0x4345, { 0x9d, 0x42, 0xd2, 0x34, 0xa5, 0x48, 0xda, 0xd7 } };
+
+struct __declspec(uuid("df2a6e21-9da3-4345-9d42-d234a548dad7")) COMServerAppSimpleClass : winrt::implements<COMServerAppSimpleClass,
     IPersist,
     ICOMServerAppSimpleInterface>
 {
@@ -49,5 +54,28 @@ public:
     winrt::hstring ToString()
     {
         return L"COMServerAppSimpleClass as a string";
+    }
+};
+
+struct COMServerAppSimpleClass_Factory : winrt::implements<COMServerAppSimpleClass_Factory, IClassFactory>
+{
+    HRESULT __stdcall CreateInstance(
+        IUnknown* outer,
+        GUID const& iid,
+        void** result) noexcept final
+    {
+        *result = nullptr;
+
+        if (outer)
+        {
+            return CLASS_E_NOAGGREGATION;
+        }
+
+        return winrt::make<COMServerAppSimpleClass>()->QueryInterface(iid, result);
+    }
+
+    HRESULT __stdcall LockServer(BOOL) noexcept final
+    {
+        return S_OK;
     }
 };

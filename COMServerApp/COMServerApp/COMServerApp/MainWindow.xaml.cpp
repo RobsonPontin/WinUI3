@@ -7,28 +7,24 @@
 #include <atlbase.h>
 #include <atlcom.h>
 
+#include "COMServerAppSimpleClass.h"
+
 using namespace winrt;
-using namespace Microsoft::UI::Xaml;
+using namespace winrt::Microsoft::UI::Xaml;
 
 namespace winrt::COMServerApp::implementation
 {
-    struct __declspec(uuid("ea7aaf40-5e06-426b-adeb-c5d423b0507f")) ICOMServerAppSimpleInterface : ::IUnknown
-    {
-        virtual HRESULT __stdcall StartApp() = 0;
-    };
-
-    class DECLSPEC_UUID("df2a6e21-9da3-4345-9d42-d234a548dad7")
-        COMServerAppSimpleClass;
-
     void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
     {
-        CComPtr<ICOMServerAppSimpleInterface> comServerInterface;
+        // TODO: implement ICOMServerAppSimpleInterface once proxy dll is set
+        CComPtr<IUnknown> comServerInterface;
 
         // TODO: this call will fail due to the App:wWinMain() that will return "0" right away.
-        HRESULT hr = comServerInterface.CoCreateInstance(__uuidof(COMServerAppSimpleClass));
+        HRESULT hr = comServerInterface.CoCreateInstance(CLSID_COMServerAppSimpleClass, nullptr, CLSCTX_LOCAL_SERVER);
         if (SUCCEEDED(hr))
         {
-            comServerInterface->StartApp();
+            // TODO: Implement interface
+            // comServerInterface->StartApp();
         }
     }
 }
