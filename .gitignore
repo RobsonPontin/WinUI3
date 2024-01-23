@@ -150,3 +150,5 @@
 /COMServerApp/COMServerApp/COMServerApp (Package)/obj
 /COMServerApp/packages
 /COMServerApp/x64/Debug/COMServerApp
+/WasdkSelfContainedNativeApp/SelfContainedDeployment/.vs
+/WasdkSelfContainedNativeApp/SelfContainedDeployment/packages
