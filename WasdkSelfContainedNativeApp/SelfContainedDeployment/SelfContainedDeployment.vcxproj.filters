@@ -58,7 +58,4 @@
   <ItemGroup>
     <PRIResource Include="Resources.resw" />
   </ItemGroup>
-  <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest" />
-  </ItemGroup>
 </Project>

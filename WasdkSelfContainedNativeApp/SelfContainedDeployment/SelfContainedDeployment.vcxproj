@@ -194,7 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibIdentityModel\LibIdentityModel.csproj">
-      <Project>{7251c6c8-6500-4be6-ba1e-188fd1f4e24f}</Project>
+      <Project>{3ad063f5-33f3-4209-8912-2f72a5ba2e5d}</Project>
     </ProjectReference>
     <ProjectReference Include="..\LibXaml.Common\LibXaml.Common.vcxproj">
       <Project>{ce2115e2-ae5b-4312-a68f-bd833149dd32}</Project>
@@ -220,9 +220,11 @@
     <Error Condition="!Exists('$(SolutionDir)packages\Microsoft.WindowsAppSDK.1.4.230822000\build\native\Microsoft.WindowsAppSDK.props')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\Microsoft.WindowsAppSDK.1.4.230822000\build\native\Microsoft.WindowsAppSDK.props'))" />
     <Error Condition="!Exists('$(SolutionDir)packages\Microsoft.WindowsAppSDK.1.4.230822000\build\native\Microsoft.WindowsAppSDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\Microsoft.WindowsAppSDK.1.4.230822000\build\native\Microsoft.WindowsAppSDK.targets'))" />
   </Target>
-  <Target Name="_RemoveFrameworkReferences" BeforeTargets="_ConvertItems;_CalculateInputsForGenerateCurrentProjectAppxManifest">
+  <!-- NOTE: removed this from original sample since it was supposed to be added on WASDK v1.1 only:
+       -> https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/self-contained-deploy/deploy-self-contained-apps-->
+  <!--<Target Name="_RemoveFrameworkReferences" BeforeTargets="_ConvertItems;_CalculateInputsForGenerateCurrentProjectAppxManifest">
     <ItemGroup>
       <FrameworkSdkReference Remove="@(FrameworkSdkReference)" Condition="$([System.String]::Copy('%(FrameworkSdkReference.SDKName)').StartsWith('Microsoft.WindowsAppRuntime.'))" />
     </ItemGroup>
-  </Target>
+  </Target>-->
 </Project>
