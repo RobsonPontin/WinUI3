@@ -35,4 +35,10 @@ namespace winrt::SelfContainedDeployment::implementation
         window = winrt::make<MainWindow>();
         window.Activate();
     }
+
+    WF::IAsyncAction App::HandleOnRedirectionActivatedAsync(MWAL::AppActivationArguments /*e*/)
+    {
+        // Redirection from second process succeeded.
+        co_return;
+    }
 }

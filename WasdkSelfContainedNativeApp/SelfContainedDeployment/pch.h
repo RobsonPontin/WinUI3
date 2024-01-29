@@ -16,6 +16,7 @@
 #include <winrt/Windows.ApplicationModel.Activation.h>
 #include <winrt/Windows.UI.Xaml.Interop.h> //For using xaml_typename
 
+#include <winrt/Microsoft.Windows.AppLifecycle.h>
 #include <winrt/Microsoft.UI.Composition.h>
 #include <winrt/Microsoft.UI.Xaml.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
@@ -29,3 +30,7 @@
 #include <winrt/Microsoft.UI.Xaml.Shapes.h>
 #include <winrt/Microsoft.UI.Dispatching.h>
 #include <winrt/Windows.UI.Core.h>
+
+namespace WUX = winrt::Microsoft::UI::Xaml;
+namespace MWAL = winrt::Microsoft::Windows::AppLifecycle;
+namespace WF = winrt::Windows::Foundation;
