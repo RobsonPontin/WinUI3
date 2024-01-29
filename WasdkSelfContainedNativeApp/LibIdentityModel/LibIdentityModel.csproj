@@ -13,4 +13,16 @@
     <PackageReference Include="Microsoft.Identity.Client" Version="4.59.0" />
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.4" />
   </ItemGroup>
+	
+	<!-- NOTE: In order to enable the application to be packaged as WinAppSdk-SelfContained we need
+         to suppress the standalone dependency on Microsoft.Web.WebView2 which is a transient dependency on
+         Microsoft.Identity.Client.Extensions.Msal.
+         For some reason attempting to suppress there does not work, we need to suppress in the CsWinRT component, 
+         probably due to the fact this is the entry point for .NET libraries from the Native C++ App to do the 
+         app packaging + copy of dependencies. -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="$(WebView2ForMsalDependencyVersion)">
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>
