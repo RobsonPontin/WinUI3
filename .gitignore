@@ -165,3 +165,4 @@
 /WasdkSelfContainedNativeApp/packages
 /WasdkSelfContainedNativeApp/x64/Debug
 /WasdkSelfContainedNativeApp/LibIdentityModel/bin/x64/Debug/net8.0-windows10.0.19041.0
+/DotNetSelfContainedNativeApp/NativeHost/bin/Debug/net7.0-windows10.0.19041.0
