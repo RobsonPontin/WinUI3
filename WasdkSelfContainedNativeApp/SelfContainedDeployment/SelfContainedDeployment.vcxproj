@@ -229,4 +229,11 @@
       <FrameworkSdkReference Remove="@(FrameworkSdkReference)" Condition="$([System.String]::Copy('%(FrameworkSdkReference.SDKName)').StartsWith('Microsoft.WindowsAppRuntime.'))" />
     </ItemGroup>
   </Target>-->
+ <!-- NOTE: workaround to ensure the redirection API to send data between process work properly in self-contained.
+            the fix for it will be release on v1.5 of WASDK. -->
+  <Target Name="PrependMicrosoftWindowsAppSDKMetadataFiles" BeforeTargets="AddMicrosoftWindowsAppSDKPayloadFiles" AfterTargets="ExtractMicrosoftWindowsAppSDKMsixFiles">
+    <ItemGroup>
+      <MicrosoftWindowsAppSDKFiles Include="$(MicrosoftWindowsAppSDKMsixContent)\**\*.winmd"/>
+    </ItemGroup>
+  </Target>
 </Project>
