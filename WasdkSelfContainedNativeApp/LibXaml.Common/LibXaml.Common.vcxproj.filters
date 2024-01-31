@@ -19,6 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Class.idl" />
+    <Midl Include="UserControlCommon.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LibXaml_Common.def" />
@@ -26,5 +27,11 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="UserControlCommon.xaml" />
   </ItemGroup>
 </Project>
