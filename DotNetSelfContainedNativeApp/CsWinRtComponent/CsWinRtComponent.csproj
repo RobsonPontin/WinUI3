@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CustomControlsLib\CustomControlsLib.csproj" />
     <ProjectReference Include="..\NativeHost\NativeHost.csproj" />
   </ItemGroup>
 </Project>

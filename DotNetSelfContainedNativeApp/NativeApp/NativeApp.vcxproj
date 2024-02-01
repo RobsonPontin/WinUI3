@@ -181,6 +181,9 @@
     <ProjectReference Include="..\CsWinRtComponent\CsWinRtComponent.csproj">
       <Project>{84c732b6-808b-483b-95fc-10ad6cb00d8d}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\CustomControlsLib\CustomControlsLib.csproj">
+      <Project>{7c70b9e7-8f06-4454-bc07-9a8ac411b09b}</Project>
+    </ProjectReference>
   </ItemGroup>
   <!--
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution

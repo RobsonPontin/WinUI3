@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using CustomControlsLib;
+using Microsoft.UI.Xaml.Controls;
 using System.Diagnostics;
 
 namespace CsWinRtComponent
@@ -13,7 +14,16 @@ namespace CsWinRtComponent
             ContentDialog contentDialog = new();
             contentDialog.XamlRoot = window.Content.XamlRoot;
             contentDialog.PrimaryButtonText = "Ok";
-            contentDialog.Content = "This is a dialog opened from a C#/WinRt Component";
+
+            var stackPanel = new StackPanel();
+            stackPanel.Children.Add(new TextBlock {
+                Text = "This is a dialog opened from a C#/WinRt Component", 
+                Margin = new Microsoft.UI.Xaml.Thickness(0, 5, 5, 0) 
+            });
+            stackPanel.Children.Add(new MyUserControl());
+            stackPanel.Children.Add(new MyOtherUserControl());
+
+            contentDialog.Content = stackPanel;
             
             _ = contentDialog.ShowAsync();
         }

@@ -165,3 +165,8 @@
 /WasdkSelfContainedNativeApp/packages
 /WasdkSelfContainedNativeApp/x64/Debug
 /WasdkSelfContainedNativeApp/LibIdentityModel/bin/x64/Debug/net8.0-windows10.0.19041.0
+/DotNetSelfContainedNativeApp/CsWinRtComponent/bin/x64/Release/net7.0-windows10.0.19041.0
+/DotNetSelfContainedNativeApp/CustomControlsLib/bin
+/DotNetSelfContainedNativeApp/CustomControlsLib/obj
+/DotNetSelfContainedNativeApp/NativeHost/bin/Release/net7.0-windows10.0.19041.0/NativeHost.deps.json
+/DotNetSelfContainedNativeApp/NativeHost/bin/Release/net7.0-windows10.0.19041.0/NativeHost.runtimeconfig.json
