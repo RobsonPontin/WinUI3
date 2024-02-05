@@ -6,16 +6,17 @@
     <CsWinRTEnableLogging>true</CsWinRTEnableLogging>
     <RootNamespace>CsWinRtComponent</RootNamespace>
     <Platforms>x86;x64;ARM64</Platforms>
-    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+    <PublishProfile>FolderProfile.pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230502000" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231219000" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.2" />
   </ItemGroup>
-
+	
   <ItemGroup>
     <ProjectReference Include="..\CustomControlsLib\CustomControlsLib.csproj" />
     <ProjectReference Include="..\NativeHost\NativeHost.csproj" />
