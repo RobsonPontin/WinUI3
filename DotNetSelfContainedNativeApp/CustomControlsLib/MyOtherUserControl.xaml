@@ -6,9 +6,27 @@
     xmlns:local="using:CustomControlsLib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ctc="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <TextBlock>This is my other user control which lives in the CustomControlsLib.</TextBlock>
+        
+        <StackPanel Grid.Row="1" Margin="0 5 0 0">
+            <StackPanel>
+                <ctc:SettingsCard Header="Settings Card">
+                    <ToggleButton Content="This is a toggle"/>
+                </ctc:SettingsCard>
+            </StackPanel>
+            <StackPanel>
+                <ctc:SettingsCard Header="Settings Card 2 ">
+                    <ToggleButton Content="This is a toggle 2"/>
+                </ctc:SettingsCard>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>
