@@ -4,7 +4,7 @@ This sample project shows how a WinUI 3 C++ App can have a dependency on a self-
 
 The idea of this project is to improve launch performance since the application is 100% native, and then by demand load any C#/.NET related code and UI.
 
-![vs_solution](../doc/app_diagram.png)
+![App Diagram](../doc/app_diagram.png)
 
 There are a few benefit of this architecture:
 1. Startup speed of Native app is very fast since it does not require to load .NET runtime dlls
