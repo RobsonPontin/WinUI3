@@ -2,6 +2,10 @@
 
 This sample project shows how a WinUI 3 C++ App can have a dependency on a self-contained C#/WinRt component, access it's APIs and also package itself as a .NET self-contained application.
 
+The idea of this project is to improve launch performance since the application is 100% native, and then by demand load any C#/.NET related code and UI.
+
+![vs_solution](../doc/app_diagram.png)
+
 There are a few benefit of this architecture:
 1. Startup speed of Native app is very fast since it does not require to load .NET runtime dlls
 2. The .NET runtime dlls can be loaded by demand by setting the flag `<XamlCodeGenerationControlFlags>DoNotGenerateOtherProviders</XamlCodeGenerationControlFlags>`, this speeds up startup time for the Native App.
