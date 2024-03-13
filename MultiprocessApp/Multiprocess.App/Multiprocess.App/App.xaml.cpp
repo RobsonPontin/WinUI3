@@ -38,6 +38,7 @@ namespace winrt::Multiprocess::App::implementation
     void App::OnLaunched([[maybe_unused]] LaunchActivatedEventArgs const& e)
     {
         window = make<MainWindow>();
+        window.Title(L"Multiprocess.App");
         window.Activate();
     }
 }

@@ -176,3 +176,8 @@
 /MultiprocessApp/packages
 /MultiprocessApp/x64/Debug
 /MultiprocessApp/.vs
+/MultiprocessApp/Multiprocess.App2/Multiprocess.App2 (Package)/obj
+/MultiprocessApp/Multiprocess.App/Multiprocess.App/Generated Files
+/MultiprocessApp/Multiprocess.App/Multiprocess.App/x64/Debug
+/MultiprocessApp/Multiprocess.App/Multiprocess.App (Package)/bin/x64/Debug
+/MultiprocessApp/Multiprocess.App/Multiprocess.App (Package)/obj
