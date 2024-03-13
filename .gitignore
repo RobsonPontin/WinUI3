@@ -170,3 +170,9 @@
 /DotNetSelfContainedNativeApp/CustomControlsLib/obj
 /DotNetSelfContainedNativeApp/NativeHost/bin/Release/net7.0-windows10.0.19041.0/NativeHost.deps.json
 /DotNetSelfContainedNativeApp/NativeHost/bin/Release/net7.0-windows10.0.19041.0/NativeHost.runtimeconfig.json
+/MultiprocessApp/Multiprocess.App/Generated Files
+/MultiprocessApp/Multiprocess.App/x64/Debug
+/MultiprocessApp/Multiprocess.Service/x64/Debug
+/MultiprocessApp/packages
+/MultiprocessApp/x64/Debug
+/MultiprocessApp/.vs
