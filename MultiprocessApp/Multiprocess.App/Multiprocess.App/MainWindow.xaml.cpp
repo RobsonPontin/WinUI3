@@ -4,6 +4,9 @@
 #include "MainWindow.g.cpp"
 #endif
 
+#include "winrt/Windows.ApplicationModel.h"
+#include "FullTrustAppLauncher.h"
+
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 
@@ -22,8 +25,8 @@ namespace winrt::Multiprocess::App::implementation
         throw hresult_not_implemented();
     }
 
-    void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
+    void MainWindow::btnLaunchService_Click(IInspectable const&, RoutedEventArgs const&)
     {
-        myButton().Content(box_value(L"Clicked"));
+        FullTrustAppLauncher::LaunchService();
     }
 }

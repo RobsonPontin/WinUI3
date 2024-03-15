@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+            <Button x:Name="btnLaunchService" Click="btnLaunchService_Click">Launch Service</Button>
         </StackPanel>
     </Grid>
 </Window>
