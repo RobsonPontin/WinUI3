@@ -16,6 +16,7 @@ namespace winrt::Multiprocess::App::implementation
         void MyProperty(int32_t value);
 
         void btnLaunchService_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
+        void btnLaunchServiceWithShell_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
     };
 }
 

@@ -15,6 +15,7 @@
 
         <StackPanel Orientation="Horizontal">
             <Button x:Name="btnLaunchService" Click="btnLaunchService_Click">Launch Service</Button>
+            <Button x:Name="btnLaunchServiceWithShell" Click="btnLaunchServiceWithShell_Click">Launch Service with Shell</Button>
         </StackPanel>
     </Grid>
 </Window>

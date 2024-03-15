@@ -16,7 +16,7 @@
   <mp:PhoneIdentity PhoneProductId="355f49c5-a2e4-436f-93dd-388beebe3f1f" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Multiprocess.App2 (Package)</DisplayName>
+    <DisplayName>Multiprocess.App (Package)</DisplayName>
     <PublisherDisplayName>robsonpontin</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
