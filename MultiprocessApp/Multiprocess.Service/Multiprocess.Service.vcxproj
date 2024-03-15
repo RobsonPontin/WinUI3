@@ -22,7 +22,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{92ee0d34-8c48-45c0-9e6e-fa1e4ff2cc98}</ProjectGuid>
-    <RootNamespace>MultiprocessService</RootNamespace>
+    <RootNamespace>Multiprocess.Service</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
