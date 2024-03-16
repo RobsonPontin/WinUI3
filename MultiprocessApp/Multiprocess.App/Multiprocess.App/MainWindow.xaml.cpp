@@ -10,8 +10,6 @@
 
 #include "shellapi.h"
 
-#include "FullTrustAppLauncher.h"
-
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 
@@ -23,6 +21,11 @@ namespace winrt::Multiprocess::App::implementation
 	// Forward declaration
 	HWND GetWindowHandle(Microsoft::UI::Xaml::Window const& window);
 	void LaunchFromShell(Microsoft::UI::Xaml::Window const& window);
+
+	MainWindow::MainWindow()
+	{
+		m_processManager = std::make_shared<::Multiprocess::Core::ProcessManager>();
+	}
 
     int32_t MainWindow::MyProperty()
     {
@@ -36,10 +39,10 @@ namespace winrt::Multiprocess::App::implementation
 
     void MainWindow::btnLaunchService_Click(IInspectable const&, RoutedEventArgs const&)
     {
-        FullTrustAppLauncher::LaunchService();
+		m_processManager->CreateBackgroundService();
     }
 
-	void MainWindow::btnLaunchServiceWithShell_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args)
+	void MainWindow::btnLaunchServiceWithShell_Click(IInspectable const&, Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		auto window = this->try_as<Window>();
 		LaunchFromShell(window);
@@ -59,7 +62,7 @@ namespace winrt::Multiprocess::App::implementation
 
 			return hWnd;
 		}
-		catch (winrt::hresult_error const& error)
+		catch (winrt::hresult_error const&)
 		{
 			return { 0 };
 		}

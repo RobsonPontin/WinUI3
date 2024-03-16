@@ -4,23 +4,23 @@
 #include "winrt/Windows.Foundation.Metadata.h"
 #include "winrt/Windows.ApplicationModel.h"
 
-namespace winrt::Multiprocess::App
+namespace Multiprocess
 {
-    const hstring APP_GROUP_ID_BACKGROUND_SERVICE = L"BackgroundService";
+    const winrt::hstring APP_GROUP_ID_BACKGROUND_SERVICE = L"BackgroundService";
 
 	// forward declaration
-    Windows::Foundation::IAsyncAction LaunchServiceAsync(winrt::hstring const param);
+    winrt::Windows::Foundation::IAsyncAction LaunchServiceAsync(winrt::hstring const param);
 
 	void FullTrustAppLauncher::LaunchService()
 	{
         LaunchServiceAsync(APP_GROUP_ID_BACKGROUND_SERVICE);
 	}
 
-	Windows::Foundation::IAsyncAction LaunchServiceAsync(winrt::hstring const param)
+    winrt::Windows::Foundation::IAsyncAction LaunchServiceAsync(winrt::hstring const param)
 	{
         try
         {
-            if (Windows::Foundation::Metadata::ApiInformation::IsApiContractPresent(L"Windows.ApplicationModel.FullTrustAppContract", 1, 0))
+            if (winrt::Windows::Foundation::Metadata::ApiInformation::IsApiContractPresent(L"Windows.ApplicationModel.FullTrustAppContract", 1, 0))
             {
                 // Param needs to match the GroupID defined in the AppxManifest
                 co_await winrt::Windows::ApplicationModel::FullTrustProcessLauncher::LaunchFullTrustProcessForCurrentAppAsync(param);

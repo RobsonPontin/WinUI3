@@ -1,6 +1,6 @@
 #pragma once
 
-namespace winrt::Multiprocess::App
+namespace Multiprocess
 {
 	struct FullTrustAppLauncher
 	{
