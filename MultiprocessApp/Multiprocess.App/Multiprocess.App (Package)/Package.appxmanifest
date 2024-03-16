@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap rescap">
+
+  <Identity
+    Name="355f49c5-a2e4-436f-93dd-388beebe3f1f"
+    Publisher="CN=robsonpontin"
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="355f49c5-a2e4-436f-93dd-388beebe3f1f" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>Multiprocess.App (Package)</DisplayName>
+    <PublisherDisplayName>robsonpontin</PublisherDisplayName>
+    <Logo>Images\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="$targetentrypoint$">
+      <uap:VisualElements
+        DisplayName="Multiprocess.App (Package)"
+        Description="Multiprocess.App2(Package)"
+        BackgroundColor="transparent"
+        Square150x150Logo="Images\Square150x150Logo.png"
+        Square44x44Logo="Images\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Images\SplashScreen.png" />
+      </uap:VisualElements>
+
+      <Extensions>
+        <!-- NOTE: File activation for JPG. -->       
+	    <uap:Extension Category="windows.fileTypeAssociation">
+		    <uap:FileTypeAssociation Name="imagetypes">
+			    <uap:SupportedFileTypes>
+				    <uap:FileType>.jpg</uap:FileType>
+			    </uap:SupportedFileTypes>
+		    </uap:FileTypeAssociation>
+	    </uap:Extension>
+             
+        <desktop:Extension Category="windows.fullTrustProcess"
+                           Executable="Multiprocess.Service/Multiprocess.Service.exe">
+            <desktop:FullTrustProcess>
+                <desktop:ParameterGroup GroupId="BackgroundService" Parameters="/LaunchService"/>
+            </desktop:FullTrustProcess>
+        </desktop:Extension>
+      </Extensions>
+    
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>
