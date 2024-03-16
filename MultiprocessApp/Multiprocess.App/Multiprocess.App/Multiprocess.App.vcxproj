@@ -111,7 +111,7 @@
     <ClInclude Include="MainWindow.xaml.h">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="ProcessRunner.h" />
+    <ClInclude Include="RunningProcess.h" />
     <ClInclude Include="ProcessManager.h" />
   </ItemGroup>
   <ItemGroup>
@@ -129,7 +129,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="ProcessRunner.cpp" />
+    <ClCompile Include="RunningProcess.cpp" />
     <ClCompile Include="ProcessManager.cpp" />
   </ItemGroup>
   <ItemGroup>

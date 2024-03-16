@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ProcessRunner.h"
+#include "RunningProcess.h"
 
 namespace Multiprocess
 {
@@ -12,8 +12,13 @@ namespace Multiprocess
 
 			void CreateBackgroundService();
 
+			std::shared_ptr<std::vector<std::shared_ptr<RunningProcess>>> RunningProcesses()
+			{
+				return m_activeProcesses;
+			}
+
 		private:
-			std::shared_ptr<std::vector<std::shared_ptr<ProcessRunner>>> m_activeProcesses;
+			std::shared_ptr<std::vector<std::shared_ptr<RunningProcess>>> m_activeProcesses;
 		};
 	}
 }

@@ -11,12 +11,12 @@ namespace Multiprocess
 	{
         ProcessManager::ProcessManager()
         {
-            m_activeProcesses = std::make_shared<std::vector<std::shared_ptr<ProcessRunner>>>();
+            m_activeProcesses = std::make_shared<std::vector<std::shared_ptr<RunningProcess>>>();
         }
 
 		void ProcessManager::CreateBackgroundService()
 		{
-			std::shared_ptr<ProcessRunner> process = std::make_shared<ProcessRunner>();
+			std::shared_ptr<RunningProcess> process = std::make_shared<RunningProcess>();
             process->TryInitialize();
 
 			// Ideally we only add to ActiveProcesses once the Process is confirmed to be running, so

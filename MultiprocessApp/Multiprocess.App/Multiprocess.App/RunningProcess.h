@@ -6,9 +6,9 @@ namespace Multiprocess
 {
 	namespace Core
 	{
-		struct ProcessRunner
+		struct RunningProcess
 		{
-			ProcessRunner()
+			RunningProcess()
 			{
 
 			}

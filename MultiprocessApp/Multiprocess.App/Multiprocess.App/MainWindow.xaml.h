@@ -14,6 +14,7 @@ namespace winrt::Multiprocess::App::implementation
 
         void btnLaunchService_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
         void btnLaunchServiceWithShell_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
+        void btnGetProcessesInfo_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
 
     private:
         std::shared_ptr<::Multiprocess::Core::ProcessManager> m_processManager{ nullptr };

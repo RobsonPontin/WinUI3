@@ -10,6 +10,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -17,5 +18,13 @@
             <Button x:Name="btnLaunchService" Click="btnLaunchService_Click">Launch Service</Button>
             <Button x:Name="btnLaunchServiceWithShell" Click="btnLaunchServiceWithShell_Click">Launch Service with Shell</Button>
         </StackPanel>
+
+        <Button x:Name="btnGetProcessesInfo"
+                Grid.Row="1"
+                Content="Get Process Info"
+                Click="btnGetProcessesInfo_Click"/>
+
+        <TextBlock x:Name="tbProcessesInfo"
+                   Grid.Row="2"/>
     </Grid>
 </Window>

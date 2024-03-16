@@ -48,6 +48,16 @@ namespace winrt::Multiprocess::App::implementation
 		LaunchFromShell(window);
 	}
 
+	void MainWindow::btnGetProcessesInfo_Click(IInspectable const&, Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		auto runningProcesses = m_processManager->RunningProcesses();
+		auto first_runningProcess = runningProcesses->begin();
+		auto processInfo = first_runningProcess->get()->ProcessInfo();
+		auto startInfo = first_runningProcess->get()->StartInfo();
+
+		tbProcessesInfo().Text(L"test.......");
+	}
+
 	// ## Utility calls ##
 
 	HWND GetWindowHandle(Microsoft::UI::Xaml::Window const& window)

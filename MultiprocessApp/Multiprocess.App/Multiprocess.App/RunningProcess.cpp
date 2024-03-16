@@ -1,6 +1,6 @@
 #include "pch.h"
 
-#include "ProcessRunner.h"
+#include "RunningProcess.h"
 
 #include <stdio.h>
 #include <tchar.h>
@@ -9,7 +9,7 @@ namespace Multiprocess
 {
     namespace Core
     {
-        void ProcessRunner::TryInitialize()
+        void RunningProcess::TryInitialize()
         {
             m_backgroundService = std::thread([=]()
                 {
@@ -22,11 +22,13 @@ namespace Multiprocess
         /* "The CreateProcess function creates a new process that runs independently of the creating process.
           * For simplicity, this relationship is called a parent-child relationship."
           * More Info: https://learn.microsoft.com/en-us/windows/win32/procthread/creating-processes */
-        void ProcessRunner::CreateBackgroundServiceImpl()
+        void RunningProcess::CreateBackgroundServiceImpl()
         {
             ZeroMemory(&m_srtartupInfo, sizeof(m_srtartupInfo));
             m_srtartupInfo.cb = sizeof(m_srtartupInfo);
             ZeroMemory(&m_processInfo, sizeof(m_processInfo));
+
+            m_srtartupInfo.lpTitle = L"Background Service";
 
             TCHAR buffer[MAX_PATH] = { 0 };
             GetModuleFileName(NULL, buffer, MAX_PATH);
