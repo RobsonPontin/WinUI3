@@ -56,9 +56,28 @@ namespace Multiprocess
                 return;
             }
 
+            m_processStartedCallback(this->shared_from_this());
+
             WaitForSingleObject(m_processInfo.hProcess, INFINITE);
             CloseHandle(m_processInfo.hProcess);
             CloseHandle(m_processInfo.hThread);
+
+            // Notify process shutdown
+            m_processShutdownCallback(this->shared_from_this());
+        }
+
+        // ## Events/Callback for notification. ##
+
+        void RunningProcess::SetProcessStartedCallback(std::function<void(std::shared_ptr<RunningProcess> process)> startedCallback)
+        {
+            std::lock_guard<std::mutex> lock(m_mutex);
+            m_processStartedCallback = startedCallback;
+        }
+
+        void RunningProcess::SetProcessShutdownCallback(std::function<void(std::shared_ptr<RunningProcess> process)> shutdownCallback)
+        {
+            std::lock_guard<std::mutex> lock(m_mutex);
+            m_processShutdownCallback = shutdownCallback;
         }
     }
 }

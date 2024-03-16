@@ -1,19 +1,26 @@
 #pragma once
 
 #include <thread>
+#include <pplawait.h>
+#include <iostream>
+#include "Logger.h"
 
 namespace Multiprocess
 {
 	namespace Core
 	{
-		struct RunningProcess
+		struct RunningProcess : std::enable_shared_from_this<RunningProcess>
 		{
-			RunningProcess()
+			RunningProcess(){ }
+			~RunningProcess() 
 			{
-
+				Utils::Logger::Debug("~RunningProcess()\n");
 			}
 
 			void TryInitialize();
+
+			void SetProcessStartedCallback(std::function<void(std::shared_ptr<RunningProcess> process)> startedCallback);
+			void SetProcessShutdownCallback(std::function<void(std::shared_ptr<RunningProcess> process)> shutdownCallback);
 
 			STARTUPINFO StartInfo() const
 			{
@@ -28,12 +35,15 @@ namespace Multiprocess
 		private:
 			void CreateBackgroundServiceImpl();
 
-			bool m_isRunning{ false };
+			std::thread m_backgroundService;
+			std::mutex m_mutex;
 
 			STARTUPINFO m_srtartupInfo;
 			PROCESS_INFORMATION m_processInfo;
 
-			std::thread m_backgroundService;
+			// Event callbacks
+			std::function<void(std::shared_ptr<RunningProcess> process)> m_processStartedCallback;
+			std::function<void(std::shared_ptr<RunningProcess> process)> m_processShutdownCallback;
 		};
 	}
 }
