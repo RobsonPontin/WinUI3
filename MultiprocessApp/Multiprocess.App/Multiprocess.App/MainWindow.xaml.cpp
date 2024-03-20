@@ -10,14 +10,18 @@
 
 #include "shellapi.h"
 
+#include "AppLauncher.h"
+
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace winrt::Multiprocess::App::implementation
 {
+	const winrt::hstring MULTIPROCESS_APP_PACKAGE_NAME{ L"Rpontin.Winui.MultiprocessApp" };
+	const winrt::hstring MULTIPROCESS_APP_LAUNCH_SPARE_PROTOCOL{ L"wp-launch:spare" };
+	const winrt::hstring MULTIPROCESS_APP_LAUNCH_MAIN_PROTOCOL{ L"wp-launch:main" };
+
 	// Forward declaration
 	HWND GetWindowHandle(Microsoft::UI::Xaml::Window const& window);
 	void LaunchFromShell(Microsoft::UI::Xaml::Window const& window);
@@ -56,6 +60,22 @@ namespace winrt::Multiprocess::App::implementation
 		auto startInfo = first_runningProcess->get()->StartInfo();
 
 		tbProcessesInfo().Text(L"test.......");
+	}
+
+	winrt::Windows::Foundation::IAsyncAction MainWindow::btnRedirectMain_Click(IInspectable const&, Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		co_await ::Multiprocess::AppLauncher::ProtocolLaunchURIAsync(
+			MULTIPROCESS_APP_PACKAGE_NAME, 
+			MULTIPROCESS_APP_LAUNCH_MAIN_PROTOCOL, 
+			L"none");
+	}
+
+	winrt::Windows::Foundation::IAsyncAction MainWindow::btnRedirectSpare_Click(IInspectable const&, Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		co_await ::Multiprocess::AppLauncher::ProtocolLaunchURIAsync(
+			MULTIPROCESS_APP_PACKAGE_NAME,
+			MULTIPROCESS_APP_LAUNCH_SPARE_PROTOCOL,
+			L"none");
 	}
 
 	// ## Utility calls ##
