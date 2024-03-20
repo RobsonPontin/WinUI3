@@ -12,9 +12,11 @@ namespace winrt::Multiprocess::App::implementation
         int32_t MyProperty();
         void MyProperty(int32_t value);
 
-        void btnLaunchService_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
-        void btnLaunchServiceWithShell_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
-        void btnGetProcessesInfo_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
+        void btnLaunchService_Click(IInspectable const&, Microsoft::UI::Xaml::RoutedEventArgs const&);
+        void btnLaunchServiceWithShell_Click(IInspectable const&, Microsoft::UI::Xaml::RoutedEventArgs const&);
+        void btnGetProcessesInfo_Click(IInspectable const&, Microsoft::UI::Xaml::RoutedEventArgs const&);
+        winrt::Windows::Foundation::IAsyncAction btnRedirectMain_Click(IInspectable const&, Microsoft::UI::Xaml::RoutedEventArgs const&);
+        winrt::Windows::Foundation::IAsyncAction btnRedirectSpare_Click(IInspectable const&, Microsoft::UI::Xaml::RoutedEventArgs const&);
 
     private:
         std::shared_ptr<::Multiprocess::Core::ProcessManager> m_processManager{ nullptr };

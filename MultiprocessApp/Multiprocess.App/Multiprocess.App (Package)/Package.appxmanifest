@@ -60,6 +60,12 @@
                 <desktop:ParameterGroup GroupId="BackgroundService" Parameters="/LaunchService"/>
             </desktop:FullTrustProcess>
         </desktop:Extension>
+
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="wp-launchapp">
+            <uap:DisplayName>Multiprocess App</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
       </Extensions>
     
     </Application>

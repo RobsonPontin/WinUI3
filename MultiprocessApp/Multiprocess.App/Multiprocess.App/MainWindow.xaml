@@ -9,22 +9,39 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            <Button x:Name="btnLaunchService" Click="btnLaunchService_Click">Launch Service</Button>
-            <Button x:Name="btnLaunchServiceWithShell" Click="btnLaunchServiceWithShell_Click">Launch Service with Shell</Button>
+            <Button x:Name="btnLaunchService" 
+                    Click="btnLaunchService_Click" 
+                    Content="Launch Service" />
+            
+            <Button x:Name="btnLaunchServiceWithShell"
+                    Click="btnLaunchServiceWithShell_Click"
+                    Content="Launch Service with Shell" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal">
+            <Button x:Name="btnRedirectMain"
+                    Click="btnRedirectMain_Click"
+                    Content="Redirect to Main"/>
+            
+            <Button x:Name="btnRedirectSpare"
+                    Click="btnRedirectSpare_Click"
+                    Content="Redirect to Spare"/>
         </StackPanel>
 
         <Button x:Name="btnGetProcessesInfo"
-                Grid.Row="1"
+                Grid.Row="2"
                 Content="Get Process Info"
                 Click="btnGetProcessesInfo_Click"/>
 
         <TextBlock x:Name="tbProcessesInfo"
-                   Grid.Row="2"/>
+                   Grid.Row="3"/>
     </Grid>
 </Window>
