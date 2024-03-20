@@ -29,7 +29,19 @@ int __stdcall wWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, PWSTR l
     }
     else
     {
-        MWAL::AppInstance keyInstance = MWAL::AppInstance::FindOrRegisterForKey(L"main");
+        /* When registering a Process instance for the first time we will
+         * register an event for Activation to handle redirection requests. 
+         * It would be nicessary for each Process Instance Type:
+         * - Main
+         * - Spare
+         * - Viewer
+         */
+
+        auto mainInstance = MWAL::AppInstance::FindOrRegisterForKey(L"main");
+        if (mainInstance.IsCurrent())
+        {
+            g_activationToken = mainInstance.Activated(&KeyInstance_Activated);
+        }
 
         winrt::Microsoft::UI::Xaml::Application::Start([](auto&&)
             {
@@ -80,11 +92,7 @@ static bool DecideRedirection(winrt::hstring const& processName)
 
         MWAL::AppInstance keyInstance = MWAL::AppInstance::FindOrRegisterForKey(processName);
 
-        if (keyInstance.IsCurrent())
-        {
-            g_activationToken = keyInstance.Activated(&KeyInstance_Activated);
-        }
-        else
+        if (!keyInstance.IsCurrent())
         {
             isRedirect = true;
 
@@ -138,7 +146,7 @@ static WF::IAsyncAction KeyInstance_Activated(WF::IInspectable const& /*sender*/
         WINRT_ASSERT(currentApp != nullptr && L"WUX::Application::Current cannot be casted to App class");
         if (currentApp != nullptr)
         {
-            co_await currentApp.get()->PerformProcessRedirection(args);
+            co_await currentApp.get()->PerformProcessRedirectionAsync(args, L"This is a test");
         }
     }
 
