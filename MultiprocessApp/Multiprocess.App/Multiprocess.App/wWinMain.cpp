@@ -40,6 +40,22 @@ int __stdcall wWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, PWSTR l
     return 0;
 }
 
+std::vector<std::wstring> split_string(const std::wstring& wstr, char delimiter)
+{
+    std::vector<std::wstring> result;
+    size_t start = 0;
+    size_t end = wstr.find(delimiter);
+
+    while (end != std::string::npos)
+    {
+        result.push_back(wstr.substr(start, end - start));
+        start = end + 1;
+        end = wstr.find(delimiter, start);
+    }
+    result.push_back(wstr.substr(start, end));
+    return result;
+}
+
 static bool DecideRedirection(winrt::hstring const& processName)
 {
     bool isRedirect = false;
@@ -96,22 +112,6 @@ static bool DecideRedirection(winrt::hstring const& processName)
     }
 
     return isRedirect;
-}
-
-std::vector<std::wstring> split_string(const std::wstring& wstr, char delimiter)
-{
-    std::vector<std::wstring> result;
-    size_t start = 0;
-    size_t end = wstr.find(delimiter);
-
-    while (end != std::string::npos)
-    {
-        result.push_back(wstr.substr(start, end - start));
-        start = end + 1;
-        end = wstr.find(delimiter, start);
-    }
-    result.push_back(wstr.substr(start, end));
-    return result;
 }
 
 static winrt::fire_and_forget RedirectActivationTo(MWAL::AppInstance const& keyInstance, MWAL::AppActivationArguments const& args)
