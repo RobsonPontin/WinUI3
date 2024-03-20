@@ -18,7 +18,7 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::Multiprocess::App::implementation
 {
-	const winrt::hstring MULTIPROCESS_APP_PACKAGE_NAME{ L"Rpontin.Winui.MultiprocessApp" };
+	const winrt::hstring MULTIPROCESS_APP_PACKAGE_NAME{ L"Rpontin.Winui.MultiprocessApp_9yd5akztwvwhp" };
 	const winrt::hstring MULTIPROCESS_APP_LAUNCH_SPARE_PROTOCOL{ L"wp-launch:spare" };
 	const winrt::hstring MULTIPROCESS_APP_LAUNCH_MAIN_PROTOCOL{ L"wp-launch:main" };
 

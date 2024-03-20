@@ -9,7 +9,7 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="355f49c5-a2e4-436f-93dd-388beebe3f1f"
+    Name="Rpontin.Winui.MultiprocessApp"
     Publisher="CN=robsonpontin"
     Version="1.0.0.0" />
 
@@ -62,7 +62,7 @@
         </desktop:Extension>
 
         <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="wp-launchapp">
+          <uap:Protocol Name="wp-launch">
             <uap:DisplayName>Multiprocess App</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
