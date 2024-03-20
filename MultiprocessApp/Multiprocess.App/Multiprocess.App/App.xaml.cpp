@@ -42,7 +42,7 @@ namespace winrt::Multiprocess::App::implementation
         window.Activate();
     }
 
-    WF::IAsyncAction App::PerformProcessRedirection(MWAL::AppActivationArguments e)
+    WF::IAsyncAction App::PerformProcessRedirectionAsync(MWAL::AppActivationArguments e, winrt::hstring data)
     {
         co_return;
     }
