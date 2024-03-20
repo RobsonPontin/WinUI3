@@ -42,8 +42,14 @@ namespace winrt::Multiprocess::App::implementation
         window.Activate();
     }
 
-    WF::IAsyncAction App::PerformProcessRedirectionAsync(MWAL::AppActivationArguments e, winrt::hstring data)
+    WF::IAsyncAction App::PerformProcessRedirectionAsync(MWAL::AppActivationArguments e)
     {
+        if (auto args = e.Data().try_as< winrt::Windows::ApplicationModel::Activation::IActivatedEventArgs>())
+        {
+            auto kind = args.Kind(); // if protocol type we can parse cmd line args
+            auto prevState = args.PreviousExecutionState();
+        }
+
         co_return;
     }
 }

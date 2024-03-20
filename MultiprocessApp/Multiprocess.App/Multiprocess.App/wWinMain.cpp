@@ -18,6 +18,8 @@ static WF::IAsyncAction g_redirectionActivationOp{ nullptr };
 
 int __stdcall wWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, PWSTR lpCmdline, int /*nCmdShow*/)
 {
+    UNREFERENCED_PARAMETER(hInstance);
+
     winrt::init_apartment(winrt::apartment_type::single_threaded);
 
     auto cmdLineStr = std::wstring(lpCmdline);
@@ -91,7 +93,7 @@ static bool DecideRedirection(winrt::hstring const& processName)
         }
 
         MWAL::AppInstance keyInstance = MWAL::AppInstance::FindOrRegisterForKey(processName);
-
+        
         if (!keyInstance.IsCurrent())
         {
             isRedirect = true;
@@ -146,7 +148,7 @@ static WF::IAsyncAction KeyInstance_Activated(WF::IInspectable const& /*sender*/
         WINRT_ASSERT(currentApp != nullptr && L"WUX::Application::Current cannot be casted to App class");
         if (currentApp != nullptr)
         {
-            co_await currentApp.get()->PerformProcessRedirectionAsync(args, L"This is a test");
+            co_await currentApp.get()->PerformProcessRedirectionAsync(args);
         }
     }
 

@@ -9,7 +9,7 @@ namespace winrt::Multiprocess::App::implementation
         App();
 
         void OnLaunched(Microsoft::UI::Xaml::LaunchActivatedEventArgs const&);
-        WF::IAsyncAction PerformProcessRedirectionAsync(MWAL::AppActivationArguments e, winrt::hstring data);
+        WF::IAsyncAction PerformProcessRedirectionAsync(MWAL::AppActivationArguments e);
 
     private:
         winrt::Microsoft::UI::Xaml::Window window{ nullptr };
