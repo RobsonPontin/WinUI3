@@ -22,4 +22,9 @@
 #include <winrt/Microsoft.UI.Xaml.Navigation.h>
 #include <winrt/Microsoft.UI.Xaml.Shapes.h>
 #include <winrt/Microsoft.UI.Dispatching.h>
+#include <winrt/Microsoft.Windows.AppLifecycle.h>
 #include <wil/cppwinrt_helpers.h>
+
+namespace WF = winrt::Windows::Foundation;
+namespace MWAL = winrt::Microsoft::Windows::AppLifecycle;
+namespace WUX = winrt::Microsoft::UI::Xaml;
