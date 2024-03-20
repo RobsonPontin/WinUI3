@@ -41,4 +41,9 @@ namespace winrt::Multiprocess::App::implementation
         window.Title(L"Multiprocess.App");
         window.Activate();
     }
+
+    WF::IAsyncAction App::PerformProcessRedirection(MWAL::AppActivationArguments e)
+    {
+        co_return;
+    }
 }
