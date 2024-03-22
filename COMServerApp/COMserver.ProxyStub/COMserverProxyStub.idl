@@ -1,0 +1,56 @@
+// COMserver.ProxyStub.idl : IDL source for COMserver.ProxyStub
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (COMserverProxyStub.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(3c63c457-55af-45db-b66c-6bc9822c94f5),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IMySimpleComClass : IUnknown
+{
+	HRESULT Test();
+};
+[
+	object,
+	uuid(4eb7afe3-94bb-480a-9e7e-ad9d788cf04a),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IMyOtherSimpleComClass : IUnknown
+{
+	HRESULT TestOther();
+};
+[
+	uuid(3316872a-c95e-4d36-a8f9-5fbd6c04d441),
+	version(1.0),
+]
+library COMserverProxyStubLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(c59e79bb-187e-4a96-9419-92bb08945970)
+	]
+	coclass MySimpleComClass
+	{
+		[default] interface IMySimpleComClass;
+	};
+	[
+		uuid(7808ef86-686d-4363-8db7-39f5370c0cbe)
+	]
+	coclass MyOtherSimpleComClass
+	{
+		[default] interface IMyOtherSimpleComClass;
+	};
+};
+
+import "shobjidl.idl";
+import "shobjidl.idl";

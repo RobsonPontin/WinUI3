@@ -17,14 +17,13 @@ namespace winrt::COMServerApp::implementation
     void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
     {
         // TODO: implement ICOMServerAppSimpleInterface once proxy dll is set
-        CComPtr<IUnknown> comServerInterface;
+        CComPtr<IMySimpleComClass> comServerInterface;
 
         // TODO: this call will fail due to the App:wWinMain() that will return "0" right away.
         HRESULT hr = comServerInterface.CoCreateInstance(CLSID_COMServerAppSimpleClass, nullptr, CLSCTX_LOCAL_SERVER);
         if (SUCCEEDED(hr))
         {
-            // TODO: Implement interface
-            // comServerInterface->StartApp();
+            comServerInterface->Test();
         }
     }
 }

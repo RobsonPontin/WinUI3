@@ -185,3 +185,9 @@
 /MultiprocessApp/Multiprocess.App.uwp/App/x64/Debug
 /MultiprocessApp/Multiprocess.App.uwp/Package/bin/x64/Debug
 /MultiprocessApp/Multiprocess.App.uwp/Package/obj
+/COMServerApp/COMserver.ProxyStub/x64/Debug
+/COMServerApp/CrossDevice.Contracts.Streaming.ProxyStub/x64/Debug
+/COMServerApp/x64/Debug
+/COMServerApp/COMserver.ProxyStub/COMserverProxyStub_i.c
+/COMServerApp/COMserver.ProxyStub/COMserverProxyStub_i.h
+/COMServerApp/COMserver.ProxyStub/COMserverProxyStub_p.c

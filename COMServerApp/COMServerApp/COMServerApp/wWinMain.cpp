@@ -5,8 +5,7 @@
 #include <wil/resource.h>
 #include <winrt/Microsoft.Windows.AppLifecycle.h>
 #include <winrt/Windows.System.h>
-#include "COMServerAppSimpleClass.h"
-
+#include "LifetimeManager.h"
 
 wil::unique_event _shutdownEvent{ wil::EventOptions::None };
 
@@ -27,17 +26,13 @@ int __stdcall wWinMain(HINSTANCE /*hInstance*/, HINSTANCE /*hPrevInstance*/, PWS
     std::wstring cmdLineStr(lpCmdline);
     if (cmdLineStr == L"-Embedding")
     {
+        //winrt::init_apartment(winrt::apartment_type::multi_threaded);
+
         // Initialize COM before any registration starts
         CoInitialize(nullptr);
 
-        // Register all COM classes in this project, in this case only 1.
-        DWORD registration{};
-        winrt::check_hresult(::CoRegisterClassObject(
-            CLSID_COMServerAppSimpleClass,
-            winrt::make<COMServerAppSimpleClass_Factory>().get(),
-            CLSCTX_LOCAL_SERVER,
-            REGCLS_SINGLEUSE,
-            &registration));
+        auto lifetimeManager = COMServerApp::LifetimeManager::CreateShared();
+        lifetimeManager->RegisterComClass();
 
         /* Call CoWaitForMultipleObjects to wait for new message to come in
          * from other processes which will kick the instancing of COM objects.* /
@@ -45,11 +40,11 @@ int __stdcall wWinMain(HINSTANCE /*hInstance*/, HINSTANCE /*hPrevInstance*/, PWS
         /* TODO: _shutdownEvent is still not getting released, it should be set() once all 
          * ref count of COM obj reached 0 and the process can be shutdown. */
         DWORD index{};
-        HANDLE events[] = { _shutdownEvent.get() };
+        HANDLE events[] = { lifetimeManager->GetSHutdownEventHandle()};
         winrt::check_hresult(CoWaitForMultipleObjects(CWMO_DISPATCH_CALLS | CWMO_DISPATCH_WINDOW_MESSAGES, INFINITE,
             static_cast<ULONG>(std::size(events)), events, &index));
 
-        return E_FAIL;
+        return S_OK;
     }
 
     winrt::init_apartment(winrt::apartment_type::single_threaded);

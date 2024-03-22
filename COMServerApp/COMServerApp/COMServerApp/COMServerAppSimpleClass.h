@@ -5,6 +5,7 @@
 
 #include <wil/resource.h>
 #include <winrt/Windows.Foundation.h>
+#include "LifetimeManager.h"
 
 
 // This GUID is the same GUID that was provided in the 
@@ -20,28 +21,48 @@ struct __declspec(uuid("ea7aaf40-5e06-426b-adeb-c5d423b0507f")) ICOMServerAppSim
     virtual HRESULT __stdcall StartApp() = 0;
 };
 
+struct __declspec(uuid("3c63c457-55af-45db-b66c-6bc9822c94f5")) IMySimpleComClass : public ::IUnknown
+{
+public:
+    virtual HRESULT STDMETHODCALLTYPE Test(void) = 0;
+};
+
 // "df2a6e21-9da3-4345-9d42-d234a548dad7"
 static const GUID CLSID_COMServerAppSimpleClass =
 { 0xdf2a6e21, 0x9da3, 0x4345, { 0x9d, 0x42, 0xd2, 0x34, 0xa5, 0x48, 0xda, 0xd7 } };
 
 struct __declspec(uuid("df2a6e21-9da3-4345-9d42-d234a548dad7")) COMServerAppSimpleClass : winrt::implements<COMServerAppSimpleClass,
     IPersist,
-    ICOMServerAppSimpleInterface>
+    ICOMServerAppSimpleInterface,
+    IMySimpleComClass>
 {
 public:
     COMServerAppSimpleClass()
     {
+        COMServerApp::LifetimeManager::CreateShared()->Lock();
+    }
+
+    ~COMServerAppSimpleClass()
+    {
+        COMServerApp::LifetimeManager::CreateShared()->Unlock();
     }
 
     HRESULT __stdcall StartApp() noexcept override
     {
         // kicks off a main thread
-        std::thread([=]()
+        std::thread thread([=]()
             {
                 // call DLL main func
                 wWinMain(0, 0, 0, 0);
             });
 
+        thread.detach();
+
+        return S_OK;
+    }
+
+    HRESULT __stdcall Test()
+    {
         return S_OK;
     }
 

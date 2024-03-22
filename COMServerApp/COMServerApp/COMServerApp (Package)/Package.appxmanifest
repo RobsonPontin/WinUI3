@@ -59,6 +59,14 @@
 				  </com:ExeServer>
 			  </com:ComServer>
           </com:Extension>
+
+          <com:Extension Category="windows.comInterface">
+              <com:ComInterface>
+                  <com:ProxyStub Id="3c63c457-55af-45db-b66c-6bc9822c94f5" DisplayName="COMserver.ProxyStub" Path="COMserver.ProxyStub.dll"/>
+                  <com:Interface Id="3c63c457-55af-45db-b66c-6bc9822c94f5" ProxyStubClsid="3c63c457-55af-45db-b66c-6bc9822c94f5"/>
+              </com:ComInterface>
+          </com:Extension>
+          
       </Extensions>	      		
     </Application>
   </Applications>
