@@ -19,6 +19,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="COMServerAppSimpleClass.h" />
     <ClInclude Include="LifetimeManager.h" />
+    <ClInclude Include="MyOtherSimpleComClass.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

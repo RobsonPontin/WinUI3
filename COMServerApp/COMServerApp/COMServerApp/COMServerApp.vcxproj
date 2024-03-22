@@ -103,6 +103,7 @@
   <ItemGroup>
     <ClInclude Include="COMServerAppSimpleClass.h" />
     <ClInclude Include="LifetimeManager.h" />
+    <ClInclude Include="MyOtherSimpleComClass.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>

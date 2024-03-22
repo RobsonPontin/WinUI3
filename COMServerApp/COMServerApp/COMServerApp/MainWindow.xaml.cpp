@@ -8,22 +8,28 @@
 #include <atlcom.h>
 
 #include "COMServerAppSimpleClass.h"
+#include "MyOtherSimpleComClass.h"
 
 using namespace winrt;
 using namespace winrt::Microsoft::UI::Xaml;
 
 namespace winrt::COMServerApp::implementation
 {
+    CComPtr<IMySimpleComClass> m_mySimpleComclass;
+    CComPtr<IMyOtherSimpleComClass> m_myOtherSimpleComclass;
+
     void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
     {
-        // TODO: implement ICOMServerAppSimpleInterface once proxy dll is set
-        CComPtr<IMySimpleComClass> comServerInterface;
-
-        // TODO: this call will fail due to the App:wWinMain() that will return "0" right away.
-        HRESULT hr = comServerInterface.CoCreateInstance(CLSID_COMServerAppSimpleClass, nullptr, CLSCTX_LOCAL_SERVER);
+        HRESULT hr = m_mySimpleComclass.CoCreateInstance(CLSID_COMServerAppSimpleClass, nullptr, CLSCTX_LOCAL_SERVER);
         if (SUCCEEDED(hr))
         {
-            comServerInterface->Test();
+            m_mySimpleComclass->Test();
+        }
+
+        hr = m_myOtherSimpleComclass.CoCreateInstance(CLSID_MyOtherSimpleComClass, nullptr, CLSCTX_LOCAL_SERVER);
+        if (SUCCEEDED(hr))
+        {
+            m_myOtherSimpleComclass->TestOther();
         }
     }
 }

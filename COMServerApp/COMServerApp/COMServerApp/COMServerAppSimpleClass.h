@@ -10,17 +10,6 @@
 
 // This GUID is the same GUID that was provided in the 
 // registration of the COM Server and Class Id in the .appxmanifest.
-static constexpr GUID IDD_COMServer_App_Simple_Interface_clsid
-{ /* ea7aaf40-5e06-426b-adeb-c5d423b0507f */
-    0xea7aaf40, 0x5e06, 0x426b, {0xad, 0xeb, 0xc5, 0xd4, 0x23, 0xb0, 0x50, 0x7f}
-};
-
-// TODO: COM interfaces need a proxy stub dll to be consumed.
-struct __declspec(uuid("ea7aaf40-5e06-426b-adeb-c5d423b0507f")) ICOMServerAppSimpleInterface : ::IUnknown
-{
-    virtual HRESULT __stdcall StartApp() = 0;
-};
-
 struct __declspec(uuid("3c63c457-55af-45db-b66c-6bc9822c94f5")) IMySimpleComClass : public ::IUnknown
 {
 public:
@@ -33,7 +22,6 @@ static const GUID CLSID_COMServerAppSimpleClass =
 
 struct __declspec(uuid("df2a6e21-9da3-4345-9d42-d234a548dad7")) COMServerAppSimpleClass : winrt::implements<COMServerAppSimpleClass,
     IPersist,
-    ICOMServerAppSimpleInterface,
     IMySimpleComClass>
 {
 public:
@@ -47,22 +35,17 @@ public:
         COMServerApp::LifetimeManager::CreateShared()->Unlock();
     }
 
-    HRESULT __stdcall StartApp() noexcept override
+    HRESULT __stdcall Test()
     {
         // kicks off a main thread
         std::thread thread([=]()
             {
                 // call DLL main func
-                wWinMain(0, 0, 0, 0);
+                wWinMain(0, 0, L"", 0);
             });
 
         thread.detach();
 
-        return S_OK;
-    }
-
-    HRESULT __stdcall Test()
-    {
         return S_OK;
     }
 
