@@ -9,6 +9,7 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+        <Button x:Name="btnComInterface" Click="btnComInterface_Click">Test COM interface 1 - Create new app instance.</Button>
+        <Button x:Name="btnComInterface2" Click="btnComInterface2_Click">Test COM interface 2.</Button>
     </StackPanel>
 </Window>
