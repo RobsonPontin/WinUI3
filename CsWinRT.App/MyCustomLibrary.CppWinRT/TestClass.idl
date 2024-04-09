@@ -1,0 +1,15 @@
+namespace MyCustomLibrary
+{
+    enum MyType
+    {
+        Type1,
+        Type2,
+        Type3
+    };
+
+    [default_interface]
+    static runtimeclass TestClass
+    {
+        static Int32 AddAndGetResult();
+    };
+}

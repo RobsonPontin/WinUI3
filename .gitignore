@@ -191,3 +191,13 @@
 /COMServerApp/COMserver.ProxyStub/COMserverProxyStub_i.c
 /COMServerApp/COMserver.ProxyStub/COMserverProxyStub_i.h
 /COMServerApp/COMserver.ProxyStub/COMserverProxyStub_p.c
+/CsWinRT.App/.vs/CsWinRT.App
+/CsWinRT.App/CsWinRT.App/bin/x64/Debug/net8.0-windows10.0.22621.0/win-x64
+/CsWinRT.App/CsWinRT.App/obj
+/CsWinRT.App/MyCustomLibrary/x64/Debug
+/CsWinRT.App/MyCustomLibrary.CppWinRT/Generated Files
+/CsWinRT.App/MyCustomLibrary.CppWinRT/x64/Debug
+/CsWinRT.App/MyCustomLibrary.CsWinRT/bin/x64/Debug/net8.0-windows10.0.22621.0
+/CsWinRT.App/MyCustomLibrary.CsWinRT/obj
+/CsWinRT.App/packages
+/CsWinRT.App/x64/Debug
