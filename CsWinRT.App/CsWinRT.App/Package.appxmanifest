@@ -44,8 +44,17 @@
       </uap:VisualElements>
     </Application>
   </Applications>
+    <Extensions>
+        <!-- NOTE: this ensure the WinRT Host will look for the proper dll since it does not match namespace. -->
+        <Extension Category="windows.activatableClass.inProcessServer">
+            <InProcessServer>
+                <Path>MyCustomLibrary.CppWinRT.dll</Path>
+                <ActivatableClass ActivatableClassId="MyCustomLibrary.TestClass" ThreadingModel="both" />
+            </InProcessServer>
+        </Extension>
+    </Extensions>
 
-  <Capabilities>
+    <Capabilities>
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
 </Package>
