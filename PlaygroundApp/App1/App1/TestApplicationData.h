@@ -2,14 +2,18 @@
 
 #include <winrt/Windows.Storage.h>
 
+#include "DebugLog.h"
+
 namespace Playground
 {
 	struct TestApplicationData
 	{
         TestApplicationData() = default;
 
-        void Init();
-        void Test();
+        DebugLogRecord Init();
+        DebugLogRecord Write1000StringEntries();
+        DebugLogRecord Read1000StringEntries();
+        DebugLogRecord ReadAndWriteFromMultipleThreads();
 
     private:
         winrt::Windows::Storage::ApplicationData m_applicationData{ nullptr };

@@ -9,16 +9,22 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
             <Button x:Name="btnTestApplicationDataContainer"
                     Click="btnTestApplicationDataContainer_Click"
                     Content="Test ApplicationDataContainer"/>
+        </StackPanel>
+
+        <StackPanel Background="DimGray"
+                    Grid.Row="1">
+            <RichTextBlock TextWrapping="Wrap"
+                           x:Name="btnRtbFeedback"/>
         </StackPanel>
     </Grid>
 </Window>

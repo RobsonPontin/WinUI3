@@ -208,3 +208,6 @@
 /PlaygroundApp/App1/App1 (Package)/obj
 /PlaygroundApp/Debug/App1
 /PlaygroundApp/packages
+/PlaygroundApp/x64
+/PlaygroundApp/App1/App1/x64
+/PlaygroundApp/App1/App1 (Package)/bin/x64

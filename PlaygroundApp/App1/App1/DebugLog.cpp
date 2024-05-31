@@ -8,6 +8,14 @@ namespace Playground
 	// Forward declaration
 	void LogToOutput(const wchar_t* szFormat, ...);
 
+	DebugLogRecord::DebugLogRecord(
+		std::wstring_view name,
+		uint32_t totalElapsedTime)
+		: Name(name)
+		, TotalElapsedTime(totalElapsedTime)
+	{
+	}
+
 	DebugLog::DebugLog(std::wstring_view name)
 			: m_startTime(std::chrono::high_resolution_clock::now())
 			, m_name(name)
@@ -23,15 +31,6 @@ namespace Playground
 
 		LogToOutput(L"[DebugLog][%ls] total %d ms \n", m_name.c_str(),m_record.TotalElapsedTime);
 	}
-
-	DebugLog::DebugLogRecord::DebugLogRecord(
-		std::wstring_view name,
-		uint32_t totalElapsedTime)
-			: Name(name)
-			, TotalElapsedTime(totalElapsedTime)
-		{
-		}
-
 
 	void LogToOutput(const wchar_t* szFormat, ...)
 	{

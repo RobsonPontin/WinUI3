@@ -17,6 +17,8 @@ namespace winrt::Playground::implementation
 
     private:
         std::shared_ptr<::Playground::TestApplicationData> m_testApplicationData;
+
+        void UpdateTextBlock(winrt::hstring const& txt);
     };
 }
 
