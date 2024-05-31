@@ -13,7 +13,7 @@ namespace Playground
         DebugLogRecord Init();
         DebugLogRecord Write1000StringEntries();
         DebugLogRecord Read1000StringEntries();
-        DebugLogRecord ReadAndWriteFromMultipleThreads();
+        void ReadAndWriteFromMultipleThreads();
 
     private:
         winrt::Windows::Storage::ApplicationData m_applicationData{ nullptr };

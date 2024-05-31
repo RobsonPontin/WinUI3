@@ -58,7 +58,7 @@ namespace Playground
         return debugLog.LogRecord();
     }
 
-    DebugLogRecord TestApplicationData::ReadAndWriteFromMultipleThreads()
+    void TestApplicationData::ReadAndWriteFromMultipleThreads()
 	{
         if (!m_applicationData)
         {
