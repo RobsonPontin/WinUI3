@@ -23,7 +23,12 @@
 
             <Button x:Name="btnTestSaveDialogWin32Api"
                     Click="btnTestSaveDialogWin32Api_Click"
-                    Content="Save Dialog Win32"/>
+                    Content="Save Dialog Win32"
+                    Margin="0 0 5 0"/>
+
+            <Button x:Name="btnTestSaveDialogComShell"
+                    Content="Save Dialog COM/Shell"
+                    Click="btnTestSaveDialogComShell_Click"/>
         </StackPanel>
 
         <StackPanel Background="DimGray"

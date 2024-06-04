@@ -50,7 +50,7 @@ namespace winrt::Playground::implementation
         btnRtbFeedback().Blocks().Append(txtParagraph);
     }
 
-    winrt::Windows::Foundation::IAsyncAction MainWindow::btnTestSaveDialogWin32Api_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    winrt::Windows::Foundation::IAsyncAction MainWindow::btnTestSaveDialogWin32Api_Click(IInspectable const&, RoutedEventArgs const&)
     {
         auto hWnd = GetWindowHandle();        
         auto file = co_await m_testSaveApis->OpenFilePickerWinRTAsync(hWnd);
@@ -59,6 +59,13 @@ namespace winrt::Playground::implementation
             auto str = winrt::to_string(file.Path());
             m_testSaveApis->OpenSaveFileDialogWin32(hWnd, str);
         }
+    }
+
+    winrt::Windows::Foundation::IAsyncAction MainWindow::btnTestSaveDialogComShell_Click(IInspectable const&, RoutedEventArgs const&)
+    {
+        // Running this on the UI thread causes issues
+        co_await winrt::resume_background();
+        m_testSaveApis->OpenSaveFileDialogComShell();
     }
 
     HWND MainWindow::GetWindowHandle()
