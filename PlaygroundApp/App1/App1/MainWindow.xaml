@@ -14,11 +14,16 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Center">
             <Button x:Name="btnTestApplicationDataContainer"
                     Click="btnTestApplicationDataContainer_Click"
-                    Content="Test ApplicationDataContainer"/>
+                    Content="Test ApplicationDataContainer"
+                    Margin="5 0 5 0"/>
+
+            <Button x:Name="btnTestSaveDialogWin32Api"
+                    Click="btnTestSaveDialogWin32Api_Click"
+                    Content="Save Dialog Win32"/>
         </StackPanel>
 
         <StackPanel Background="DimGray"

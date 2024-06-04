@@ -5,15 +5,16 @@
 #endif
 
 #include <winrt/Microsoft.UI.Xaml.Documents.h>
+#include <winrt/Windows.Storage.h>
+#include <microsoft.ui.xaml.window.h>
 
 #include "TestApplicationData.h"
+#include "TestSaveApis.h"
+
 #include "DebugLog.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace winrt::Playground::implementation
 {
@@ -23,6 +24,7 @@ namespace winrt::Playground::implementation
         // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
 
         m_testApplicationData = std::make_shared<::Playground::TestApplicationData>();
+        m_testSaveApis = std::make_shared<::Playground::TestSaveApis>();
     }
 
     void MainWindow::btnTestApplicationDataContainer_Click(IInspectable const&, RoutedEventArgs const&)
@@ -46,5 +48,27 @@ namespace winrt::Playground::implementation
         txtParagraph.Inlines().Append(txtRun);
 
         btnRtbFeedback().Blocks().Append(txtParagraph);
+    }
+
+    winrt::Windows::Foundation::IAsyncAction MainWindow::btnTestSaveDialogWin32Api_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    {
+        auto hWnd = GetWindowHandle();        
+        auto file = co_await m_testSaveApis->OpenFilePickerWinRTAsync(hWnd);
+        if (file != nullptr)
+        {
+            auto str = winrt::to_string(file.Path());
+            m_testSaveApis->OpenSaveFileDialogWin32(hWnd, str);
+        }
+    }
+
+    HWND MainWindow::GetWindowHandle()
+    {
+        auto windowNative{ (*this).try_as<::IWindowNative>() };
+        winrt::check_bool(windowNative);
+
+        HWND hWnd{ 0 };
+        windowNative->get_WindowHandle(&hWnd);
+
+        return hWnd;
     }
 }
