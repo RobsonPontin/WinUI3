@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "TestSaveApis.h"
+#include "TestPickerApis.h"
 
 #include <winrt/Windows.Storage.Pickers.h>
 #include <microsoft.ui.xaml.window.h>
@@ -9,7 +9,7 @@
 
 namespace Playground
 {
-    winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::StorageFile> TestSaveApis::OpenFilePickerWinRTAsync(HWND hWnd)
+    winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::StorageFile> TestPickerApis::OpenFilePickerWinRTAsync(HWND hWnd)
     {
         auto picker = winrt::Windows::Storage::Pickers::FileOpenPicker();
         picker.ViewMode(winrt::Windows::Storage::Pickers::PickerViewMode::Thumbnail);
@@ -24,13 +24,13 @@ namespace Playground
         co_return file;
     }
 
-	void TestSaveApis::OpenSaveFileDialogWin32(HWND wHandle, std::string filePath)
+	void TestPickerApis::OpenSaveFileDialogWin32(HWND wHandle, std::string filePath)
 	{
         LPSTR lpstrPath = const_cast<LPSTR>(filePath.c_str());
         SaveDialogWin32(wHandle, lpstrPath);
 	}
 
-    void TestSaveApis::SaveDialogWin32(HWND wHandle, LPSTR path)
+    void TestPickerApis::SaveDialogWin32(HWND wHandle, LPSTR path)
     {
         OPENFILENAMEA ofn = { 0 };
 
@@ -73,12 +73,15 @@ namespace Playground
         return filterSpecs;
     }
 
-    void TestSaveApis::OpenSaveFileDialogComShell()
+    winrt::Windows::Foundation::IAsyncAction TestPickerApis::OpenSaveFileDialogComShellAsync()
     {
+        // Resume to a worker thread to avoid Re-entrancy issues if calling COM from the Xaml UI thread.
+        co_await winrt::resume_background();
+
         HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
         if (FAILED(hr))
         {
-            return;
+            co_return;
         }
 
         winrt::hstring defaultFolder = L"C:\\Users\\robsonpontin\\Downloads";

@@ -14,11 +14,13 @@
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="TestApplicationData.cpp" />
     <ClCompile Include="DebugLog.cpp" />
+    <ClCompile Include="TestPickerApis.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="TestApplicationData.h" />
     <ClInclude Include="DebugLog.h" />
+    <ClInclude Include="TestPickerApis.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

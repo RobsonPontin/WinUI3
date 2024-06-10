@@ -5,7 +5,7 @@
 namespace Playground
 {
     struct TestApplicationData;
-    struct TestSaveApis;
+    struct TestPickerApis;
 }
 
 namespace winrt::Playground::implementation
@@ -19,7 +19,7 @@ namespace winrt::Playground::implementation
         winrt::Windows::Foundation::IAsyncAction btnTestSaveDialogComShell_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     private:
         std::shared_ptr<::Playground::TestApplicationData> m_testApplicationData;
-        std::shared_ptr<::Playground::TestSaveApis> m_testSaveApis;
+        std::shared_ptr<::Playground::TestPickerApis> m_testSaveApis;
 
         void UpdateTextBlock(winrt::hstring const& txt);
         HWND GetWindowHandle();

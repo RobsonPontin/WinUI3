@@ -9,7 +9,7 @@
 #include <microsoft.ui.xaml.window.h>
 
 #include "TestApplicationData.h"
-#include "TestSaveApis.h"
+#include "TestPickerApis.h"
 
 #include "DebugLog.h"
 
@@ -24,7 +24,7 @@ namespace winrt::Playground::implementation
         // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
 
         m_testApplicationData = std::make_shared<::Playground::TestApplicationData>();
-        m_testSaveApis = std::make_shared<::Playground::TestSaveApis>();
+        m_testSaveApis = std::make_shared<::Playground::TestPickerApis>();
     }
 
     void MainWindow::btnTestApplicationDataContainer_Click(IInspectable const&, RoutedEventArgs const&)
@@ -63,9 +63,7 @@ namespace winrt::Playground::implementation
 
     winrt::Windows::Foundation::IAsyncAction MainWindow::btnTestSaveDialogComShell_Click(IInspectable const&, RoutedEventArgs const&)
     {
-        // Running this on the UI thread causes issues
-        co_await winrt::resume_background();
-        m_testSaveApis->OpenSaveFileDialogComShell();
+        co_await m_testSaveApis->OpenSaveFileDialogComShellAsync();
     }
 
     HWND MainWindow::GetWindowHandle()

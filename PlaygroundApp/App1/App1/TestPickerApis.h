@@ -4,13 +4,13 @@
 
 namespace Playground
 {
-	struct TestSaveApis
+	struct TestPickerApis
 	{
-		TestSaveApis() = default;
+		TestPickerApis() = default;
 
 		winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::StorageFile> OpenFilePickerWinRTAsync(HWND hWnd);
 		void OpenSaveFileDialogWin32(HWND wHandle, std::string filePath);
-		void OpenSaveFileDialogComShell();
+		winrt::Windows::Foundation::IAsyncAction OpenSaveFileDialogComShellAsync();
 
 	private:
 		void SaveDialogWin32(HWND wHandle, LPSTR path);

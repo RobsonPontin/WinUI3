@@ -120,7 +120,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="TestApplicationData.h" />
-    <ClInclude Include="TestSaveApis.h" />
+    <ClInclude Include="TestPickerApis.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -139,7 +139,7 @@
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="TestApplicationData.cpp" />
-    <ClCompile Include="TestSaveApis.cpp" />
+    <ClCompile Include="TestPickerApis.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MainWindow.idl">
