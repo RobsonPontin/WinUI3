@@ -1,4 +1,8 @@
 using Microsoft.UI.Xaml;
+using Microsoft.Graph;
+using Microsoft.Graph.Beta.Models;
+using Microsoft.Graph.Beta.Models.ODataErrors;
+using Windows.Media.Protection.PlayReady;
 
 namespace TrimmedApp
 {
@@ -15,6 +19,9 @@ namespace TrimmedApp
         private void myButton_Click(object sender, RoutedEventArgs e)
         {
             myButton.Content = "Clicked";
+
+            var graphServiceClient = new GraphClientOptions();
+            graphServiceClient.GraphServiceTargetVersion = "beta";
         }
     }
 }
