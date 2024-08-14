@@ -8,13 +8,15 @@
 #include <winrt/Windows.Storage.h>
 #include <microsoft.ui.xaml.window.h>
 
+#include <filesystem>
+
 #include "TestApplicationData.h"
 #include "TestPickerApis.h"
 
 #include "DebugLog.h"
 
 using namespace winrt;
-using namespace Microsoft::UI::Xaml;
+using namespace winrt::Microsoft::UI::Xaml;
 
 namespace winrt::Playground::implementation
 {
@@ -75,5 +77,24 @@ namespace winrt::Playground::implementation
         windowNative->get_WindowHandle(&hWnd);
 
         return hWnd;
+    }
+
+    void MainWindow::btnLaunchProcessFromShellApi_Click(IInspectable const&, RoutedEventArgs const&)
+    {
+        // This is defined in the AppxManifest
+        std::wstring filePath = L"PlaygroundApp.exe";
+
+        SHELLEXECUTEINFO sei{};
+        sei.cbSize = sizeof(SHELLEXECUTEINFO);
+        sei.fMask = SEE_MASK_DEFAULT;
+        sei.lpVerb = L"open";
+        sei.lpFile = filePath.data();
+        auto quotedFilePath = std::format(L"\"{}\"", filePath.data());
+        sei.lpParameters = quotedFilePath.c_str();
+        sei.nShow = SW_SHOWNORMAL;
+        if (!ShellExecuteEx(&sei))
+        {
+            // Failed.
+        }
     }
 }

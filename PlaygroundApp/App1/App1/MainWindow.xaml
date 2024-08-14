@@ -29,6 +29,10 @@
             <Button x:Name="btnTestSaveDialogComShell"
                     Content="Save Dialog COM/Shell"
                     Click="btnTestSaveDialogComShell_Click"/>
+
+            <Button x:Name="btnLaunchProcessFromShellApi"
+                    Content="Launch Process from Shell API"
+                    Click="btnLaunchProcessFromShellApi_Click"/>
         </StackPanel>
 
         <StackPanel Background="DimGray"
