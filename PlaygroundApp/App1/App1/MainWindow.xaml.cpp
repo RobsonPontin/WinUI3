@@ -8,9 +8,8 @@
 #include <winrt/Windows.Storage.h>
 #include <microsoft.ui.xaml.window.h>
 
-#include <filesystem>
-
 #include "TestApplicationData.h"
+#include "TestLauncher.h"
 #include "TestPickerApis.h"
 
 #include "DebugLog.h"
@@ -27,6 +26,7 @@ namespace winrt::Playground::implementation
 
         m_testApplicationData = std::make_shared<::Playground::TestApplicationData>();
         m_testSaveApis = std::make_shared<::Playground::TestPickerApis>();
+        m_testLauncher = std::make_shared<::Playground::TestLauncher>();
     }
 
     void MainWindow::btnTestApplicationDataContainer_Click(IInspectable const&, RoutedEventArgs const&)
@@ -81,20 +81,11 @@ namespace winrt::Playground::implementation
 
     void MainWindow::btnLaunchProcessFromShellApi_Click(IInspectable const&, RoutedEventArgs const&)
     {
-        // This is defined in the AppxManifest
-        std::wstring filePath = L"PlaygroundApp.exe";
+        m_testLauncher->StartWithShellApi();
+    }
 
-        SHELLEXECUTEINFO sei{};
-        sei.cbSize = sizeof(SHELLEXECUTEINFO);
-        sei.fMask = SEE_MASK_DEFAULT;
-        sei.lpVerb = L"open";
-        sei.lpFile = filePath.data();
-        auto quotedFilePath = std::format(L"\"{}\"", filePath.data());
-        sei.lpParameters = quotedFilePath.c_str();
-        sei.nShow = SW_SHOWNORMAL;
-        if (!ShellExecuteEx(&sei))
-        {
-            // Failed.
-        }
+    void MainWindow::btnLaunchProcessWin32CreateProcessApi_Click(IInspectable const&, RoutedEventArgs const&)
+    {
+        m_testLauncher->StartWithWin32CreateProcessApi();
     }
 }

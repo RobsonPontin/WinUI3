@@ -33,6 +33,10 @@
             <Button x:Name="btnLaunchProcessFromShellApi"
                     Content="Launch Process from Shell API"
                     Click="btnLaunchProcessFromShellApi_Click"/>
+
+            <Button x:Name="btnLaunchProcessWin32CreateProcessApi"
+                    Content="Launch Process with Win32 CreateProcessW"
+                    Click="btnLaunchProcessWin32CreateProcessApi_Click"/>
         </StackPanel>
 
         <StackPanel Background="DimGray"
