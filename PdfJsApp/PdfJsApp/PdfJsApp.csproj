@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
+    <WindowsSdkPackageVersion>10.0.22621.35-preview</WindowsSdkPackageVersion>
     <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.19044.0</TargetPlatformMinVersion>
     <RootNamespace>PdfJsApp</RootNamespace>
@@ -23,9 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240802000" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2651.64" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240807006-preview1" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
-    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.8" />
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.1" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
