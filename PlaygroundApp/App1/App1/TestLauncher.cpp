@@ -3,7 +3,9 @@
 
 #include <winrt/Windows.Storage.h>
 
+#include <atlbase.h>
 #include <filesystem>
+#include <ShObjIdl.h>
 
 #include <wil/resource.h>
 #include <wil/stl.h>
@@ -12,6 +14,7 @@
 namespace Playground
 {
     constexpr std::wstring_view PlaygroundExe{ L"Playground.exe" };
+    const winrt::hstring PLAYGROUND_APP_PACKAGE_NAME{ L"Rpontin.Winui.PlaygroundApp_9yd5akztwvwhp" };
 
 	void TestLauncher::StartWithShellApi()
 	{
@@ -65,6 +68,86 @@ namespace Playground
         {
             // Fail
             auto lastError = GetLastError();
+        }
+    }
+
+    void TestLauncher::StartWithActivationManager()
+    {
+        HRESULT hr = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
+        if (FAILED(hr))
+        {
+            wprintf(L"LaunchApp %s: Failed to init COM. hr = 0x%08lx \n", PLAYGROUND_APP_PACKAGE_NAME.c_str(), hr);
+            return;
+        }
+        
+        CComPtr<IApplicationActivationManager> appActivationMgr = nullptr;
+        if (SUCCEEDED(hr))
+        {
+            hr = CoCreateInstance(
+                CLSID_ApplicationActivationManager,
+                nullptr,
+                CLSCTX_LOCAL_SERVER,
+                IID_PPV_ARGS(&appActivationMgr));
+
+            if (FAILED(hr))
+            {
+                wprintf(L"LaunchApp %s: Failed to create Application Activation Manager.hr = 0x % 08lx \n", PLAYGROUND_APP_PACKAGE_NAME.c_str(), hr);
+            }
+        }
+
+        if (SUCCEEDED(hr))
+        {
+            winrt::hstring aumid = PLAYGROUND_APP_PACKAGE_NAME + L"!App";
+
+            DWORD pid = 0;
+            hr = appActivationMgr->ActivateApplication(aumid.c_str(), nullptr, AO_NONE, &pid);
+            if (FAILED(hr))
+            {
+                wprintf(L"LaunchApp %s: Failed to Activate App. hr = 0x%08lx \n", PLAYGROUND_APP_PACKAGE_NAME.c_str(), hr);
+            }
+        }
+        
+        CoUninitialize();
+    }
+
+    void TestLauncher::StartWithActivationManagerForFile(winrt::hstring const& wsFilePath)
+    {
+        HRESULT result = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
+        if (SUCCEEDED(result))
+        {
+            CComPtr<IApplicationActivationManager> appActivationMgr = nullptr;
+            result = CoCreateInstance(
+                CLSID_ApplicationActivationManager,
+                NULL,
+                CLSCTX_LOCAL_SERVER,
+                IID_IApplicationActivationManager,
+                (LPVOID*)&appActivationMgr);
+
+            if (SUCCEEDED(result))
+            {
+                IShellItem* pShellItem = NULL;
+                IShellItemArray* pShellItemArray = NULL;
+
+                HRESULT hr = SHCreateItemFromParsingName(wsFilePath.c_str(), NULL, IID_PPV_ARGS(&pShellItem));
+                if (hr == S_OK && pShellItem != NULL)
+                {
+                    hr = SHCreateShellItemArrayFromShellItem(pShellItem, IID_IShellItemArray, (VOID**)&pShellItemArray);
+                    if (hr == S_OK && pShellItemArray != NULL)
+                    {
+                        DWORD pid = 0;
+                        winrt::hstring appAumid = PLAYGROUND_APP_PACKAGE_NAME + L"!App";
+
+                        // NOTE: at this point the whole app will fail crash
+                        hr = appActivationMgr->ActivateForFile(appAumid.c_str(), pShellItemArray, NULL, &pid);
+                        if (FAILED(hr))
+                        {
+                            // Fail
+                        }
+                    }
+                }
+            }
+
+            CoUninitialize();
         }
     }
 }

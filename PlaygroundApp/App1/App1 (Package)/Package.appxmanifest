@@ -10,7 +10,7 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="80b2f799-4754-4a54-85c3-18a4561abe97"
+    Name="Rpontin.Winui.PlaygroundApp"
     Publisher="CN=robsonpontin"
     Version="1.0.0.0" />
 

@@ -37,6 +37,14 @@
             <Button x:Name="btnLaunchProcessWin32CreateProcessApi"
                     Content="Launch Process with Win32 CreateProcessW"
                     Click="btnLaunchProcessWin32CreateProcessApi_Click"/>
+
+            <Button x:Name="btnLaunchProcessActivationManager"
+                    Content="Launch Process with ActivationManager"
+                    Click="btnLaunchProcessActivationManager_Click"/>
+
+            <Button x:Name="btnLaunchProcessActivationManagerForFile"
+                    Content="Launch Process with ActivationManager for File"
+                    Click="btnLaunchProcessActivationManagerForFile_Click"/>
         </StackPanel>
 
         <StackPanel Background="DimGray"

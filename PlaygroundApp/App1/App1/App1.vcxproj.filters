@@ -15,12 +15,15 @@
     <ClCompile Include="TestApplicationData.cpp" />
     <ClCompile Include="DebugLog.cpp" />
     <ClCompile Include="TestPickerApis.cpp" />
+    <ClCompile Include="TestLauncher.cpp" />
+    <ClCompile Include="wWinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="TestApplicationData.h" />
     <ClInclude Include="DebugLog.h" />
     <ClInclude Include="TestPickerApis.h" />
+    <ClInclude Include="TestLauncher.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -38,5 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\image.jpg">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
 </Project>

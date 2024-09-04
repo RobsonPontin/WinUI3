@@ -19,6 +19,8 @@ using namespace winrt::Microsoft::UI::Xaml;
 
 namespace winrt::Playground::implementation
 {
+    const winrt::hstring APP_ASSETS_IMAGE_JPG_TEST{ L"ms-appx:///Assets/image.jpg" };
+
     MainWindow::MainWindow()
     {
         // Xaml objects should not call InitializeComponent during construction.
@@ -87,5 +89,15 @@ namespace winrt::Playground::implementation
     void MainWindow::btnLaunchProcessWin32CreateProcessApi_Click(IInspectable const&, RoutedEventArgs const&)
     {
         m_testLauncher->StartWithWin32CreateProcessApi();
+    }
+
+    void MainWindow::btnLaunchProcessActivationManager_Click(IInspectable const&, RoutedEventArgs const&)
+    {
+        m_testLauncher->StartWithActivationManager();
+    }
+
+    void MainWindow::btnLaunchProcessActivationManagerForFile_Click(IInspectable const&,RoutedEventArgs const&)
+    {
+        m_testLauncher->StartWithActivationManagerForFile(APP_ASSETS_IMAGE_JPG_TEST);
     }
 }
