@@ -98,9 +98,10 @@ namespace Playground
         if (SUCCEEDED(hr))
         {
             winrt::hstring aumid = PLAYGROUND_APP_PACKAGE_NAME + L"!App";
+            winrt::hstring arguments = L"my arguments test";
 
             DWORD pid = 0;
-            hr = appActivationMgr->ActivateApplication(aumid.c_str(), nullptr, AO_NONE, &pid);
+            hr = appActivationMgr->ActivateApplication(aumid.c_str(), arguments.c_str(), AO_NONE, &pid);
             if (FAILED(hr))
             {
                 wprintf(L"LaunchApp %s: Failed to Activate App. hr = 0x%08lx \n", PLAYGROUND_APP_PACKAGE_NAME.c_str(), hr);
