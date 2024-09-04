@@ -120,8 +120,7 @@ namespace Playground
         winrt::Windows::System::LauncherOptions options;
         options.TargetApplicationPackageFamilyName(MICROSOFT_PHOTOS_PACKAGE_NAME);
 
-        bool result = false;
-        result = co_await winrt::Windows::System::Launcher::LaunchUriAsync(photosUri, options, nullptr);
+        co_await winrt::Windows::System::Launcher::LaunchUriAsync(photosUri, options, nullptr);
     }
 
     void TestLauncher::StartWithActivationManagerForFile(winrt::hstring const& filePath)
