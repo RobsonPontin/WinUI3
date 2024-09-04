@@ -2,6 +2,7 @@
 #include "TestLauncher.h"
 
 #include <winrt/Windows.Storage.h>
+#include <winrt/Windows.System.h>
 
 #include <atlbase.h>
 #include <filesystem>
@@ -15,6 +16,7 @@ namespace Playground
 {
     constexpr std::wstring_view PlaygroundExe{ L"Playground.exe" };
     const winrt::hstring PLAYGROUND_APP_PACKAGE_NAME{ L"Rpontin.Winui.PlaygroundApp_9yd5akztwvwhp" };
+    constexpr std::wstring_view MICROSOFT_PHOTOS_PACKAGE_NAME = L"Microsoft.Windows.Photos_8wekyb3d8bbwe";
 
 	void TestLauncher::StartWithShellApi()
 	{
@@ -111,7 +113,18 @@ namespace Playground
         CoUninitialize();
     }
 
-    void TestLauncher::StartWithActivationManagerForFile(winrt::hstring const& wsFilePath)
+    winrt::Windows::Foundation::IAsyncAction TestLauncher::StartPhotosAppWithProtocolLaunchForFile(winrt::hstring const& filePath)
+    {
+        winrt::hstring uriSchema = L"ms-photos:viewer?fileName=" + filePath;
+        winrt::Windows::Foundation::Uri photosUri{ uriSchema };
+        winrt::Windows::System::LauncherOptions options;
+        options.TargetApplicationPackageFamilyName(MICROSOFT_PHOTOS_PACKAGE_NAME);
+
+        bool result = false;
+        result = co_await winrt::Windows::System::Launcher::LaunchUriAsync(photosUri, options, nullptr);
+    }
+
+    void TestLauncher::StartWithActivationManagerForFile(winrt::hstring const& filePath)
     {
         HRESULT result = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
         if (SUCCEEDED(result))
@@ -129,7 +142,7 @@ namespace Playground
                 IShellItem* pShellItem = NULL;
                 IShellItemArray* pShellItemArray = NULL;
 
-                HRESULT hr = SHCreateItemFromParsingName(wsFilePath.c_str(), NULL, IID_PPV_ARGS(&pShellItem));
+                HRESULT hr = SHCreateItemFromParsingName(filePath.c_str(), NULL, IID_PPV_ARGS(&pShellItem));
                 if (hr == S_OK && pShellItem != NULL)
                 {
                     hr = SHCreateShellItemArrayFromShellItem(pShellItem, IID_IShellItemArray, (VOID**)&pShellItemArray);

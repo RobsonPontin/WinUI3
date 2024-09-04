@@ -10,10 +10,10 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal"
+        <StackPanel Orientation="Vertical"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center">
             <Button x:Name="btnTestApplicationDataContainer"
@@ -45,6 +45,10 @@
             <Button x:Name="btnLaunchProcessActivationManagerForFile"
                     Content="Launch Process with ActivationManager for File"
                     Click="btnLaunchProcessActivationManagerForFile_Click"/>
+
+            <Button x:Name="btnLaunchPhotosAppWithProtocolLaunchForFile"
+                    Content="Launch Photos App with Protocol Launch for File"
+                    Click="btnLaunchPhotosAppWithProtocolLaunchForFile_Click"/>
         </StackPanel>
 
         <StackPanel Background="DimGray"

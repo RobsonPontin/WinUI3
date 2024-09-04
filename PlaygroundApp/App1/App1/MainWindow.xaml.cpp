@@ -100,4 +100,11 @@ namespace winrt::Playground::implementation
     {
         m_testLauncher->StartWithActivationManagerForFile(APP_ASSETS_IMAGE_JPG_TEST);
     }
+
+    void MainWindow::btnLaunchPhotosAppWithProtocolLaunchForFile_Click(IInspectable const&, RoutedEventArgs const&)
+    {
+        // NOTE: change file path to match your case
+        winrt::hstring filePath = L"C:\\Users\\robsonpontin\\Pictures\\image.jpg";
+        m_testLauncher->StartPhotosAppWithProtocolLaunchForFile(filePath);
+    }
 }
