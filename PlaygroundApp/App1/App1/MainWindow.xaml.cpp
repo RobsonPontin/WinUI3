@@ -6,6 +6,7 @@
 
 #include <winrt/Microsoft.UI.Xaml.Documents.h>
 #include <winrt/Windows.Storage.h>
+#include <winrt/Microsoft.UI.Windowing.h>
 #include <microsoft.ui.xaml.window.h>
 
 #include "TestApplicationData.h"
@@ -106,5 +107,17 @@ namespace winrt::Playground::implementation
         // NOTE: change file path to match your case
         winrt::hstring filePath = L"C:\\Users\\robsonpontin\\Pictures\\image.jpg";
         m_testLauncher->StartPhotosAppWithProtocolLaunchForFile(filePath);
+    }
+
+    void MainWindow::btnToggleExtendsContentIntoTitleBar_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+    {
+        if (this->ExtendsContentIntoTitleBar())
+        {
+            this->ExtendsContentIntoTitleBar(false);
+        }
+        else
+        {
+            this->ExtendsContentIntoTitleBar(true);
+        }
     }
 }
