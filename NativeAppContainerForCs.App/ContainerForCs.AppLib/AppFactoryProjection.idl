@@ -1,0 +1,9 @@
+
+namespace ContainerForCs.AppLib
+{
+	[default_interface]
+	unsealed runtimeclass AppFactory
+	{
+		static Microsoft.UI.Xaml.Application CreateApp();
+	}
+}

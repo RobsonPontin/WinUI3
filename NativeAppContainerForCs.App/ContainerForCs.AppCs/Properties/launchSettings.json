@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ContainerForCs.AppCs (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ContainerForCs.AppCs (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
