@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup>
+    <PublishAot>false</PublishAot>
+  </PropertyGroup>
+</Project>
