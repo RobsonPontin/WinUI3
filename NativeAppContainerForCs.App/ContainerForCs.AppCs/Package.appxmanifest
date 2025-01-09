@@ -45,6 +45,16 @@
     </Application>
   </Applications>
 
+    <Extensions>
+        <!-- Note: Required to consume a CsWinRT Component -->
+        <Extension Category="windows.activatableClass.inProcessServer">
+            <InProcessServer>
+                <Path>WinRT.Host.dll</Path>
+                <ActivatableClass ActivatableClassId="ContainerForCs.CsWinRtComponent.MyCsWinRtComponentClass" ThreadingModel="both" />
+            </InProcessServer>
+        </Extension>
+    </Extensions>
+    
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Props\Version.Dependencies.props" />
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <RootNamespace>ContainerForCs.CsWinRtComponent</RootNamespace>
+    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+    <Platforms>x64;ARM64</Platforms>
+    <UseWinUI>true</UseWinUI>
+    <CsWinRTComponent>true</CsWinRTComponent>
+    <!-- TODO: Workaround to fix an issue of WebView2 and CsWinRT related to SourceGenerator giving "Access to the path 'Generated Files\\CsWinRT\' is denied.'."
+               It should be fixed on future version of WebView2. -->
+    <CsWinRTGeneratedFilesDir>$([MSBuild]::NormalizeDirectory('$(MSBuildProjectDirectory)', '$(IntermediateOutputPath)', 'Generated Files', 'CsWinRT'))</CsWinRTGeneratedFilesDir>
+    <CsWinRTEnableLogging>true</CsWinRTEnableLogging>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="$(CsWinRtVersion)" />
+  </ItemGroup>
+  
+</Project>

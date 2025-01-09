@@ -24,3 +24,6 @@
 #include <winrt/Microsoft.UI.Xaml.Shapes.h>
 #include <winrt/Microsoft.UI.Dispatching.h>
 #include <wil/cppwinrt_helpers.h>
+
+// Note: import winrt header for the CsWinRT component
+#include <winrt/ContainerForCs.CsWinRtComponent.h>

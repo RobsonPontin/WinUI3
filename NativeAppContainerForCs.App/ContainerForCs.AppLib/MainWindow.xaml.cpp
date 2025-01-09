@@ -25,5 +25,11 @@ namespace winrt::ContainerForCs::AppLib::implementation
     void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
     {
         myButton().Content(box_value(L"Clicked"));
+
+        auto result = winrt::ContainerForCs::CsWinRtComponent::MyCsWinRtComponentClass::TestMe();
+        if (result)
+        {
+            // Success
+        }
     }
 }
