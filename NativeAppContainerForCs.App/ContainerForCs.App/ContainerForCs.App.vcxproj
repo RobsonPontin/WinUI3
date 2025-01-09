@@ -142,6 +142,9 @@
     <ProjectReference Include="..\ContainerForCs.AppLib\ContainerForCs.AppLib.vcxproj">
       <Project>{39de45cf-196b-497f-8a68-e40c0f74910f}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\ContainerForCs.CsWinRtComponent\ContainerForCs.CsWinRtComponent.csproj">
+      <Project>{71c22721-5bc2-41a1-90f0-de89489c57d2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <!--
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
