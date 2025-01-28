@@ -2,7 +2,7 @@
 
 #include "MainWindow.g.h"
 
-namespace winrt::COMServerApp::implementation
+namespace winrt::COM::ClientApp::implementation
 {
     struct MainWindow : MainWindowT<MainWindow>
     {
@@ -12,12 +12,14 @@ namespace winrt::COMServerApp::implementation
             // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
         }
 
-        void btnComInterface_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
-        void btnComInterface2_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
+        int32_t MyProperty();
+        void MyProperty(int32_t value);
+
+        void myButton_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
     };
 }
 
-namespace winrt::COMServerApp::factory_implementation
+namespace winrt::COM::ClientApp::factory_implementation
 {
     struct MainWindow : MainWindowT<MainWindow, implementation::MainWindow>
     {

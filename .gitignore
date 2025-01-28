@@ -246,3 +246,6 @@
 /NativeAppContainerForCs.App/ContainerForCs.CsWinRtComponent/Generated Files/CsWinRT
 /NativeAppContainerForCs.App/ContainerForCs.CsWinRtComponent/obj
 /NativeAppContainerForCs.App/ContainerForCs.CsWinRtComponent/bin/x64/Debug/net8.0-windows10.0.22621.0
+/COMServerApp/COM.ClientApp/COM.ClientApp/Generated Files
+/COMServerApp/COM.ClientApp/COM.ClientApp/x64/Debug
+/COMServerApp/COM.ClientApp/COM.ClientApp (Package)/obj
