@@ -10,6 +10,8 @@
     Title="COM.ClientApp">
 
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+        <Button x:Name="myButton" Click="myButton_Click">Start</Button>
+        <Button x:Name="btnStop" Click="btnStop_Click">Stop</Button>
+        <Button x:Name="btnTestProxyStub" Click="btnTestProxyStub_Click">Test Proxy Stub</Button>
     </StackPanel>
 </Window>

@@ -4,6 +4,8 @@
 #include "MainWindow.g.cpp"
 #endif
 
+#include <winrt/COM.ServerLib.h>
+
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 
@@ -28,14 +30,35 @@ namespace winrt::COM::ClientApp::implementation
         return winrt::create_instance<winrt::Windows::Foundation::IStringable>(guid, CLSCTX_LOCAL_SERVER);
     }
 
+	winrt::Windows::Foundation::IStringable m_stringableInstance;
+
     void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
     {
         myButton().Content(box_value(L"Clicked"));
 
-		auto instance = create_my_server_instance();
-        auto value = instance.ToString();
+        if (m_stringableInstance == nullptr)
+        {
+            m_stringableInstance = create_my_server_instance();
+        }
+
+        auto value = m_stringableInstance.ToString();
 
         auto instance2 = create_my_server_instance();
-        auto value2 = instance.ToString();
+        auto value2 = instance2.ToString();
+    }
+
+    void MainWindow::btnStop_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args)
+    {
+        m_stringableInstance = nullptr;
+    }
+
+    void MainWindow::btnTestProxyStub_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args)
+    {
+        auto guid = winrt::guid("{ec39b7db-b506-4489-804d-5844ec346b54}");
+        auto instance = winrt::create_instance<winrt::COM::ServerLib::IProcessCommunication>(guid, CLSCTX_LOCAL_SERVER);
+		auto result = instance.IsThisWorking();
+        auto paths = instance.FilePaths();
+
+        auto path = paths.First().Current();
     }
 }

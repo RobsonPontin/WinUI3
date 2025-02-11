@@ -16,6 +16,8 @@ namespace winrt::COM::ClientApp::implementation
         void MyProperty(int32_t value);
 
         void myButton_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
+        void btnStop_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
+		void btnTestProxyStub_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
     };
 }
 

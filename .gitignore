@@ -249,3 +249,8 @@
 /COMServerApp/COM.ClientApp/COM.ClientApp/Generated Files
 /COMServerApp/COM.ClientApp/COM.ClientApp/x64/Debug
 /COMServerApp/COM.ClientApp/COM.ClientApp (Package)/obj
+/COMServerApp/COM.ProxyStubs/x64/Debug
+/COMServerApp/COM.Server.Proxy/Generated Files
+/COMServerApp/COM.Server.Proxy/x64/Debug
+/COMServerApp/COM.ServerLib/Generated Files
+/COMServerApp/COM.ServerLib/x64/Debug

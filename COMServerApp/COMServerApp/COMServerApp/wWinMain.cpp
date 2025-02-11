@@ -11,6 +11,9 @@
 #include <chrono>
 #include <random>
 
+#include <winrt/Windows.Foundation.Collections.h>
+#include <winrt/COM.ServerLib.h>
+
 wil::unique_event _shutdownEvent{ wil::EventOptions::None };
 
 struct MyServer : winrt::implements<MyServer, winrt::Windows::Foundation::IStringable>
@@ -40,28 +43,49 @@ struct MyServer : winrt::implements<MyServer, winrt::Windows::Foundation::IStrin
     }
 };
 
-auto create_my_server_instance()
+struct MyCustomServer : winrt::implements<MyCustomServer, winrt::COM::ServerLib::IProcessCommunication>
 {
-    auto guid = winrt::guid_of<MyServer>();    
-    return winrt::create_instance<winrt::Windows::Foundation::IStringable>(guid, CLSCTX_LOCAL_SERVER);
-}
+    MyCustomServer()
+    {
+    }
+
+    bool IsThisWorking()
+    {
+        return true;
+    }
+
+	winrt::Windows::Foundation::Collections::IVector<winrt::hstring> FilePaths()
+	{
+		winrt::Windows::Foundation::Collections::IVector<winrt::hstring> paths = winrt::single_threaded_vector<winrt::hstring>();
+		paths.Append(L"Path1");
+		paths.Append(L"Path2");
+        paths.Append(L"Path3");
+		paths.Append(L"Path4");
+		paths.Append(L"Path5");
+		paths.Append(L"Path6");
+		paths.Append(L"Path7");
+
+		return paths;
+	}
+};
 
 void HandleModuleNotifier()
 {
     _shutdownEvent.SetEvent();
 }
 
-int __stdcall wWinMain(HINSTANCE /*hInstance*/, HINSTANCE /*hPrevInstance*/, PWSTR lpCmdline, int /*nCmdShow*/)
+int __stdcall wWinMain(HINSTANCE /*hInstance*/, HINSTANCE /*hPrevInstance*/, PWSTR /*lpCmdline*/, int /*nCmdShow*/)
 {
-	using namespace std::chrono;
+    winrt::init_apartment();
+
+    using namespace std::chrono;
 
     wil::notifiable_module_lock::instance().set_notifier(&HandleModuleNotifier);
-
-    winrt::init_apartment();
 
     const auto startTime = std::chrono::system_clock::now();
 
     auto revoker = wil::register_com_server<MyServer>();
+    auto revoker2 = wil::register_com_server<MyCustomServer>();
 
     _shutdownEvent.wait();
 

@@ -1,0 +1,9 @@
+namespace COM.ServerLib
+{
+    [default_interface]
+    runtimeclass CommunicationService : COM.ServerLib.IProcessCommunication
+    {
+        CommunicationService();
+        Int32 MyProperty;
+    }
+}

@@ -52,23 +52,13 @@
 								 DisplayName="COM.ServerApp">
 					  
 					  <com:Class Id="96369f54-8eb6-48f0-abce-c1b211e627c3" 
-								 DisplayName="ICOMServerAppSimpleInterface" />
+								 DisplayName="MyServer" />
 
-					  <!--<com:Class Id="df2a6e21-9da3-4345-9d42-d234a548dad7"
-								 DisplayName="COMServerAppSimpleClass" />-->
+					  <com:Class Id="ec39b7db-b506-4489-804d-5844ec346b54"
+								 DisplayName="MyCustomServer" />
 				  </com:ExeServer>
 			  </com:ComServer>
-          </com:Extension>
-
-          <!--<com:Extension Category="windows.comInterface">
-              <com:ComInterface>
-                  <com:ProxyStub Id="3c63c457-55af-45db-b66c-6bc9822c94f5" DisplayName="COMserver.ProxyStub" Path="COMserver.ProxyStub.dll"/>
-                  <com:Interface Id="3c63c457-55af-45db-b66c-6bc9822c94f5" ProxyStubClsid="3c63c457-55af-45db-b66c-6bc9822c94f5"/>
-                  --><!-- TODO: not working, need to to see how to proper register more interfaces --><!--
-                  <com:Interface Id="4eb7afe3-94bb-480a-9e7e-ad9d788cf04a" ProxyStubClsid="3c63c457-55af-45db-b66c-6bc9822c94f5"/>
-              </com:ComInterface>
-          </com:Extension>-->
-          
+          </com:Extension>          
       </Extensions>	      		
     </Application>
   </Applications>
