@@ -88,8 +88,8 @@
       <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Comdlg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>Comdlg32.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
+      <AdditionalDependencies>Comdlg32.lib;winsqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>Comdlg32.dll;winsqlite3.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
