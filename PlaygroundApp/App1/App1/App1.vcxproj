@@ -30,6 +30,7 @@
   <PropertyGroup Condition="'$(IsWinAppSdkSelfContained)' == 'true'">
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
   </PropertyGroup>
+  <Import Project="..\..\Playground.Utils\Playground.Utils.props" Label="PlaygroundUtilsProps" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -169,6 +170,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Playground.Controls\Playground.Controls.vcxproj">
       <Project>{0a744767-d062-4abf-8669-686431c8dc88}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Playground.Utils\Playground.Utils.vcxproj">
+      <Project>{7947bf87-efec-4847-8d4d-c17e69edaed0}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

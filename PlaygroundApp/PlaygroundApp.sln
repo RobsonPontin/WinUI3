@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Playground.App", "App1\App1
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Playground.Controls", "Playground.Controls\Playground.Controls.vcxproj", "{0A744767-D062-4ABF-8669-686431C8DC88}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Playground.Utils", "Playground.Utils\Playground.Utils.vcxproj", "{7947BF87-EFEC-4847-8D4D-C17E69EDAED0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -45,6 +47,14 @@ Global
 		{0A744767-D062-4ABF-8669-686431C8DC88}.Release|ARM64.Build.0 = Release|ARM64
 		{0A744767-D062-4ABF-8669-686431C8DC88}.Release|x64.ActiveCfg = Release|x64
 		{0A744767-D062-4ABF-8669-686431C8DC88}.Release|x64.Build.0 = Release|x64
+		{7947BF87-EFEC-4847-8D4D-C17E69EDAED0}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{7947BF87-EFEC-4847-8D4D-C17E69EDAED0}.Debug|ARM64.Build.0 = Debug|ARM64
+		{7947BF87-EFEC-4847-8D4D-C17E69EDAED0}.Debug|x64.ActiveCfg = Debug|x64
+		{7947BF87-EFEC-4847-8D4D-C17E69EDAED0}.Debug|x64.Build.0 = Debug|x64
+		{7947BF87-EFEC-4847-8D4D-C17E69EDAED0}.Release|ARM64.ActiveCfg = Release|ARM64
+		{7947BF87-EFEC-4847-8D4D-C17E69EDAED0}.Release|ARM64.Build.0 = Release|ARM64
+		{7947BF87-EFEC-4847-8D4D-C17E69EDAED0}.Release|x64.ActiveCfg = Release|x64
+		{7947BF87-EFEC-4847-8D4D-C17E69EDAED0}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

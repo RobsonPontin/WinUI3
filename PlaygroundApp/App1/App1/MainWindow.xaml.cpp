@@ -4,10 +4,14 @@
 #include "MainWindow.g.cpp"
 #endif
 
+#include <iostream>
+
 #include <winrt/Microsoft.UI.Xaml.Documents.h>
 #include <winrt/Windows.Storage.h>
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <microsoft.ui.xaml.window.h>
+
+#include <../../Playground.Utils/TaskRunner.h>
 
 #include "TestApplicationData.h"
 #include "TestLauncher.h"
@@ -119,5 +123,58 @@ namespace winrt::Playground::implementation
         {
             this->ExtendsContentIntoTitleBar(true);
         }
+    }
+
+    // Simple Test task which blocks the thread for 2 seconds.
+    struct TaskTestBlockThread : ::Playground::Utils::ITask
+    {
+        TaskTestBlockThread(::Playground::Utils::TaskPriority priority)
+        {
+            m_priority = priority;
+        }
+
+        ::Playground::Utils::TaskPriority Priority()
+        {
+            return m_priority;
+        }
+
+        bool Execute()
+        {
+            std::cout << "Task - Starting delay..." << std::endl;
+
+            // TODO: after sleep, it will resume to a different background thread
+            std::this_thread::sleep_for(std::chrono::seconds(2));
+            std::cout << "Task - delay finished." << std::endl;
+
+            return true;
+        }
+        
+    private:
+        ::Playground::Utils::TaskPriority m_priority{::Playground::Utils::TaskPriority::Low};
+    };
+
+    void MainWindow::btnTestDatastructures_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+    {
+        if (m_taskQueueRunner == nullptr)
+        {
+            m_taskQueueRunner = std::make_shared<::Playground::Utils::TaskRunner>();
+            m_taskQueueRunner->Run();
+        }
+
+        //m_taskQueueRunner->AddTask([]() -> bool
+        //    { 
+        //        std::cout << "Task - Starting delay..." << std::endl;
+
+        //        // TODO: after sleep, it will resume to a different background thread
+        //        std::this_thread::sleep_for(std::chrono::seconds(2));
+        //        std::cout << "Task - delay finished." << std::endl;
+
+        //        return true;
+        //    });
+
+        auto taskTestBlockThread = std::make_shared<TaskTestBlockThread>(::Playground::Utils::TaskPriority::High);
+        auto taskTestBlockThread2 = std::make_shared<TaskTestBlockThread>(::Playground::Utils::TaskPriority::Low);
+        m_taskQueueRunner->AddTask(taskTestBlockThread);
+        m_taskQueueRunner->AddTask(taskTestBlockThread2);
     }
 }

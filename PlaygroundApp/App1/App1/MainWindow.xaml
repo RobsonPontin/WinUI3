@@ -12,12 +12,14 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <!-- Windows App SDK tests -->
         <StackPanel Orientation="Vertical"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center">
@@ -60,8 +62,16 @@
                     Click="btnToggleExtendsContentIntoTitleBar_Click"/>
         </StackPanel>
 
+        <!-- Generic code tests -->
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Left">
+            <Button x:Name="btnTestDatastructures"
+                    Content="Test Data Structure"
+                    Click="btnTestDatastructures_Click"/>
+        </StackPanel>
+
         <StackPanel Background="DimGray"
-                    Grid.Row="1">
+                    Grid.Row="2">
             <RichTextBlock TextWrapping="Wrap"
                            x:Name="btnRtbFeedback"/>
         </StackPanel>

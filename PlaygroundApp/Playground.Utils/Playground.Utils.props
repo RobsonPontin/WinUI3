@@ -1,0 +1,8 @@
+<Project>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>Playground.Utils.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\$(Platform)\$(Configuration)\Playground.Utils;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>
