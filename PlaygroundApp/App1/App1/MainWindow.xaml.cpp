@@ -12,6 +12,7 @@
 #include <microsoft.ui.xaml.window.h>
 
 #include <../../Playground.Utils/TaskRunner.h>
+#include <../../Playground.Utils/TestTaskBlockThread.h>
 
 #include "TestApplicationData.h"
 #include "TestLauncher.h"
@@ -125,33 +126,16 @@ namespace winrt::Playground::implementation
         }
     }
 
-    // Simple Test task which blocks the thread for 2 seconds.
-    struct TaskTestBlockThread : ::Playground::Utils::ITask
+    bool TestFuncCallback()
     {
-        TaskTestBlockThread(::Playground::Utils::TaskPriority priority)
-        {
-            m_priority = priority;
-        }
+        std::cout << "Task - Starting delay..." << std::endl;
 
-        ::Playground::Utils::TaskPriority Priority()
-        {
-            return m_priority;
-        }
+        // TODO: after sleep, it will resume to a different background thread
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+        std::cout << "Task - delay finished." << std::endl;
 
-        bool Execute()
-        {
-            std::cout << "Task - Starting delay..." << std::endl;
-
-            // TODO: after sleep, it will resume to a different background thread
-            std::this_thread::sleep_for(std::chrono::seconds(2));
-            std::cout << "Task - delay finished." << std::endl;
-
-            return true;
-        }
-        
-    private:
-        ::Playground::Utils::TaskPriority m_priority{::Playground::Utils::TaskPriority::Low};
-    };
+        return true;
+    }
 
     void MainWindow::btnTestDatastructures_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
     {
@@ -161,20 +145,20 @@ namespace winrt::Playground::implementation
             m_taskQueueRunner->Run();
         }
 
-        //m_taskQueueRunner->AddTask([]() -> bool
-        //    { 
-        //        std::cout << "Task - Starting delay..." << std::endl;
+        m_taskQueueRunner->AddTask(&TestFuncCallback);
 
-        //        // TODO: after sleep, it will resume to a different background thread
-        //        std::this_thread::sleep_for(std::chrono::seconds(2));
-        //        std::cout << "Task - delay finished." << std::endl;
-
-        //        return true;
-        //    });
-
-        auto taskTestBlockThread = std::make_shared<TaskTestBlockThread>(::Playground::Utils::TaskPriority::High);
-        auto taskTestBlockThread2 = std::make_shared<TaskTestBlockThread>(::Playground::Utils::TaskPriority::Low);
+        auto taskTestBlockThread = std::make_shared<::Playground::Utils::TestTaskBlockThread>(::Playground::Utils::TaskPriority::High);
+        auto taskTestBlockThread2 = std::make_shared<::Playground::Utils::TestTaskBlockThread>(::Playground::Utils::TaskPriority::Low);
+        auto taskTestBlockThread3 = std::make_shared<::Playground::Utils::TestTaskBlockThread>(::Playground::Utils::TaskPriority::Low);
+        auto taskTestBlockThread4 = std::make_shared<::Playground::Utils::TestTaskBlockThread>(::Playground::Utils::TaskPriority::Low);
+        auto taskTestBlockThread5 = std::make_shared<::Playground::Utils::TestTaskBlockThread>(::Playground::Utils::TaskPriority::High);
+        auto taskTestBlockThread6 = std::make_shared<::Playground::Utils::TestTaskBlockThread>(::Playground::Utils::TaskPriority::High);
         m_taskQueueRunner->AddTask(taskTestBlockThread);
         m_taskQueueRunner->AddTask(taskTestBlockThread2);
+        m_taskQueueRunner->AddTask(taskTestBlockThread3);
+        m_taskQueueRunner->AddTask(taskTestBlockThread4);
+        m_taskQueueRunner->AddTask(taskTestBlockThread5);
+        m_taskQueueRunner->AddTask(taskTestBlockThread6);
+
     }
 }

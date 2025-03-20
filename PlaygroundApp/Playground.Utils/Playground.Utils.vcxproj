@@ -4,8 +4,8 @@
   <Import Project="..\packages\Microsoft.Windows.CppWinRT.$(CppWinRtVersion)\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.$(CppWinRtVersion)\build\native\Microsoft.Windows.CppWinRT.props')" />
   <PropertyGroup Label="Globals">
     <CppWinRTOptimized>true</CppWinRTOptimized>
-    <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
-    <CppWinRTGenerateWindowsMetadata>true</CppWinRTGenerateWindowsMetadata>
+    <CppWinRTRootNamespaceAutoMerge>false</CppWinRTRootNamespaceAutoMerge>
+    <CppWinRTGenerateWindowsMetadata>false</CppWinRTGenerateWindowsMetadata>
     <MinimalCoreWin>true</MinimalCoreWin>
     <ProjectGuid>{7947bf87-efec-4847-8d4d-c17e69edaed0}</ProjectGuid>
     <ProjectName>Playground.Utils</ProjectName>
@@ -118,6 +118,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlaygroundExport.h" />
     <ClInclude Include="TaskRunner.h" />
+    <ClInclude Include="TestTaskBlockThread.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

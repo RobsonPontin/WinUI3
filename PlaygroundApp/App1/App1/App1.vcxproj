@@ -175,6 +175,13 @@
       <Project>{7947bf87-efec-4847-8d4d-c17e69edaed0}</Project>
     </ProjectReference>
   </ItemGroup>
+  <!-- NOTE: WAP is not copying native dlls automatically. -->
+  <ItemGroup>
+    <Content Include="$(SolutionDir)$(Platform)\$(Configuration)\Playground.Utils\Playground.Utils.dll">
+      <Link>Playground.Utils.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\..\packages\Microsoft.Web.WebView2.$(WebView2Version)\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.$(WebView2Version)\build\native\Microsoft.Web.WebView2.targets')" />

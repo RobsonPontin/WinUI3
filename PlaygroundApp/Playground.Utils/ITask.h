@@ -21,7 +21,7 @@ namespace Playground::Utils
 	{
 		bool operator()(std::shared_ptr<ITask> lhs, std::shared_ptr<ITask> rhs) 
 		{
-			return lhs->Priority() > rhs->Priority(); // Min-heap (largest value has highest priority)
+			return lhs->Priority() > rhs->Priority(); // Lower priority value means higher priority
 		}
 	};
 }

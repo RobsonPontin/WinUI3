@@ -26,7 +26,7 @@ namespace winrt::Playground::Controls::implementation
         throw hresult_not_implemented();
     }
 
-    void SwapChainPanelControl::RootGrid_PointerMoved(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& args)
+    void SwapChainPanelControl::RootGrid_PointerMoved(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& args)
     {
         args.GetIntermediatePoints(Content());
     }

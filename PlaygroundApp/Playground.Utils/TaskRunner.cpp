@@ -10,14 +10,14 @@ namespace Playground::Utils
 {
 	void TaskRunner::AddTask(const std::function<bool()>& task)
 	{
-		std::unique_lock<std::mutex> lock(m_mutex);
+		std::lock_guard<std::mutex> lock_guard(m_mutex);
 		m_queueTasks.push(task);
 		m_conditionVariable.notify_one();
 	}
 
 	void TaskRunner::AddTask(std::shared_ptr<ITask> task)
 	{
-		std::unique_lock<std::mutex> lock(m_mutex);
+		std::lock_guard<std::mutex> lock_guard(m_mutexPq);
 		m_priorityQueueTasks.push(task);
 		m_conditionVariablePq.notify_one();
 	}
@@ -47,7 +47,7 @@ namespace Playground::Utils
 	{
 		while (m_isInit)
 		{
-			std::unique_lock<std::mutex> lock(m_mutex);
+			std::unique_lock<std::mutex> lock(m_mutexPq);
 			m_conditionVariablePq.wait(lock, [this]
 				{
 					return !m_priorityQueueTasks.empty();
