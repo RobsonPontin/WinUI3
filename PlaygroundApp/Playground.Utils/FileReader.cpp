@@ -7,40 +7,14 @@
 
 namespace Playground::Utils
 {
-	//  Forward Declare
+	// Forward declare
 	std::wstring ReadFileNameImpl(const std::wstring_view& filePath);
-	void ReadFileNameAsyncImpl(std::promise<std::wstring>& promise, const std::wstring_view& filePath);
-
-	void FileReader::Run()
-	{
-		while (true/*!stopToken.stop_requested()*/)
-		{
-			std::unique_lock<std::mutex> lock(m_mutex);
-			m_conditionVariable.wait(lock, [this]
-				{
-					if (m_shutdownRequest)
-						return true;
-
-					return m_filePathRequest != L"";
-				});
-
-			if (m_shutdownRequest)
-				break;
-
-			// build the promise to be returned in the future
-			std::promise<std::wstring> promise_fileName;
-			std::future<std::wstring> future = promise_fileName.get_future();
-
-			auto futureAsync = std::async(std::launch::async, &ReadFileNameAsyncImpl, std::ref(promise_fileName), std::move(m_filePathRequest));
-
-			auto result = future.get();
-			m_callbackOnFileNameReady(result);			
-		}
-	}
 
 	FileReader::FileReader()
 	{
 		m_jThread = std::jthread(&FileReader::Run, this);
+		m_jthread2 = std::jthread(&FileReader::Run2, this);
+
 		m_shutdownRequest = false;
 	}
 
@@ -49,11 +23,13 @@ namespace Playground::Utils
 		// Notify any threads waiting for notification to go ahead and process shutdown
 		m_shutdownRequest = true;
 		m_conditionVariable.notify_all();
+		m_conditionVariable2.notify_all();
 	}
 
 	std::wstring_view FileReader::ReadFileName(std::wstring_view file_path)
 	{
-		return ReadFileNameImpl(file_path);
+		auto result = ReadFileNameImpl(file_path);
+		return result;
 	}
 
 	void FileReader::ReadFileNameAsync(std::wstring_view file_path)
@@ -61,11 +37,28 @@ namespace Playground::Utils
 		if (!std::filesystem::exists(file_path))
 			return;
 
-		m_filePathRequest = file_path;
+		std::lock_guard<std::mutex> guard(m_mutex);
+		m_filesQueue.push(std::wstring(file_path));
 		m_conditionVariable.notify_one();
 	}
 
-	void ReadFileNameAsyncImpl(std::promise<std::wstring>& promise, const std::wstring_view& filePath)
+	void FileReader::ReadFileNameAsync2(std::wstring_view file_path)
+	{
+		if (!std::filesystem::exists(file_path))
+			return;
+
+		std::lock_guard<std::mutex> guard(m_mutex2);
+		m_filesQueue2.push(std::wstring(file_path));
+		m_conditionVariable2.notify_one();
+	}
+
+	std::wstring ReadFileNameWithAsyncFuture(const std::wstring_view& filePath)
+	{
+		auto result = ReadFileNameImpl(filePath);
+		return result;
+	}
+
+	void ReadFileNameWithPromiseFuture(std::promise<std::wstring>& promise, const std::wstring_view& filePath)
 	{
 		auto result = ReadFileNameImpl(filePath);
 		if (result == L"")
@@ -93,5 +86,61 @@ namespace Playground::Utils
 		}
 
 		return L"";
+	}
+
+	void FileReader::Run()
+	{
+		while (true)
+		{
+			std::unique_lock<std::mutex> lock(m_mutex);
+			m_conditionVariable.wait(lock, [this]
+				{
+					if (m_shutdownRequest)
+						return true;
+
+					return !m_filesQueue.empty();
+				});
+
+			if (m_shutdownRequest)
+				break;
+
+			auto filePath = m_filesQueue.front();
+			m_filesQueue.pop();
+
+			auto futureAsync = std::async(std::launch::async, &ReadFileNameWithAsyncFuture, std::move(filePath));
+
+			auto result = futureAsync.get();
+			m_callbackOnFileNameReady(result);
+		}
+	}
+
+	void FileReader::Run2()
+	{
+		while (true)
+		{
+			std::unique_lock<std::mutex> lock(m_mutex2);
+			m_conditionVariable2.wait(lock, [this]
+				{
+					if (m_shutdownRequest)
+						return true;
+
+					return !m_filesQueue2.empty();
+				});
+
+			if (m_shutdownRequest)
+				break;
+
+			auto filePath = m_filesQueue2.front();
+			m_filesQueue2.pop();
+
+			std::promise<std::wstring> promise;
+			std::future<std::wstring> future = promise.get_future();
+
+			// std::ref(promise) -> when starting a thread it will copy its arguments but std::promise is not copyable, so it passes by reference
+			std::jthread worker(&ReadFileNameWithPromiseFuture, std::ref(promise), filePath);
+
+			auto result = future.get();
+			m_callbackOnFileNameReady(result);
+		}
 	}
 }

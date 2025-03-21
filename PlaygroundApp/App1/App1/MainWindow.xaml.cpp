@@ -191,8 +191,11 @@ namespace winrt::Playground::implementation
         // Blocking sync
         auto result = fileReader->ReadFileName(filePath);
 
-        // Non-Blocking async
+        // Non-Blocking std::async and std::future
         fileReader->ReadFileNameAsync(filePath);
+
+        // Non-Blocking std::promise and std::future
+        fileReader->ReadFileNameAsync2(filePath);
     }
 
     std::unique_ptr<::Playground::Utils::ThreadPool> m_threadPool;
