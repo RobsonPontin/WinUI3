@@ -121,6 +121,7 @@
     <ClInclude Include="PlaygroundExport.h" />
     <ClInclude Include="TaskRunner.h" />
     <ClInclude Include="TestTaskBlockThread.h" />
+    <ClInclude Include="ThreadPool.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FileReader.cpp" />
@@ -130,6 +131,7 @@
     <!-- NOTE: Disabled it since there are no winrt projections coming out of it -->
     <!--<ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />-->
     <ClCompile Include="TaskRunner.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />

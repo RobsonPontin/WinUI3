@@ -5,6 +5,8 @@
 #endif
 
 #include <iostream>
+#include <string>
+#include <thread>
 
 #include <winrt/Microsoft.UI.Xaml.Documents.h>
 #include <winrt/Windows.Storage.h>
@@ -14,6 +16,7 @@
 #include <../../Playground.Utils/FileReader.h>
 #include <../../Playground.Utils/TaskRunner.h>
 #include <../../Playground.Utils/TestTaskBlockThread.h>
+#include <../../Playground.Utils/ThreadPool.h>
 
 #include "TestApplicationData.h"
 #include "TestLauncher.h"
@@ -176,14 +179,47 @@ namespace winrt::Playground::implementation
 
     void MainWindow::btnFileReader_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
     {
-        fileReader = std::make_unique< ::Playground::Utils::FileReader>();
+        if (fileReader == nullptr)
+        {
+            fileReader = std::make_unique< ::Playground::Utils::FileReader>();
+            fileReader->RegisterOnFileNameReady(&FilenameReady);
+        }
         std::wstring filePath;
         filePath.append(AppRootFolder().c_str());
         filePath.append(L"/Assets/image.jpg");
 
-        // auto result = fileReader->ReadFileName(filePath);
+        // Blocking sync
+        auto result = fileReader->ReadFileName(filePath);
 
-        fileReader->RegisterOnFileNameReady(&FilenameReady);
+        // Non-Blocking async
         fileReader->ReadFileNameAsync(filePath);
+    }
+
+    std::unique_ptr<::Playground::Utils::ThreadPool> m_threadPool;
+
+    bool TestJobToRun()
+    {
+        auto id = std::this_thread::get_id();
+
+        std::cout << "TestJobToRun - Started on thread: " << id << std::endl;
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+
+        std::cout << "TestJobToRun - Finished ib thead: " << id << std::endl;
+
+        return true;
+    }
+
+    void MainWindow::btnThreadPool_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+    {
+        if (m_threadPool == nullptr)
+        {
+            const int MAX_THREADS = 10;
+            m_threadPool = std::make_unique<::Playground::Utils::ThreadPool>(MAX_THREADS);
+        }
+
+        m_threadPool->Enqueue(TestJobToRun);
+        m_threadPool->Enqueue(TestJobToRun);
+        m_threadPool->Enqueue(TestJobToRun);
     }
 }

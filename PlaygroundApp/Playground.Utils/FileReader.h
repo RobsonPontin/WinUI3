@@ -16,6 +16,8 @@ namespace Playground::Utils
 	{
 		PLAYGROUND_UTILS_API FileReader();
 
+		PLAYGROUND_UTILS_API ~FileReader();
+
 		PLAYGROUND_UTILS_API void ReadFileNameAsync(std::wstring_view file_path);
 		PLAYGROUND_UTILS_API std::wstring_view ReadFileName(std::wstring_view file_path);
 		
@@ -34,6 +36,7 @@ namespace Playground::Utils
 
 		std::wstring m_filePathRequest;
 		std::condition_variable m_conditionVariable;
+		std::atomic<bool> m_shutdownRequest;
 
 		void Run();
 	};

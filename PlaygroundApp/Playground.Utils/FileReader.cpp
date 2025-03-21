@@ -18,14 +18,20 @@ namespace Playground::Utils
 			std::unique_lock<std::mutex> lock(m_mutex);
 			m_conditionVariable.wait(lock, [this]
 				{
+					if (m_shutdownRequest)
+						return true;
+
 					return m_filePathRequest != L"";
 				});
+
+			if (m_shutdownRequest)
+				break;
 
 			// build the promise to be returned in the future
 			std::promise<std::wstring> promise_fileName;
 			std::future<std::wstring> future = promise_fileName.get_future();
 
-			std::async(std::launch::async, &ReadFileNameAsyncImpl, std::ref(promise_fileName), std::move(m_filePathRequest));
+			auto futureAsync = std::async(std::launch::async, &ReadFileNameAsyncImpl, std::ref(promise_fileName), std::move(m_filePathRequest));
 
 			auto result = future.get();
 			m_callbackOnFileNameReady(result);			
@@ -35,6 +41,14 @@ namespace Playground::Utils
 	FileReader::FileReader()
 	{
 		m_jThread = std::jthread(&FileReader::Run, this);
+		m_shutdownRequest = false;
+	}
+
+	FileReader::~FileReader()
+	{
+		// Notify any threads waiting for notification to go ahead and process shutdown
+		m_shutdownRequest = true;
+		m_conditionVariable.notify_all();
 	}
 
 	std::wstring_view FileReader::ReadFileName(std::wstring_view file_path)

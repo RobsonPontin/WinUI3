@@ -68,9 +68,14 @@
             <Button x:Name="btnTestDatastructures"
                     Content="Test Data Structure"
                     Click="btnTestDatastructures_Click"/>
+            
             <Button x:Name="btnFileReader"
                     Content="Test File Reader"
                     Click="btnFileReader_Click"/>
+
+            <Button x:Name="btnThreadPool"
+                    Content="Thread Pool"
+                    Click="btnThreadPool_Click"/>
         </StackPanel>
 
         <StackPanel Background="DimGray"
