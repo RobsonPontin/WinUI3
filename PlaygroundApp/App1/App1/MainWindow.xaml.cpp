@@ -11,6 +11,7 @@
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <microsoft.ui.xaml.window.h>
 
+#include <../../Playground.Utils/FileReader.h>
 #include <../../Playground.Utils/TaskRunner.h>
 #include <../../Playground.Utils/TestTaskBlockThread.h>
 
@@ -26,6 +27,11 @@ using namespace winrt::Microsoft::UI::Xaml;
 namespace winrt::Playground::implementation
 {
     const winrt::hstring APP_ASSETS_IMAGE_JPG_TEST{ L"ms-appx:///Assets/image.jpg" };
+
+    winrt::hstring AppRootFolder()
+    {
+        return winrt::Windows::ApplicationModel::Package::Current().InstalledLocation().Path();
+    }
 
     MainWindow::MainWindow()
     {
@@ -159,6 +165,25 @@ namespace winrt::Playground::implementation
         m_taskQueueRunner->AddTask(taskTestBlockThread4);
         m_taskQueueRunner->AddTask(taskTestBlockThread5);
         m_taskQueueRunner->AddTask(taskTestBlockThread6);
+    }
 
+    std::unique_ptr<::Playground::Utils::FileReader> fileReader;
+
+    void FilenameReady(std::wstring val)
+    {
+        std::wcout << (val) << std::endl;
+    }
+
+    void MainWindow::btnFileReader_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+    {
+        fileReader = std::make_unique< ::Playground::Utils::FileReader>();
+        std::wstring filePath;
+        filePath.append(AppRootFolder().c_str());
+        filePath.append(L"/Assets/image.jpg");
+
+        // auto result = fileReader->ReadFileName(filePath);
+
+        fileReader->RegisterOnFileNameReady(&FilenameReady);
+        fileReader->ReadFileNameAsync(filePath);
     }
 }

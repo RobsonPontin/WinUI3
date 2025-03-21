@@ -32,6 +32,7 @@ namespace winrt::Playground::implementation
         void btnToggleExtendsContentIntoTitleBar_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         // Generic tests
         void btnTestDatastructures_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void btnFileReader_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     private:
         std::shared_ptr<::Playground::TestApplicationData> m_testApplicationData;
         std::shared_ptr<::Playground::TestLauncher> m_testLauncher;
