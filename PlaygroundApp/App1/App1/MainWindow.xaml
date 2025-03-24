@@ -76,6 +76,10 @@
             <Button x:Name="btnThreadPool"
                     Content="Thread Pool"
                     Click="btnThreadPool_Click"/>
+
+            <Button x:Name="btnRingBuffer"
+                    Content="Ring Buffer"
+                    Click="btnRingBuffer_Click"/>
         </StackPanel>
 
         <StackPanel Background="DimGray"

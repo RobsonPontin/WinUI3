@@ -119,6 +119,7 @@
     <ClInclude Include="ITask.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlaygroundExport.h" />
+    <ClInclude Include="RingBuffer.h" />
     <ClInclude Include="TaskRunner.h" />
     <ClInclude Include="TestTaskBlockThread.h" />
     <ClInclude Include="ThreadPool.h" />
@@ -128,6 +129,7 @@
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="RingBuffer.cpp" />
     <!-- NOTE: Disabled it since there are no winrt projections coming out of it -->
     <!--<ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />-->
     <ClCompile Include="TaskRunner.cpp" />

@@ -14,6 +14,7 @@
 #include <microsoft.ui.xaml.window.h>
 
 #include <../../Playground.Utils/FileReader.h>
+#include <../../Playground.Utils/RingBuffer.h>
 #include <../../Playground.Utils/TaskRunner.h>
 #include <../../Playground.Utils/TestTaskBlockThread.h>
 #include <../../Playground.Utils/ThreadPool.h>
@@ -213,7 +214,7 @@ namespace winrt::Playground::implementation
         return true;
     }
 
-    void MainWindow::btnThreadPool_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+    void MainWindow::btnThreadPool_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
     {
         if (m_threadPool == nullptr)
         {
@@ -224,5 +225,41 @@ namespace winrt::Playground::implementation
         m_threadPool->Enqueue(TestJobToRun);
         m_threadPool->Enqueue(TestJobToRun);
         m_threadPool->Enqueue(TestJobToRun);
+    }
+
+    std::unique_ptr<::Playground::Utils::RingBuffer> m_ringBuffer;
+
+    winrt::Windows::Foundation::IAsyncAction RunRingBufferTestOnBackground(bool isQueue, std::string msg)
+    {
+        co_await winrt::resume_background();
+
+        if (isQueue)
+        {
+            m_ringBuffer->Enqueue(msg);
+        }
+        else
+        {
+            auto result = m_ringBuffer->Dequeue();
+            std::cout << std::string(result.begin(), result.end()) << std::endl;
+        }
+    }
+
+    void MainWindow::btnRingBuffer_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+    {
+        if (m_ringBuffer == nullptr)
+        {
+            size_t MAX_BUFFER_SIZE = 246;
+            m_ringBuffer = std::make_unique<::Playground::Utils::RingBuffer>(MAX_BUFFER_SIZE);
+        }
+
+        RunRingBufferTestOnBackground(false, "");
+
+        std::string str = "Hello world!";
+        std::span<const char> str_span(str.begin(), str.end());
+
+        RunRingBufferTestOnBackground(true, str);
+        RunRingBufferTestOnBackground(true, str);
+
+        RunRingBufferTestOnBackground(false, "");
     }
 }
