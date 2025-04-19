@@ -58,6 +58,10 @@
             <Button x:Name="btnToggleExtendsContentIntoTitleBar"
                     Content="Toggle Extends Content Into TitleBar"
                     Click="btnToggleExtendsContentIntoTitleBar_Click"/>
+
+            <Button x:Name="btnResizeImageTest"
+                    Content="Resize selected image"
+                    Click="btnResizeImageTest_Click"/>
         </StackPanel>
 
         <StackPanel Background="DimGray"
@@ -67,9 +71,7 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-            <controls:SwapChainPanelControl
-                Width="400"
-                Height="400"/>
+            <Image x:Name="ImageControl"/>
         </StackPanel>
     </Grid>
 </Window>

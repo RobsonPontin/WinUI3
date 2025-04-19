@@ -25,3 +25,5 @@
 #include <wil/cppwinrt_helpers.h>
 
 #include <winrt/Playground.Controls.h>
+
+#include "NamespacesFramework.h"

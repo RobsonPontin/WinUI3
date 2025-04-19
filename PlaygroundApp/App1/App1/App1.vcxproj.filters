@@ -17,6 +17,7 @@
     <ClCompile Include="TestPickerApis.cpp" />
     <ClCompile Include="TestLauncher.cpp" />
     <ClCompile Include="wWinMain.cpp" />
+    <ClCompile Include="TestImageResize.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -24,6 +25,8 @@
     <ClInclude Include="DebugLog.h" />
     <ClInclude Include="TestPickerApis.h" />
     <ClInclude Include="TestLauncher.h" />
+    <ClInclude Include="TestImageResize.h" />
+    <ClInclude Include="NamespacesFramework.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -38,9 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\image.jpg">

@@ -8,9 +8,11 @@
 #include <winrt/Windows.Storage.h>
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <microsoft.ui.xaml.window.h>
+#include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 
 #include "TestApplicationData.h"
 #include "TestLauncher.h"
+#include "TestImageResize.h"
 #include "TestPickerApis.h"
 
 #include "DebugLog.h"
@@ -30,6 +32,7 @@ namespace winrt::Playground::implementation
         m_testApplicationData = std::make_shared<::Playground::TestApplicationData>();
         m_testSaveApis = std::make_shared<::Playground::TestPickerApis>();
         m_testLauncher = std::make_shared<::Playground::TestLauncher>();
+        m_testImageResize = std::make_shared<::Playground::TestImageResize>();
     }
 
     void MainWindow::btnTestApplicationDataContainer_Click(IInspectable const&, RoutedEventArgs const&)
@@ -118,6 +121,38 @@ namespace winrt::Playground::implementation
         else
         {
             this->ExtendsContentIntoTitleBar(true);
+        }
+    }
+
+    WF::IAsyncAction MainWindow::btnResizeImageTest_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+    {
+        auto file = co_await m_testSaveApis->OpenFilePickerWinRTAsync(GetWindowHandle());
+        if (!file)
+        {
+            co_return;
+        }
+
+        try
+        {
+            auto stream = co_await file.OpenAsync(WS::FileAccessMode::Read);
+            uint32_t targetSize = 256;
+            auto imgResult = co_await m_testImageResize->ResizeImageAsync(stream, targetSize);
+            if (!imgResult)
+            {
+                co_return;
+            }
+
+            // NOTE: SoftwareBitmapSource::SetBitmapAsync only supports bgra8 pixel format and pre-multiplied or no alpha.'
+            WUX::Media::Imaging::SoftwareBitmapSource imgSource;
+            co_await imgSource.SetBitmapAsync(imgResult);
+
+            ImageControl().Source(imgSource);
+            ImageControl().Width(targetSize);
+            ImageControl().Height(targetSize);
+        }
+        catch (...)
+        {
+            // fail
         }
     }
 }

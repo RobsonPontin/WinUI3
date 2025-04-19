@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugLog.h" />
+    <ClInclude Include="NamespacesFramework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -125,6 +126,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="TestApplicationData.h" />
+    <ClInclude Include="TestImageResize.h" />
     <ClInclude Include="TestLauncher.h" />
     <ClInclude Include="TestPickerApis.h" />
   </ItemGroup>
@@ -145,6 +147,7 @@
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="TestApplicationData.cpp" />
+    <ClCompile Include="TestImageResize.cpp" />
     <ClCompile Include="TestLauncher.cpp" />
     <ClCompile Include="TestPickerApis.cpp" />
     <ClCompile Include="wWinMain.cpp" />
