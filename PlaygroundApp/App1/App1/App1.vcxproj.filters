@@ -27,6 +27,7 @@
     <ClInclude Include="TestLauncher.h" />
     <ClInclude Include="TestImageResize.h" />
     <ClInclude Include="NamespacesFramework.h" />
+    <ClInclude Include="D2DImageResizer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

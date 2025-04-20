@@ -134,13 +134,12 @@ namespace winrt::Playground::implementation
 
         try
         {
-            auto stream = co_await file.OpenAsync(WS::FileAccessMode::Read);
             uint32_t targetSize = 256;
-            auto imgResult = co_await m_testImageResize->ResizeImageAsync(stream, targetSize);
+            auto imgResult = co_await m_testImageResize->ResizeImageWICAsync(file.Path(), targetSize);
             if (!imgResult)
             {
                 co_return;
-            }
+            }            
 
             // NOTE: SoftwareBitmapSource::SetBitmapAsync only supports bgra8 pixel format and pre-multiplied or no alpha.'
             WUX::Media::Imaging::SoftwareBitmapSource imgSource;
