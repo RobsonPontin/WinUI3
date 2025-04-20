@@ -6,6 +6,10 @@
 
 namespace Playground
 {
+    /// <summary>
+    /// Scale image using WIC.
+    /// Doc: https://learn.microsoft.com/en-us/windows/win32/wic/-wic-bitmapsources-howto-scale
+    /// </summary>
     struct WICImageResizer
     {
         WICImageResizer()
@@ -34,7 +38,7 @@ namespace Playground
             return m_isInitialized;
         }
 
-        std::optional<ImageView> DecodeImage(std::wstring_view const& path)
+        std::optional<WSS::IBuffer> DecodeAndScaleImage(std::wstring_view const& path, int32_t newSize)
         {
             // Step 1: Decode the source image
             winrt::com_ptr<IWICBitmapDecoder> pDecoder = nullptr;
@@ -61,7 +65,7 @@ namespace Playground
                 return std::nullopt;
             }
 
-            //Step 3: Format convert the frame to 32bppRGBA
+            // Step 3: Format convert the frame to 32bppRGBA
             winrt::com_ptr<IWICFormatConverter> pConverter = nullptr;
             hr = m_iWICImagingFactory->CreateFormatConverter(pConverter.put());
 
@@ -70,7 +74,7 @@ namespace Playground
                 return std::nullopt;
             }
 
-            WICPixelFormatGUID pixelFormatGUID = GUID_WICPixelFormat32bppRGBA;
+            WICPixelFormatGUID pixelFormatGUID = GUID_WICPixelFormat32bppBGRA;
 
             hr = pConverter->Initialize(
                 pFrame.get(),                   // Input bitmap to convert
@@ -78,49 +82,15 @@ namespace Playground
                 WICBitmapDitherTypeNone,        // Specified dither pattern
                 NULL,                           // Specify a particular palette 
                 0.0f,                           // Alpha threshold
-                WICBitmapPaletteTypeMedianCut); // Palette translation type
+                WICBitmapPaletteTypeCustom);    // Palette translation type
 
             if (FAILED(hr))
             {
                 return std::nullopt;
             }
 
-            UINT width;
-            UINT height;
-            pFrame->GetSize(&width, &height);
-
-            const int32_t rgbaBitsPerPixel = 32;
-            UINT totalBitsPerRow = rgbaBitsPerPixel * width;
-            UINT stride = (UINT)totalBitsPerRow / 8;
-            UINT bufferSize = (stride * height);
-
-            std::vector<uint8_t> buffer(bufferSize);
-            pFrame->CopyPixels(0, stride, buffer.size(), buffer.data());
-
-            auto imgView = ImageView(width, height, buffer, pixelFormatGUID);
-            return imgView;
-        }
-
-        WSS::IBuffer ScaleImage(ImageView image, int32_t newSize)
-        {
-            IWICBitmap* bitmap;
+            // Step 4: Scale image to target size
             IWICBitmapScaler* scaler;
-            int32_t numChannels = 4; // Assuming 4 bytes per pixel (e.g., 32bpp)
-            int32_t outputBufferSize = newSize * newSize * numChannels;
-
-            HRESULT hr = m_iWICImagingFactory->CreateBitmapFromMemory(
-                image.Width(),
-                image.Height(),
-                image.PixelFormatWIC(),
-                image.Width() * numChannels,
-                image.Pixels().size(),
-                image.Pixels().data(),
-                &bitmap);
-
-            if (FAILED(hr))
-            {
-                return nullptr;
-            }
 
             hr = m_iWICImagingFactory->CreateBitmapScaler(&scaler);
 
@@ -130,21 +100,29 @@ namespace Playground
             }
 
             hr = scaler->Initialize(
-                bitmap,
+                pConverter.get(),
                 newSize,
                 newSize,
-                WICBitmapInterpolationMode::WICBitmapInterpolationModeFant);
+                WICBitmapInterpolationMode::WICBitmapInterpolationModeHighQualityCubic);
 
             if (FAILED(hr))
             {
                 return nullptr;
             }
 
+            // Step 5: Copy image result bytes
+
+            int32_t numChannels = 4; // 4 bytes per pixel (e.g., 32bpp)
             int32_t bufferOutputLenght = newSize * newSize * numChannels;
             WSS::Buffer outputBuffer(bufferOutputLenght);
             outputBuffer.Length(bufferOutputLenght);
 
-            hr = scaler->CopyPixels(NULL, newSize * numChannels, outputBufferSize, outputBuffer.data());
+            hr = scaler->CopyPixels(
+                NULL,
+                newSize * numChannels,
+                bufferOutputLenght,
+                outputBuffer.data());
+
             if (FAILED(hr))
             {
                 return nullptr;

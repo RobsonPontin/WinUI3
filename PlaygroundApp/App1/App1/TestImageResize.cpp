@@ -72,46 +72,14 @@ namespace Playground
             co_return nullptr;
         }
 
-        ImageView imageView;
-
-        // TODO: temp, testing decoding from WIC directly and no winrt needed
-        bool useWinrtDecoding = true;
-
-        if (useWinrtDecoding)
-        {
-            auto file = co_await WS::StorageFile::GetFileFromPathAsync(path);
-            auto stream = co_await file.OpenAsync(WS::FileAccessMode::Read);
-            auto decoder = co_await WGI::BitmapDecoder::CreateAsync(stream);
-			auto pixelData = co_await decoder.GetPixelDataAsync();
-			auto pixels = pixelData.DetachPixelData();
-
-            std::vector<uint8_t> pixelsVector{ pixels.begin(), pixels.end() };
-
-            imageView = ImageView(
-				decoder.OrientedPixelWidth(),
-				decoder.OrientedPixelHeight(),
-                pixelsVector,
-                GUID_WICPixelFormat32bppBGRA);
-        }
-        else
-        {
-            auto result = m_wicImageResizer->DecodeImage(path);
-            if (!result.has_value())
-            {
-                co_return nullptr;
-            }
-
-            imageView = result.value();
-        }
-
-        auto imageResizedBuffer = m_wicImageResizer->ScaleImage(imageView, targetSize);
-        if (imageResizedBuffer == nullptr)
+        auto imageResizedBuffer = m_wicImageResizer->DecodeAndScaleImage(path, targetSize);
+        if (!imageResizedBuffer.has_value())
         {
             co_return nullptr;
         }
 
         auto softwareBitmap = WGI::SoftwareBitmap::CreateCopyFromBuffer(
-            imageResizedBuffer, 
+            imageResizedBuffer.value(),
             WGI::BitmapPixelFormat::Bgra8, 
             targetSize, 
             targetSize,
