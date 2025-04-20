@@ -135,11 +135,42 @@ namespace winrt::Playground::implementation
         try
         {
             uint32_t targetSize = 256;
-            auto imgResult = co_await m_testImageResize->ResizeImageWICAsync(file.Path(), targetSize);
+            auto imgResult = co_await m_testImageResize->ResizeImageWinRtAsync(file, targetSize);
             if (!imgResult)
             {
                 co_return;
             }            
+
+            // NOTE: SoftwareBitmapSource::SetBitmapAsync only supports bgra8 pixel format and pre-multiplied or no alpha.'
+            WUX::Media::Imaging::SoftwareBitmapSource imgSource;
+            co_await imgSource.SetBitmapAsync(imgResult);
+
+            ImageControl().Source(imgSource);
+            ImageControl().Width(targetSize);
+            ImageControl().Height(targetSize);
+        }
+        catch (...)
+        {
+            // fail
+        }
+    }
+
+    WF::IAsyncAction MainWindow::btnResizeImageWICTest_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+    {
+        auto file = co_await m_testSaveApis->OpenFilePickerWinRTAsync(GetWindowHandle());
+        if (!file)
+        {
+            co_return;
+        }
+
+        try
+        {
+            uint32_t targetSize = 256;
+            auto imgResult = m_testImageResize->ResizeImageWIC(file.Path(), targetSize);
+            if (!imgResult)
+            {
+                co_return;
+            }
 
             // NOTE: SoftwareBitmapSource::SetBitmapAsync only supports bgra8 pixel format and pre-multiplied or no alpha.'
             WUX::Media::Imaging::SoftwareBitmapSource imgSource;

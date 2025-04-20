@@ -26,6 +26,7 @@ namespace winrt::Playground::implementation
         void btnLaunchPhotosAppWithProtocolLaunchForFile_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void btnToggleExtendsContentIntoTitleBar_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         WF::IAsyncAction btnResizeImageTest_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        WF::IAsyncAction btnResizeImageWICTest_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     private:
         std::shared_ptr<::Playground::TestApplicationData> m_testApplicationData;
         std::shared_ptr<::Playground::TestLauncher> m_testLauncher;

@@ -21,10 +21,11 @@ namespace Playground
         m_wicImageResizer = std::make_shared<WICImageResizer>();
     }
 
-    WF::IAsyncOperation<WGI::SoftwareBitmap> TestImageResize::ResizeImageWinRtAsync(WS::Streams::IRandomAccessStream imageStream, uint32_t targetSize)
+    WF::IAsyncOperation<WGI::SoftwareBitmap> TestImageResize::ResizeImageWinRtAsync(WS::StorageFile file, uint32_t targetSize)
     {
         try
         {
+            auto imageStream = co_await file.OpenAsync(WS::FileAccessMode::Read);
             auto decoder = co_await WGI::BitmapDecoder::CreateAsync(imageStream);
             WGI::IBitmapFrameWithSoftwareBitmap bitmapFrameWithSoftwareBitmap;
             decoder.as(bitmapFrameWithSoftwareBitmap);
@@ -64,18 +65,18 @@ namespace Playground
         co_return nullptr;
     }
     
-    WF::IAsyncOperation<WGI::SoftwareBitmap> TestImageResize::ResizeImageWICAsync(std::wstring_view const& path, uint32_t targetSize)
+    WGI::SoftwareBitmap TestImageResize::ResizeImageWIC(std::wstring_view const& path, uint32_t targetSize)
     {
         auto result = m_wicImageResizer->TryInitialize();
         if (!result)
         {
-            co_return nullptr;
+            return nullptr;
         }
 
         auto imageResizedBuffer = m_wicImageResizer->DecodeAndScaleImage(path, targetSize);
         if (!imageResizedBuffer.has_value())
         {
-            co_return nullptr;
+            return nullptr;
         }
 
         auto softwareBitmap = WGI::SoftwareBitmap::CreateCopyFromBuffer(
@@ -85,7 +86,7 @@ namespace Playground
             targetSize,
             WGI::BitmapAlphaMode::Ignore);
 
-        co_return softwareBitmap;
+        return softwareBitmap;
     }
 
     WF::IAsyncAction TestImageResize::ResizeImageD2DAsync(HWND hWnd, std::wstring_view const& path)

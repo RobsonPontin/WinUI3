@@ -60,8 +60,12 @@
                     Click="btnToggleExtendsContentIntoTitleBar_Click"/>
 
             <Button x:Name="btnResizeImageTest"
-                    Content="Resize selected image"
+                    Content="Resize image (WINRT)"
                     Click="btnResizeImageTest_Click"/>
+
+            <Button x:Name="btnResizeImageWICTest"
+                    Content="Resize image (WIC)"
+                    Click="btnResizeImageWICTest_Click"/>
         </StackPanel>
 
         <StackPanel Background="DimGray"
