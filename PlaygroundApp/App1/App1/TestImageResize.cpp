@@ -67,12 +67,6 @@ namespace Playground
     
     WGI::SoftwareBitmap TestImageResize::ResizeImageWIC(std::wstring_view const& path, uint32_t targetSize)
     {
-        auto result = m_wicImageResizer->TryInitialize();
-        if (!result)
-        {
-            return nullptr;
-        }
-
         auto imageResizedBuffer = m_wicImageResizer->DecodeAndScaleImage(path, targetSize);
         if (!imageResizedBuffer.has_value())
         {
