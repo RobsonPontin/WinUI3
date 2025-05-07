@@ -17,6 +17,7 @@ namespace Playground
         picker.FileTypeFilter().Append(L".jpg");
         picker.FileTypeFilter().Append(L".jpeg");
         picker.FileTypeFilter().Append(L".png");
+        picker.FileTypeFilter().Append(L".heic");
 
         picker.as<IInitializeWithWindow>()->Initialize(hWnd);
 

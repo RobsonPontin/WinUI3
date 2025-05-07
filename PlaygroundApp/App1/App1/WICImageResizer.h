@@ -171,6 +171,8 @@ namespace Playground
                 }
             }
 
+            if (FAILED(hr)) return std::nullopt;
+
             HBITMAP hBitmap;
             hr = pSharedBitmap->GetSharedBitmap(&hBitmap);
 
