@@ -246,6 +246,14 @@
 /NativeAppContainerForCs.App/ContainerForCs.CsWinRtComponent/Generated Files/CsWinRT
 /NativeAppContainerForCs.App/ContainerForCs.CsWinRtComponent/obj
 /NativeAppContainerForCs.App/ContainerForCs.CsWinRtComponent/bin/x64/Debug/net8.0-windows10.0.22621.0
+/COMServerApp/COM.ClientApp/COM.ClientApp/Generated Files
+/COMServerApp/COM.ClientApp/COM.ClientApp/x64/Debug
+/COMServerApp/COM.ClientApp/COM.ClientApp (Package)/obj
+/COMServerApp/COM.ProxyStubs/x64/Debug
+/COMServerApp/COM.Server.Proxy/Generated Files
+/COMServerApp/COM.Server.Proxy/x64/Debug
+/COMServerApp/COM.ServerLib/Generated Files
+/COMServerApp/COM.ServerLib/x64/Debug
 /MigrationProgIdDehApp/.vs/MigrationProgIdDehApp
 /MigrationProgIdDehApp/MigrationProgIdDehApp/Generated Files
 /MigrationProgIdDehApp/MigrationProgIdDehApp/x64/Debug

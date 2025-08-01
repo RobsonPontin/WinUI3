@@ -1,0 +1,10 @@
+namespace COM.ServerLib
+{
+    [uuid(ec39b7db-b506-4489-804d-5844ec346b54)]
+	interface IProcessCommunication 
+    {
+        Boolean IsThisWorking();
+
+        Windows.Foundation.Collections.IVector<String> FilePaths{ get; };
+    };
+}

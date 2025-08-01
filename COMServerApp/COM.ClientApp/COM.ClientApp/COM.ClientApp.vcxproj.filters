@@ -12,30 +12,14 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="TestApplicationData.cpp" />
-    <ClCompile Include="DebugLog.cpp" />
-    <ClCompile Include="TestPickerApis.cpp" />
-    <ClCompile Include="TestLauncher.cpp" />
-    <ClCompile Include="wWinMain.cpp" />
-    <ClCompile Include="TestImageResize.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="TestApplicationData.h" />
-    <ClInclude Include="DebugLog.h" />
-    <ClInclude Include="TestPickerApis.h" />
-    <ClInclude Include="TestLauncher.h" />
-    <ClInclude Include="TestImageResize.h" />
-    <ClInclude Include="NamespacesFramework.h" />
-    <ClInclude Include="D2DImageResizer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
       <UniqueIdentifier>{e48dc53e-40b1-40cb-970a-f89935452892}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="app.manifest" />
@@ -44,8 +28,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\image.jpg">
-      <Filter>Assets</Filter>
-    </Image>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

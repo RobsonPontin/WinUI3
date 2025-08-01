@@ -17,10 +17,23 @@ namespace Playground
         picker.FileTypeFilter().Append(L".jpg");
         picker.FileTypeFilter().Append(L".jpeg");
         picker.FileTypeFilter().Append(L".png");
+        picker.FileTypeFilter().Append(L".heic");
 
         picker.as<IInitializeWithWindow>()->Initialize(hWnd);
 
         auto file = co_await picker.PickSingleFileAsync();
+        co_return file;
+    }
+
+    winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::StorageFile> TestPickerApis::OpenSavePickerWinRTAsync(HWND hWnd)
+    {
+        auto picker = winrt::Windows::Storage::Pickers::FileSavePicker();
+        picker.SuggestedStartLocation(WS::Pickers::PickerLocationId::PicturesLibrary);
+        picker.SuggestedFileName(L"myFile");
+        picker.FileTypeChoices().Insert(L"JPG", winrt::single_threaded_vector<winrt::hstring>({L".jpg"}));
+
+        picker.as<IInitializeWithWindow>()->Initialize(hWnd);
+        auto file = co_await picker.PickSaveFileAsync();
         co_return file;
     }
 

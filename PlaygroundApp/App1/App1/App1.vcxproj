@@ -88,7 +88,7 @@
       <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Comdlg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Comdlg32.lib;Windowscodecs.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <DelayLoadDLLs>Comdlg32.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
   </ItemDefinitionGroup>
@@ -116,7 +116,9 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="D2DImageResizer.h" />
     <ClInclude Include="DebugLog.h" />
+    <ClInclude Include="NamespacesFramework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -124,9 +126,12 @@
     <ClInclude Include="MainWindow.xaml.h">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="ImageView.h" />
     <ClInclude Include="TestApplicationData.h" />
+    <ClInclude Include="TestImageResize.h" />
     <ClInclude Include="TestLauncher.h" />
     <ClInclude Include="TestPickerApis.h" />
+    <ClInclude Include="WICImageResizer.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -145,6 +150,7 @@
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="TestApplicationData.cpp" />
+    <ClCompile Include="TestImageResize.cpp" />
     <ClCompile Include="TestLauncher.cpp" />
     <ClCompile Include="TestPickerApis.cpp" />
     <ClCompile Include="wWinMain.cpp" />

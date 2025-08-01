@@ -4,20 +4,18 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
-  IgnorableNamespaces="uap uap3 rescap">
+  IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="42b538c7-1541-4626-b6cf-f36ce985e1e9"
+    Name="f2ddcace-fede-48ea-a68d-c44780c56031"
     Publisher="CN=robsonpontin"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="42b538c7-1541-4626-b6cf-f36ce985e1e9" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="f2ddcace-fede-48ea-a68d-c44780c56031" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>COMServerApp (Package)</DisplayName>
+    <DisplayName>COM.ClientApp (Package)</DisplayName>
     <PublisherDisplayName>robsonpontin</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
@@ -36,30 +34,14 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="COMServerApp (Package)"
-        Description="COMServerApp (Package)"
+        DisplayName="COM.ClientApp (Package)"
+        Description="COM.ClientApp (Package)"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">
         <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
         <uap:SplashScreen Image="Images\SplashScreen.png" />
       </uap:VisualElements>
-		
-      <Extensions>		  
-          <com:Extension Category="windows.comServer">			  
-			  <com:ComServer>				  
-				  <com:ExeServer Executable="COM.ServerApp.exe"
-								 DisplayName="COM.ServerApp">
-					  
-					  <com:Class Id="96369f54-8eb6-48f0-abce-c1b211e627c3" 
-								 DisplayName="MyServer" />
-
-					  <com:Class Id="ec39b7db-b506-4489-804d-5844ec346b54"
-								 DisplayName="MyCustomServer" />
-				  </com:ExeServer>
-			  </com:ComServer>
-          </com:Extension>          
-      </Extensions>	      		
     </Application>
   </Applications>
 
@@ -67,4 +49,3 @@
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
 </Package>
- 

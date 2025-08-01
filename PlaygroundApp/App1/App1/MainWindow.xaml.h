@@ -7,6 +7,7 @@ namespace Playground
     struct TestApplicationData;
     struct TestPickerApis;
     struct TestLauncher;
+    struct TestImageResize;
 }
 
 namespace winrt::Playground::implementation
@@ -24,13 +25,17 @@ namespace winrt::Playground::implementation
         void btnLaunchProcessActivationManagerForFile_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void btnLaunchPhotosAppWithProtocolLaunchForFile_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void btnToggleExtendsContentIntoTitleBar_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        WF::IAsyncAction btnResizeImageTest_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        WF::IAsyncAction btnResizeImageWICTest_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     private:
         std::shared_ptr<::Playground::TestApplicationData> m_testApplicationData;
         std::shared_ptr<::Playground::TestLauncher> m_testLauncher;
         std::shared_ptr<::Playground::TestPickerApis> m_testSaveApis;
+        std::shared_ptr<::Playground::TestImageResize> m_testImageResize;
 
         void UpdateTextBlock(winrt::hstring const& txt);
         HWND GetWindowHandle();
+        WF::IAsyncAction CreatePixelDataFromFile(WS::StorageFile file);
     };
 }
 

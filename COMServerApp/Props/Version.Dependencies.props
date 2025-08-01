@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <WinAppSdkVersion>1.6.241114003</WinAppSdkVersion>
+    <BuildToolsVersion>10.0.26100.1591</BuildToolsVersion>
+    <CppWinRtVersion>2.0.240405.15</CppWinRtVersion>
+    <ImplementationLibraryVersion>1.0.240803.1</ImplementationLibraryVersion>
+    <WebView2Version>1.0.2651.64</WebView2Version>
+</PropertyGroup>
+</Project>

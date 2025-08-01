@@ -2,7 +2,7 @@
 
 #include "App.xaml.g.h"
 
-namespace winrt::COMServerApp::implementation
+namespace winrt::COM::ClientApp::implementation
 {
     struct App : AppT<App>
     {
