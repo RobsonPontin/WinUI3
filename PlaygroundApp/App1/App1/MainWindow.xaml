@@ -66,6 +66,10 @@
             <Button x:Name="btnResizeImageWICTest"
                     Content="Resize image (WIC)"
                     Click="btnResizeImageWICTest_Click"/>
+
+            <Button x:Name="btnTestVideoApis"
+                    Content="Test Video APIs"
+                    Click="btnTestVideoApis_Click"/>
         </StackPanel>
 
         <StackPanel Background="DimGray"

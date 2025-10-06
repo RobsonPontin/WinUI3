@@ -10,6 +10,7 @@ namespace Playground
 
 		winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::StorageFile> OpenFilePickerWinRTAsync(HWND hWnd);
 		winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::StorageFile> OpenSavePickerWinRTAsync(HWND hWnd);
+		winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::StorageFile> OpenFilePickerForVideoWinRTAsync(HWND hWnd);
 		void OpenSaveFileDialogWin32(HWND wHandle, std::string filePath);
 		winrt::Windows::Foundation::IAsyncAction OpenSaveFileDialogComShellAsync();
 

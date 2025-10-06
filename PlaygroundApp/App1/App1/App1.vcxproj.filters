@@ -18,6 +18,7 @@
     <ClCompile Include="TestLauncher.cpp" />
     <ClCompile Include="wWinMain.cpp" />
     <ClCompile Include="TestImageResize.cpp" />
+    <ClCompile Include="TestVideoApis.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -28,6 +29,9 @@
     <ClInclude Include="TestImageResize.h" />
     <ClInclude Include="NamespacesFramework.h" />
     <ClInclude Include="D2DImageResizer.h" />
+    <ClInclude Include="ImageView.h" />
+    <ClInclude Include="WICImageResizer.h" />
+    <ClInclude Include="TestVideoApis.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -47,5 +51,8 @@
     <Image Include="Assets\image.jpg">
       <Filter>Assets</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

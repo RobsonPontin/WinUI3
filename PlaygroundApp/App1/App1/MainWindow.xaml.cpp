@@ -14,6 +14,7 @@
 #include "TestLauncher.h"
 #include "TestImageResize.h"
 #include "TestPickerApis.h"
+#include "TestVideoApis.h"
 
 #include "DebugLog.h"
 
@@ -33,6 +34,7 @@ namespace winrt::Playground::implementation
         m_testSaveApis = std::make_shared<::Playground::TestPickerApis>();
         m_testLauncher = std::make_shared<::Playground::TestLauncher>();
         m_testImageResize = std::make_shared<::Playground::TestImageResize>();
+		m_testVideoApis = std::make_shared<::Playground::TestMediaPlayerApis>();
     }
 
     void MainWindow::btnTestApplicationDataContainer_Click(IInspectable const&, RoutedEventArgs const&)
@@ -122,6 +124,17 @@ namespace winrt::Playground::implementation
         {
             this->ExtendsContentIntoTitleBar(true);
         }
+    }
+
+    WF::IAsyncAction MainWindow::btnTestVideoApis_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+    {
+        auto file = co_await m_testSaveApis->OpenFilePickerForVideoWinRTAsync(GetWindowHandle());
+        if (!file)
+        {
+            co_return;
+        }
+
+        co_await m_testVideoApis->LoadVideoFileAsync(file);
     }
 
     WF::IAsyncAction MainWindow::btnResizeImageTest_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)

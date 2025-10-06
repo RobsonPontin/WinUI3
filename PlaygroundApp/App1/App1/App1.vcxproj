@@ -131,6 +131,7 @@
     <ClInclude Include="TestImageResize.h" />
     <ClInclude Include="TestLauncher.h" />
     <ClInclude Include="TestPickerApis.h" />
+    <ClInclude Include="TestVideoApis.h" />
     <ClInclude Include="WICImageResizer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +154,7 @@
     <ClCompile Include="TestImageResize.cpp" />
     <ClCompile Include="TestLauncher.cpp" />
     <ClCompile Include="TestPickerApis.cpp" />
+    <ClCompile Include="TestVideoApis.cpp" />
     <ClCompile Include="wWinMain.cpp" />
   </ItemGroup>
   <ItemGroup>

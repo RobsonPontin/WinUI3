@@ -25,6 +25,20 @@ namespace Playground
         co_return file;
     }
 
+    winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::StorageFile> TestPickerApis::OpenFilePickerForVideoWinRTAsync(HWND hWnd)
+    {
+        auto picker = winrt::Windows::Storage::Pickers::FileOpenPicker();
+        picker.ViewMode(winrt::Windows::Storage::Pickers::PickerViewMode::Thumbnail);
+        picker.SuggestedStartLocation(winrt::Windows::Storage::Pickers::PickerLocationId::PicturesLibrary);
+        picker.FileTypeFilter().Append(L".MOV");
+        picker.FileTypeFilter().Append(L".mp4");
+
+        picker.as<IInitializeWithWindow>()->Initialize(hWnd);
+
+        auto file = co_await picker.PickSingleFileAsync();
+        co_return file;
+    }
+
     winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::StorageFile> TestPickerApis::OpenSavePickerWinRTAsync(HWND hWnd)
     {
         auto picker = winrt::Windows::Storage::Pickers::FileSavePicker();
