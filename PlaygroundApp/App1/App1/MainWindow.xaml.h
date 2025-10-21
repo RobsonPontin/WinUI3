@@ -29,6 +29,7 @@ namespace winrt::Playground::implementation
         WF::IAsyncAction btnResizeImageTest_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         WF::IAsyncAction btnResizeImageWICTest_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
 		WF::IAsyncAction btnTestVideoApis_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        WF::IAsyncAction btnTestVideoExtractFrameApis_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     private:
         std::shared_ptr<::Playground::TestApplicationData> m_testApplicationData;
         std::shared_ptr<::Playground::TestLauncher> m_testLauncher;

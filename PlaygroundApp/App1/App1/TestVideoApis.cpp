@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include <winrt/Windows.Media.Core.h>
+#include <winrt/Windows.Media.Editing.h>
 
 #include "DebugLog.h"
 
@@ -36,7 +37,7 @@ namespace Playground
 		}
 
 		auto videoMediaSource = WMC::MediaSource::CreateFromStorageFile(file);
-		videoMediaSource.StateChanged([](WMC::MediaSource const& sender, WMC::MediaSourceStateChangedEventArgs const& args)
+		videoMediaSource.StateChanged([](WMC::MediaSource const&, WMC::MediaSourceStateChangedEventArgs const& args)
 			{
 				std::wcout << L"MediaSource StateChanged: " << static_cast<int>(args.NewState()) << std::endl;
 			});
@@ -58,7 +59,7 @@ namespace Playground
 		
 		co_await videoMediaSource2.OpenAsync();
 		m_playbackItem = WMP::MediaPlaybackItem(videoMediaSource2);
-		
+
 		if (m_playbackItem.VideoTracks().Size() > 0)
 		{
 			std::cout << "Video tracks available!" << std::endl;
@@ -82,5 +83,50 @@ namespace Playground
 		m_mediaPlayer = m_mediaPlayerElement.MediaPlayer();
 
 		co_return;
+	}
+
+	WF::IAsyncOperation<WS::Streams::InMemoryRandomAccessStream> TestMediaPlayerApis::ExtractFrameFromVideoAsync(WS::StorageFile file, WF::TimeSpan playbackPosition)
+	{
+		try
+		{
+			// Set up media composition from the current one-up video for frame extraction
+			auto mediaClip = co_await winrt::Windows::Media::Editing::MediaClip::CreateFromFileAsync(file);
+			auto videoDuration = mediaClip.OriginalDuration();
+
+			if (videoDuration < playbackPosition)
+			{
+				co_return nullptr;
+			}
+
+			auto mediaComposition{ winrt::Windows::Media::Editing::MediaComposition() };
+			mediaComposition.Clips().Append(mediaClip);
+
+			// When playback position is near the end of video, GetThumbnailAsync() in frame extraction would recognize the playbacktime as "out of bound"
+			// Thus, we manually make sure the value is smaller than the end time by 0.1 millisecond to make sure the frams can be extracted
+			playbackPosition = std::chrono::floor<std::chrono::milliseconds>(playbackPosition);
+			if (playbackPosition > std::chrono::floor<std::chrono::milliseconds>(videoDuration) - std::chrono::milliseconds(100))
+			{
+				playbackPosition -= std::chrono::milliseconds(100);
+			}
+
+			// Use default values for width and height
+			int32_t width = 0;
+			int32_t height = 0;
+
+			auto imageStream = co_await mediaComposition.GetThumbnailAsync(
+				playbackPosition,
+				width,
+				height,
+				winrt::Windows::Media::Editing::VideoFramePrecision::NearestFrame);
+
+			WS::Streams::InMemoryRandomAccessStream randomAccessStream;
+			co_await WS::Streams::RandomAccessStream::CopyAsync(imageStream, randomAccessStream);
+			randomAccessStream.Seek(0);
+			co_return randomAccessStream;
+		}
+		catch (...)
+		{
+			co_return nullptr;
+		}
 	}
 }

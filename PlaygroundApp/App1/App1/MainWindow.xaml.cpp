@@ -137,6 +137,29 @@ namespace winrt::Playground::implementation
         co_await m_testVideoApis->LoadVideoFileAsync(file);
     }
 
+    WF::IAsyncAction MainWindow::btnTestVideoExtractFrameApis_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+    {
+        auto file = co_await m_testSaveApis->OpenFilePickerForVideoWinRTAsync(GetWindowHandle());
+        if (!file)
+        {
+            co_return;
+        }
+
+        try
+        {
+			WF::TimeSpan playbackPosition = std::chrono::seconds(5);
+            auto frameStreamResult = m_testVideoApis->ExtractFrameFromVideoAsync(file, playbackPosition);
+            if (!frameStreamResult)
+            {
+                co_return;
+            }
+        }
+        catch (...)
+        {
+            // fail
+        }
+    }
+
     WF::IAsyncAction MainWindow::btnResizeImageTest_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
     {
         auto file = co_await m_testSaveApis->OpenFilePickerWinRTAsync(GetWindowHandle());

@@ -18,59 +18,73 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical"
+
+        <ScrollViewer
+            VerticalScrollBarVisibility="Auto"
+            HorizontalScrollBarVisibility="Disabled"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollMode="Auto"
+            ZoomMode="Disabled"
+            Padding="12">
+
+            <StackPanel Orientation="Vertical"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center">
-            <Button x:Name="btnTestApplicationDataContainer"
+                <Button x:Name="btnTestApplicationDataContainer"
                     Click="btnTestApplicationDataContainer_Click"
                     Content="Test ApplicationDataContainer"
                     Margin="5 0 5 0"/>
 
-            <Button x:Name="btnTestSaveDialogWin32Api"
+                <Button x:Name="btnTestSaveDialogWin32Api"
                     Click="btnTestSaveDialogWin32Api_Click"
                     Content="Save Dialog Win32"
                     Margin="0 0 5 0"/>
 
-            <Button x:Name="btnTestSaveDialogComShell"
+                <Button x:Name="btnTestSaveDialogComShell"
                     Content="Save Dialog COM/Shell"
                     Click="btnTestSaveDialogComShell_Click"/>
 
-            <Button x:Name="btnLaunchProcessFromShellApi"
+                <Button x:Name="btnLaunchProcessFromShellApi"
                     Content="Launch Process from Shell API"
                     Click="btnLaunchProcessFromShellApi_Click"/>
 
-            <Button x:Name="btnLaunchProcessWin32CreateProcessApi"
+                <Button x:Name="btnLaunchProcessWin32CreateProcessApi"
                     Content="Launch Process with Win32 CreateProcessW"
                     Click="btnLaunchProcessWin32CreateProcessApi_Click"/>
 
-            <Button x:Name="btnLaunchProcessActivationManager"
+                <Button x:Name="btnLaunchProcessActivationManager"
                     Content="Launch Process with ActivationManager"
                     Click="btnLaunchProcessActivationManager_Click"/>
 
-            <Button x:Name="btnLaunchProcessActivationManagerForFile"
+                <Button x:Name="btnLaunchProcessActivationManagerForFile"
                     Content="Launch Process with ActivationManager for File"
                     Click="btnLaunchProcessActivationManagerForFile_Click"/>
 
-            <Button x:Name="btnLaunchPhotosAppWithProtocolLaunchForFile"
+                <Button x:Name="btnLaunchPhotosAppWithProtocolLaunchForFile"
                     Content="Launch Photos App with Protocol Launch for File"
                     Click="btnLaunchPhotosAppWithProtocolLaunchForFile_Click"/>
 
-            <Button x:Name="btnToggleExtendsContentIntoTitleBar"
+                <Button x:Name="btnToggleExtendsContentIntoTitleBar"
                     Content="Toggle Extends Content Into TitleBar"
                     Click="btnToggleExtendsContentIntoTitleBar_Click"/>
 
-            <Button x:Name="btnResizeImageTest"
+                <Button x:Name="btnResizeImageTest"
                     Content="Resize image (WINRT)"
                     Click="btnResizeImageTest_Click"/>
 
-            <Button x:Name="btnResizeImageWICTest"
+                <Button x:Name="btnResizeImageWICTest"
                     Content="Resize image (WIC)"
                     Click="btnResizeImageWICTest_Click"/>
 
-            <Button x:Name="btnTestVideoApis"
+                <Button x:Name="btnTestVideoApis"
                     Content="Test Video APIs"
                     Click="btnTestVideoApis_Click"/>
-        </StackPanel>
+
+                <Button x:Name="btnTestVideoExtractFrameApis"
+                    Content="Test Video Extract Frame APIs"
+                    Click="btnTestVideoExtractFrameApis_Click"/>
+            </StackPanel>
+        </ScrollViewer>
 
         <StackPanel Background="DimGray"
                     Grid.Row="1">
