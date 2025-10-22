@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D2DImageResizer.h" />
+    <ClInclude Include="D3DResources.h" />
     <ClInclude Include="DebugLog.h" />
     <ClInclude Include="NamespacesFramework.h" />
     <ClInclude Include="pch.h" />

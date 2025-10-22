@@ -6,6 +6,8 @@
 
 #include <winrt/Microsoft.UI.Xaml.Documents.h>
 #include <winrt/Windows.Storage.h>
+#include <winrt/Windows.Storage.FileProperties.h>
+#include <winrt/Windows.Graphics.Imaging.h>
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <microsoft.ui.xaml.window.h>
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
@@ -35,6 +37,9 @@ namespace winrt::Playground::implementation
         m_testLauncher = std::make_shared<::Playground::TestLauncher>();
         m_testImageResize = std::make_shared<::Playground::TestImageResize>();
 		m_testVideoApis = std::make_shared<::Playground::TestMediaPlayerApis>();
+
+        // Events registration
+        m_testVideoApis->FrameImageReady({ get_weak(), &MainWindow::TestVideoApis_VideoFrameReady});
     }
 
     void MainWindow::btnTestApplicationDataContainer_Click(IInspectable const&, RoutedEventArgs const&)
@@ -160,6 +165,42 @@ namespace winrt::Playground::implementation
         }
     }
 
+    WF::IAsyncAction MainWindow::btnTestVideoExtractFrameV2Apis_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+    {
+        auto file = co_await m_testSaveApis->OpenFilePickerForVideoWinRTAsync(GetWindowHandle());
+        if (!file)
+        {
+            co_return;
+        }
+
+        try
+        {
+            auto props = co_await file.Properties().GetVideoPropertiesAsync();
+
+            uint32_t width = props.Width();
+            uint32_t height = props.Height();
+
+			WF::TimeSpan playbackPosition = std::chrono::seconds(1); // TODO: for testing just choose second 1 of video
+            m_testVideoApis->RequestFrameFromVideoAsync(file, playbackPosition, width, height);
+        }
+        catch (...)
+        {
+            // fail
+        }
+    }
+
+    WF::IAsyncAction MainWindow::TestVideoApis_VideoFrameReady(WGI::SoftwareBitmap const& bitmap)
+    {
+        WUX::Media::Imaging::SoftwareBitmapSource imgSource;
+        auto width = bitmap.PixelWidth();
+        auto height = bitmap.PixelHeight();
+        co_await imgSource.SetBitmapAsync(bitmap);
+
+        ImageControl().Source(imgSource);
+        ImageControl().Width(width);
+        ImageControl().Height(height);
+    }
+
     WF::IAsyncAction MainWindow::btnResizeImageTest_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
     {
         auto file = co_await m_testSaveApis->OpenFilePickerWinRTAsync(GetWindowHandle());
@@ -177,7 +218,7 @@ namespace winrt::Playground::implementation
                 co_return;
             }            
 
-            // NOTE: SoftwareBitmapSource::SetBitmapAsync only supports bgra8 pixel format and pre-multiplied or no alpha.'
+            // NOTE: SoftwareBitmapSource::SetBitmapAsync only supports bgra8 pixel format and pre-multiplied or no alpha.
             WUX::Media::Imaging::SoftwareBitmapSource imgSource;
             co_await imgSource.SetBitmapAsync(imgResult);
 

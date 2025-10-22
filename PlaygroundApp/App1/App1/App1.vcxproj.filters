@@ -32,6 +32,7 @@
     <ClInclude Include="ImageView.h" />
     <ClInclude Include="WICImageResizer.h" />
     <ClInclude Include="TestVideoApis.h" />
+    <ClInclude Include="D3DResources.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

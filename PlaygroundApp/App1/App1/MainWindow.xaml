@@ -83,6 +83,10 @@
                 <Button x:Name="btnTestVideoExtractFrameApis"
                     Content="Test Video Extract Frame APIs"
                     Click="btnTestVideoExtractFrameApis_Click"/>
+
+                <Button x:Name="btnTestVideoExtractFrameV2Apis"
+                    Content="Test Video Extract Frame APIs V2"
+                    Click="btnTestVideoExtractFrameV2Apis_Click"/>
             </StackPanel>
         </ScrollViewer>
 

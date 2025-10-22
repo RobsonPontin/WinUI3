@@ -3,14 +3,17 @@
 
 #include <iostream>
 
+#include <winrt/Windows.Graphics.Imaging.h>
 #include <winrt/Windows.Media.Core.h>
 #include <winrt/Windows.Media.Editing.h>
+#include <winrt/Windows.Media.Playback.h>
+#include <winrt/Windows.Storage.h>
 
 #include "DebugLog.h"
 
 namespace Playground
 {
-	void TestMediaPlayerApis::Initialize()
+	void TestMediaPlayerApis::InitializeMediaPlayer()
 	{
 		if (m_mediaPlayer != nullptr)
 		{
@@ -27,9 +30,25 @@ namespace Playground
 			});
 	}
 
+	void TestMediaPlayerApis::InitializeMediaPlayerVideoFrameServer(int width, int height)
+	{
+		if (m_mediaPlayerVideoFrameServer != nullptr)
+		{
+			return;
+		}
+		
+		m_mediaPlayerVideoFrameServer = WMP::MediaPlayer();
+		m_mediaPlayerVideoFrameServer.IsVideoFrameServerEnabled(true);
+
+		m_videoFrameAvailableRevoker = m_mediaPlayerVideoFrameServer.VideoFrameAvailable(
+			winrt::auto_revoke, { shared_from_this(), &TestMediaPlayerApis::MediaPlayer_VideoFrameAvailable});
+
+		m_d3d = std::make_unique<D3DResources>(D3DResources::Create(width, height));
+	}
+
 	WF::IAsyncAction TestMediaPlayerApis::LoadVideoFileAsync(WS::StorageFile file)
 	{
-		Initialize();
+		InitializeMediaPlayer();
 
 		if (m_playbackItem != nullptr)
 		{
@@ -128,5 +147,50 @@ namespace Playground
 		{
 			co_return nullptr;
 		}
+	}
+
+	WF::IAsyncAction TestMediaPlayerApis::RequestFrameFromVideoAsync(WS::StorageFile file, WF::TimeSpan playbackPosition, int width, int height)
+	{
+		if (width <= 0 || height <= 0)
+		{
+			throw std::invalid_argument("Invalid video frame size");
+		}
+
+		// Target size for video frame
+		InitializeMediaPlayerVideoFrameServer(width, height);
+
+		auto videoMediaSource = WMC::MediaSource::CreateFromStorageFile(file);
+		co_await videoMediaSource.OpenAsync();
+
+		m_mediaPlayerVideoFrameServer.Source(videoMediaSource);
+	}
+
+	WF::IAsyncAction TestMediaPlayerApis::MediaPlayerVideoFrameServer_VideoFrameAvailable(WMP::MediaPlayer const& sender, WF::IInspectable const&)
+	{
+		// The event will be raised on a background thread, so we need to marshal back to the UI thread if necessary
+		co_await m_uiContext;
+
+		try
+		{
+			auto frameRect = m_d3d->GetFrameSize();
+
+			// Copy the current video frame
+			sender.CopyFrameToVideoSurface(m_d3d->m_frameSurface, frameRect);
+
+			WGI::SoftwareBitmap sb = co_await WGI::SoftwareBitmap::CreateCopyFromSurfaceAsync(
+				m_d3d->m_frameSurface,
+				WGI::BitmapAlphaMode::Premultiplied);
+
+			m_frameImageReady(sb);
+		}
+		catch (...)
+		{
+
+		}
+	}
+
+	winrt::event_token TestMediaPlayerApis::FrameImageReady(winrt::delegate<WGI::SoftwareBitmap> const& handler)
+	{
+		return m_frameImageReady.add(handler);
 	}
 }

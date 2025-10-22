@@ -30,6 +30,7 @@ namespace winrt::Playground::implementation
         WF::IAsyncAction btnResizeImageWICTest_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
 		WF::IAsyncAction btnTestVideoApis_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         WF::IAsyncAction btnTestVideoExtractFrameApis_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        WF::IAsyncAction btnTestVideoExtractFrameV2Apis_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     private:
         std::shared_ptr<::Playground::TestApplicationData> m_testApplicationData;
         std::shared_ptr<::Playground::TestLauncher> m_testLauncher;
@@ -37,6 +38,7 @@ namespace winrt::Playground::implementation
         std::shared_ptr<::Playground::TestImageResize> m_testImageResize;
 		std::shared_ptr<::Playground::TestMediaPlayerApis> m_testVideoApis;
 
+        WF::IAsyncAction TestVideoApis_VideoFrameReady(WGI::SoftwareBitmap const& bitmap);
         void UpdateTextBlock(winrt::hstring const& txt);
         HWND GetWindowHandle();
     };
