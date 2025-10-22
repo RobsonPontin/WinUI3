@@ -41,7 +41,7 @@ namespace Playground
 		m_mediaPlayerVideoFrameServer.IsVideoFrameServerEnabled(true);
 
 		m_videoFrameAvailableRevoker = m_mediaPlayerVideoFrameServer.VideoFrameAvailable(
-			winrt::auto_revoke, { shared_from_this(), &TestMediaPlayerApis::MediaPlayer_VideoFrameAvailable});
+			winrt::auto_revoke, { shared_from_this(), &TestMediaPlayerApis::MediaPlayerVideoFrameServer_VideoFrameAvailable });
 
 		m_d3d = std::make_unique<D3DResources>(D3DResources::Create(width, height));
 	}
