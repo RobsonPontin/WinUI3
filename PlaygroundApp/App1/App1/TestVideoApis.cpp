@@ -163,6 +163,7 @@ namespace Playground
 		co_await videoMediaSource.OpenAsync();
 
 		m_mediaPlayerVideoFrameServer.Source(videoMediaSource);
+		m_mediaPlayerVideoFrameServer.Position(playbackPosition);
 	}
 
 	WF::IAsyncAction TestMediaPlayerApis::MediaPlayerVideoFrameServer_VideoFrameAvailable(WMP::MediaPlayer const& sender, WF::IInspectable const&)
