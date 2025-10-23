@@ -15,7 +15,7 @@ namespace Playground
 		WF::IAsyncAction LoadVideoFileAsync(WS::StorageFile file);
 
 		WF::IAsyncOperation<WS::Streams::InMemoryRandomAccessStream> ExtractFrameFromVideoAsync(WS::StorageFile file, WF::TimeSpan playbackPosition);
-		WF::IAsyncAction RequestFrameFromVideoAsync(WS::StorageFile file, WF::TimeSpan playbackPosition, int width, int height);
+		WF::IAsyncAction RequestFrameFromVideoAsync(WS::StorageFile file, WF::TimeSpan playbackPosition);
 
 		// Events
 		winrt::event_token FrameImageReady(winrt::delegate<WGI::SoftwareBitmap> const& handler);
@@ -30,11 +30,10 @@ namespace Playground
 
 		// MediaPlayer as Video Frame Server
 		WMP::MediaPlayer m_mediaPlayerVideoFrameServer{ nullptr };
-		std::unique_ptr<D3DResources> m_d3d{ nullptr };
 		winrt::apartment_context m_uiContext{};
 		WMP::MediaPlayer::VideoFrameAvailable_revoker m_videoFrameAvailableRevoker{};
 
-		void InitializeMediaPlayerVideoFrameServer(int width, int height);
+		void InitializeMediaPlayerVideoFrameServer();
 		WF::IAsyncAction MediaPlayerVideoFrameServer_VideoFrameAvailable(WMP::MediaPlayer const& sender, WF::IInspectable const& args);
 
 		// Events

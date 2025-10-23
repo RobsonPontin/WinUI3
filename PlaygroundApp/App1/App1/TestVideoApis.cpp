@@ -30,7 +30,7 @@ namespace Playground
 			});
 	}
 
-	void TestMediaPlayerApis::InitializeMediaPlayerVideoFrameServer(int width, int height)
+	void TestMediaPlayerApis::InitializeMediaPlayerVideoFrameServer()
 	{
 		if (m_mediaPlayerVideoFrameServer != nullptr)
 		{
@@ -42,8 +42,6 @@ namespace Playground
 
 		m_videoFrameAvailableRevoker = m_mediaPlayerVideoFrameServer.VideoFrameAvailable(
 			winrt::auto_revoke, { shared_from_this(), &TestMediaPlayerApis::MediaPlayerVideoFrameServer_VideoFrameAvailable });
-
-		m_d3d = std::make_unique<D3DResources>(D3DResources::Create(width, height));
 	}
 
 	WF::IAsyncAction TestMediaPlayerApis::LoadVideoFileAsync(WS::StorageFile file)
@@ -149,15 +147,10 @@ namespace Playground
 		}
 	}
 
-	WF::IAsyncAction TestMediaPlayerApis::RequestFrameFromVideoAsync(WS::StorageFile file, WF::TimeSpan playbackPosition, int width, int height)
+	WF::IAsyncAction TestMediaPlayerApis::RequestFrameFromVideoAsync(WS::StorageFile file, WF::TimeSpan playbackPosition)
 	{
-		if (width <= 0 || height <= 0)
-		{
-			throw std::invalid_argument("Invalid video frame size");
-		}
-
 		// Target size for video frame
-		InitializeMediaPlayerVideoFrameServer(width, height);
+		InitializeMediaPlayerVideoFrameServer();
 
 		auto videoMediaSource = WMC::MediaSource::CreateFromStorageFile(file);
 		co_await videoMediaSource.OpenAsync();
@@ -173,13 +166,18 @@ namespace Playground
 
 		try
 		{
-			auto frameRect = m_d3d->GetFrameSize();
+			auto width = sender.PlaybackSession().NaturalVideoWidth();
+			auto height = sender.PlaybackSession().NaturalVideoHeight();
+
+			auto d3dResources = std::make_unique<D3DResources>(D3DResources::Create(width, height));
+
+			auto frameRect = WF::Rect{ 0.0f, 0.0f, static_cast<float>(width), static_cast<float>(height) };
 
 			// Copy the current video frame
-			sender.CopyFrameToVideoSurface(m_d3d->m_frameSurface, frameRect);
+			sender.CopyFrameToVideoSurface(d3dResources->m_frameSurface, frameRect);
 
 			WGI::SoftwareBitmap sb = co_await WGI::SoftwareBitmap::CreateCopyFromSurfaceAsync(
-				m_d3d->m_frameSurface,
+				d3dResources->m_frameSurface,
 				WGI::BitmapAlphaMode::Premultiplied);
 
 			m_frameImageReady(sb);

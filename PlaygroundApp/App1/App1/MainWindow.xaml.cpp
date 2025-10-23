@@ -175,13 +175,8 @@ namespace winrt::Playground::implementation
 
         try
         {
-            auto props = co_await file.Properties().GetVideoPropertiesAsync();
-
-            uint32_t width = props.Width();
-            uint32_t height = props.Height();
-
 			WF::TimeSpan playbackPosition = std::chrono::seconds(1); // TODO: for testing just choose second 1 of video
-            m_testVideoApis->RequestFrameFromVideoAsync(file, playbackPosition, width, height);
+            m_testVideoApis->RequestFrameFromVideoAsync(file, playbackPosition);
         }
         catch (...)
         {
