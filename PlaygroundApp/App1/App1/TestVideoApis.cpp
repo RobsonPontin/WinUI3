@@ -38,7 +38,6 @@ namespace Playground
 		}
 		
 		m_mediaPlayerVideoFrameServer = WMP::MediaPlayer();
-		m_mediaPlayerVideoFrameServer.IsVideoFrameServerEnabled(true);
 
 		m_videoFrameAvailableRevoker = m_mediaPlayerVideoFrameServer.VideoFrameAvailable(
 			winrt::auto_revoke, { shared_from_this(), &TestMediaPlayerApis::MediaPlayerVideoFrameServer_VideoFrameAvailable });
@@ -147,16 +146,19 @@ namespace Playground
 		}
 	}
 
-	WF::IAsyncAction TestMediaPlayerApis::RequestFrameFromVideoAsync(WS::StorageFile file, WF::TimeSpan playbackPosition)
+	void TestMediaPlayerApis::RequestFrameFromVideo(WS::StorageFile file, WF::TimeSpan playbackPosition)
 	{
 		// Target size for video frame
 		InitializeMediaPlayerVideoFrameServer();
 
-		auto videoMediaSource = WMC::MediaSource::CreateFromStorageFile(file);
-		co_await videoMediaSource.OpenAsync();
+		// Disable the video frame server before changing the source or position
+		m_mediaPlayerVideoFrameServer.IsVideoFrameServerEnabled(false);
 
+		auto videoMediaSource = WMC::MediaSource::CreateFromStorageFile(file);
 		m_mediaPlayerVideoFrameServer.Source(videoMediaSource);
 		m_mediaPlayerVideoFrameServer.Position(playbackPosition);
+
+		m_mediaPlayerVideoFrameServer.IsVideoFrameServerEnabled(true);
 	}
 
 	WF::IAsyncAction TestMediaPlayerApis::MediaPlayerVideoFrameServer_VideoFrameAvailable(WMP::MediaPlayer const& sender, WF::IInspectable const&)

@@ -15,7 +15,7 @@ namespace Playground
 		WF::IAsyncAction LoadVideoFileAsync(WS::StorageFile file);
 
 		WF::IAsyncOperation<WS::Streams::InMemoryRandomAccessStream> ExtractFrameFromVideoAsync(WS::StorageFile file, WF::TimeSpan playbackPosition);
-		WF::IAsyncAction RequestFrameFromVideoAsync(WS::StorageFile file, WF::TimeSpan playbackPosition);
+		void RequestFrameFromVideo(WS::StorageFile file, WF::TimeSpan playbackPosition);
 
 		// Events
 		winrt::event_token FrameImageReady(winrt::delegate<WGI::SoftwareBitmap> const& handler);

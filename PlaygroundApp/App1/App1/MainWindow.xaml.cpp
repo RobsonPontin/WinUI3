@@ -176,7 +176,7 @@ namespace winrt::Playground::implementation
         try
         {
 			WF::TimeSpan playbackPosition = std::chrono::seconds(1); // TODO: for testing just choose second 1 of video
-            m_testVideoApis->RequestFrameFromVideoAsync(file, playbackPosition);
+            m_testVideoApis->RequestFrameFromVideo(file, playbackPosition);
         }
         catch (...)
         {
