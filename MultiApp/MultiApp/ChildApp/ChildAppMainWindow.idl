@@ -1,0 +1,8 @@
+namespace ChildApp
+{
+    [default_interface]
+    runtimeclass ChildAppMainWindow : Microsoft.UI.Xaml.Window
+    {
+        ChildAppMainWindow();
+    }
+}
