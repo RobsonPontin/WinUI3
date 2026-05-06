@@ -265,3 +265,14 @@
 /PlaygroundApp/App1/App1 (Package)/bin/ARM64/Debug
 /PlaygroundApp/ARM64/Debug
 /PlaygroundApp/Playground.Controls/ARM64/Debug
+/MultiApp/.vs/MultiApp
+/MultiApp/MultiApp/MultiApp/Generated Files
+/MultiApp/MultiApp/MultiApp/x64/Debug
+/MultiApp/MultiApp/MultiApp (Package)/bin/x64/Debug
+/MultiApp/MultiApp/MultiApp (Package)/obj
+/MultiApp/packages
+/MultiApp/x64/Debug/MultiApp
+/MultiApp/MultiApp/MultiApp (Package)/AppPackages/MultiApp (Package)_1.0.0.0_x64_Debug_Test
+/MultiApp/x64/Debug/ChildApp
+/MultiApp/MultiApp/ChildApp/Generated Files
+/MultiApp/MultiApp/ChildApp/x64/Debug
