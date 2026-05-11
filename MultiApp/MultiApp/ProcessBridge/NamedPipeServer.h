@@ -28,7 +28,6 @@ namespace ProcessBridge::Ipc
         IpcRequestHandler m_handler;
         std::wstring m_pipeName;
         std::atomic<bool> m_running{ false };
-        HANDLE m_stopEvent{ nullptr };
         std::thread m_listenerThread;
     };
 }

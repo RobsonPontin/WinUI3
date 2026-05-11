@@ -71,7 +71,6 @@ namespace winrt::ChildApp::implementation
                 {
                     response.command = L"random";
                     response.payload = std::move(m_pendingPayload);
-                    m_pendingPayload.clear();
                 }
                 else
                 {

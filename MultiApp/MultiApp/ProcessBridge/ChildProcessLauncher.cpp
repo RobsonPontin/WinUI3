@@ -44,14 +44,14 @@ namespace ProcessBridge
         std::wstring childPath = ResolveChildPath();
         if (childPath.empty())
         {
-            return { false, 0, L"Failed to resolve module path." };
+            return { .succeeded = false, .message = L"Failed to resolve module path." };
         }
 
         // Generate unguessable token for the parent-identity handshake.
         std::wstring token = GenerateLaunchToken();
         if (token.empty())
         {
-            return { false, 0, L"Failed to generate launch token." };
+            return { .succeeded = false, .message = L"Failed to generate launch token." };
         }
 
         std::wstring eventName = m_options.eventNamePrefix + token;
@@ -61,7 +61,7 @@ namespace ProcessBridge
             nullptr, TRUE, FALSE, eventName.c_str());
         if (!validationEvent)
         {
-            return { false, 0, L"CreateEventW failed (error " +
+            return { .succeeded = false, .message = L"CreateEventW failed (error " +
                                std::to_wstring(::GetLastError()) + L")." };
         }
 
@@ -90,7 +90,7 @@ namespace ProcessBridge
         {
             DWORD err = ::GetLastError();
             ::CloseHandle(validationEvent);
-            return { false, 0, L"CreateProcessW failed (error " +
+            return { .succeeded = false, .message = L"CreateProcessW failed (error " +
                                std::to_wstring(err) + L")." };
         }
 

@@ -17,10 +17,6 @@ namespace ProcessBridge::Ipc
         m_pipeName = pipeName;
         m_handler = std::move(handler);
 
-        m_stopEvent = ::CreateEventW(nullptr, TRUE, FALSE, nullptr);
-        if (!m_stopEvent)
-            return false;
-
         m_running.store(true);
         m_listenerThread = std::thread(&NamedPipeServer::ListenerLoop, this);
         return true;
@@ -32,11 +28,6 @@ namespace ProcessBridge::Ipc
             return;
 
         m_running.store(false);
-
-        if (m_stopEvent)
-        {
-            ::SetEvent(m_stopEvent);
-        }
 
         // Unblock ConnectNamedPipe by connecting and immediately closing.
         HANDLE dummy = ::CreateFileW(
@@ -52,12 +43,6 @@ namespace ProcessBridge::Ipc
         if (m_listenerThread.joinable())
         {
             m_listenerThread.join();
-        }
-
-        if (m_stopEvent)
-        {
-            ::CloseHandle(m_stopEvent);
-            m_stopEvent = nullptr;
         }
     }
 
