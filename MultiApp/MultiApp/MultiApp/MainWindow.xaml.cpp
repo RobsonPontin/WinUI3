@@ -4,153 +4,207 @@
 #include "MainWindow.g.cpp"
 #endif
 
-#include <bcrypt.h>
-#include <string>
-
-#pragma comment(lib, "bcrypt.lib")
-
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 
-namespace
-{
-    // Switch / event naming for the parent-identity handshake. Different from the
-    // Edge "share-validation-*" pair so the two protocols don't collide.
-    constexpr wchar_t kEventNamePrefix[] = L"Local\\MultiAppChildLaunchValidation-";
-    constexpr wchar_t kSwitchEvent[]     = L"--mp-validation-event=";
-    constexpr wchar_t kSwitchPid[]       = L"--mp-validation-pid=";
-    constexpr DWORD kValidationTimeoutMs = 2000;
-
-    // 128-bit random hex string. Unguessable so a third party can't open the
-    // event by name and falsely signal validation.
-    std::wstring GenerateLaunchToken()
-    {
-        unsigned char bytes[16]{};
-        if (!BCRYPT_SUCCESS(::BCryptGenRandom(
-                nullptr, bytes, sizeof(bytes), BCRYPT_USE_SYSTEM_PREFERRED_RNG)))
-        {
-            return {};
-        }
-        wchar_t hex[sizeof(bytes) * 2 + 1]{};
-        for (size_t i = 0; i < sizeof(bytes); ++i)
-        {
-            ::swprintf_s(&hex[i * 2], 3, L"%02x", bytes[i]);
-        }
-        return hex;
-    }
-}
-
 namespace winrt::MultiApp::implementation
 {
+    MainWindow::~MainWindow()
+    {
+        // Signal closure before teardown to prevent queued UI updates
+        // from accessing destroyed XAML controls.
+        m_closing.store(true);
+        StopIpcMonitor();
+    }
+
     void MainWindow::LaunchChildButton_Click(
         winrt::Windows::Foundation::IInspectable const& /*sender*/,
         winrt::Microsoft::UI::Xaml::RoutedEventArgs const& /*args*/)
     {
-        wchar_t exePath[MAX_PATH]{};
-        DWORD len = ::GetModuleFileNameW(nullptr, exePath, MAX_PATH);
-        if (len == 0 || len == MAX_PATH)
+        // DispatcherQueue must be captured on the UI thread; background
+        // threads use it to marshal status updates back to the UI.
+        if (!m_dispatcherQueue)
         {
-            StatusText().Text(L"Failed to resolve module path.");
+            m_dispatcherQueue = winrt::Microsoft::UI::Dispatching::DispatcherQueue::GetForCurrentThread();
+        }
+
+        // Clean up any previous IPC session before starting a new one.
+        StopIpcMonitor();
+
+        // Disable the button while launch is in progress.
+        LaunchChildButton().IsEnabled(false);
+        StatusText().Text(L"Launching child process...");
+
+        LaunchAndConnectAsync();
+    }
+
+    void MainWindow::LaunchAndConnectAsync()
+    {
+        m_ipcRunning.store(true);
+
+        // Capture a strong reference to keep the WinRT object alive for the
+        // entire duration of the worker thread. Raw `this` would dangle if
+        // the XAML framework released its last reference while the thread runs.
+        auto strong = get_strong();
+
+        // Launch + IPC connect run entirely off the UI thread so the
+        // window stays responsive during process creation and handshake.
+        m_ipcThread = std::thread([strong, this]()
+        {
+            auto result = m_launcher->Launch();
+
+            // Marshal launch result back to the UI thread.
+            // Safe to capture `this`: the strong ref keeps the object alive,
+            // and m_closing guards against post-teardown XAML access.
+            m_dispatcherQueue.TryEnqueue([this,
+                                          msg = winrt::hstring{ result.message },
+                                          ok = result.succeeded]()
+            {
+                if (m_closing.load())
+                    return;
+
+                StatusText().Text(msg);
+                if (!ok)
+                {
+                    LaunchChildButton().IsEnabled(true);
+                }
+            });
+
+            if (!result.succeeded || result.pipeName.empty())
+            {
+                m_ipcRunning.store(false);
+                ReEnableLaunchButton();
+                return;
+            }
+
+            // --- IPC connect & monitor (same thread) ---
+
+            UpdateIpcStatus(L"IPC: Connecting...", IpcColor::Yellow);
+
+            // The child process needs time to start its pipe server;
+            // Connect() retries internally until the pipe appears or
+            // the timeout (5 s) expires.
+            if (!m_ipcClient->Connect(result.pipeName, 5000))
+            {
+                UpdateIpcStatus(L"IPC: Connection failed", IpcColor::Red);
+                m_ipcRunning.store(false);
+                ReEnableLaunchButton();
+                return;
+            }
+
+            UpdateIpcStatus(L"IPC: Connected", IpcColor::Green);
+
+            // Initial status query confirms the channel is functional.
+            auto response = m_ipcClient->Send({ L"status", L"" });
+            if (response)
+            {
+                UpdateIpcStatus(L"IPC: Connected — child status: " + response->payload, IpcColor::Green);
+            }
+            else
+            {
+                UpdateIpcStatus(L"IPC: Connected but status query failed", IpcColor::Yellow);
+            }
+
+            // Health-check loop: ping every 2 s to detect child exit.
+            // Also picks up any data the child wants to push (e.g. random numbers).
+            while (m_ipcRunning.load() && m_ipcClient->IsConnected())
+            {
+                ::Sleep(2000);
+
+                if (!m_ipcRunning.load())
+                    break;
+
+                auto ping = m_ipcClient->Send({ L"ping", L"" });
+                if (!ping)
+                {
+                    UpdateIpcStatus(L"IPC: Disconnected (child exited)", IpcColor::Red);
+                    break;
+                }
+
+                // If the child sent data, display it on the UI thread.
+                if (ping->command == L"random" && !ping->payload.empty())
+                {
+                    winrt::hstring val{ ping->payload };
+                    m_dispatcherQueue.TryEnqueue([this, val]()
+                    {
+                        if (m_closing.load())
+                            return;
+                        ReceivedDataText().Text(L"Received from child: " + val);
+                    });
+                }
+            }
+
+            m_ipcClient->Disconnect();
+            m_ipcRunning.store(false);
+
+            // Re-enable the launch button so the user can spawn another child.
+            ReEnableLaunchButton();
+        });
+    }
+
+    void MainWindow::ReEnableLaunchButton()
+    {
+        if (!m_dispatcherQueue || m_closing.load())
             return;
-        }
 
-        std::wstring childPath{ exePath };
-        size_t slash = childPath.find_last_of(L"\\/");
-        if (slash != std::wstring::npos)
+        m_dispatcherQueue.TryEnqueue([this]()
         {
-            childPath.resize(slash + 1);
-        }
-        childPath += L"ChildApp.exe";
+            if (m_closing.load())
+                return;
+            LaunchChildButton().IsEnabled(true);
+        });
+    }
 
-        // Parent-identity handshake: create a named event with an unguessable
-        // token. The child opens it by name and SetEvents it once it has
-        // verified that our image path is the expected parent EXE.
-        std::wstring token = GenerateLaunchToken();
-        if (token.empty())
-        {
-            StatusText().Text(L"Failed to generate launch token.");
+    void MainWindow::UpdateIpcStatus(const std::wstring& status, IpcColor color)
+    {
+        if (!m_dispatcherQueue || m_closing.load())
             return;
-        }
-        std::wstring eventName = kEventNamePrefix + token;
 
-        HANDLE validationEvent = ::CreateEventW(
-            /*lpEventAttributes=*/nullptr,
-            /*bManualReset=*/TRUE,
-            /*bInitialState=*/FALSE,
-            eventName.c_str());
-        if (!validationEvent)
+        // Marshal UI update to the dispatcher thread; safe to capture `this`
+        // because the worker thread holds a strong ref that keeps the object
+        // alive. The m_closing check guards against post-teardown XAML access.
+        winrt::hstring text{ status };
+        m_dispatcherQueue.TryEnqueue([this, text, color]()
         {
-            StatusText().Text(L"CreateEventW failed (error " +
-                              std::to_wstring(::GetLastError()) + L").");
-            return;
-        }
+            if (m_closing.load())
+                return;
 
-        DWORD parentPid = ::GetCurrentProcessId();
+            IpcStatusText().Text(text);
 
-        // CreateProcessW requires a writable command-line buffer. Embed both
-        // switches; the child parses them out of GetCommandLineW().
-        std::wstring commandLine = L"\"" + childPath + L"\"";
-        commandLine += L" ";
-        commandLine += kSwitchEvent;
-        commandLine += eventName;
-        commandLine += L" ";
-        commandLine += kSwitchPid;
-        commandLine += std::to_wstring(parentPid);
+            winrt::Microsoft::UI::Xaml::Media::SolidColorBrush brush{ winrt::Windows::UI::Color{} };
+            switch (color)
+            {
+            case IpcColor::Green:
+                brush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{
+                    winrt::Windows::UI::Color{ 255, 0, 180, 0 } };
+                break;
+            case IpcColor::Yellow:
+                brush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{
+                    winrt::Windows::UI::Color{ 255, 200, 170, 0 } };
+                break;
+            case IpcColor::Red:
+                brush = winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{
+                    winrt::Windows::UI::Color{ 255, 220, 30, 30 } };
+                break;
+            }
+            IpcStatusText().Foreground(brush);
+        });
+    }
 
-        STARTUPINFOW si{};
-        si.cb = sizeof(si);
-        PROCESS_INFORMATION pi{};
+    void MainWindow::StopIpcMonitor()
+    {
+        m_ipcRunning.store(false);
 
-        BOOL ok = ::CreateProcessW(
-            childPath.c_str(),
-            commandLine.data(),
-            nullptr,
-            nullptr,
-            FALSE,
-            0,
-            nullptr,
-            nullptr,
-            &si,
-            &pi);
-
-        if (!ok)
+        // Close the pipe handle first to unblock any in-progress
+        // Read/Write call on the IPC thread.
+        if (m_ipcClient)
         {
-            DWORD err = ::GetLastError();
-            ::CloseHandle(validationEvent);
-            StatusText().Text(L"CreateProcessW failed (error " +
-                              std::to_wstring(err) + L").");
-            return;
+            m_ipcClient->Disconnect();
         }
 
-        ::CloseHandle(pi.hThread);
-
-        // Wait on either (a) the child signalling validation succeeded, or
-        // (b) the child exiting first — that means it rejected the launch.
-        HANDLE waits[2] = { validationEvent, pi.hProcess };
-        DWORD waitResult = ::WaitForMultipleObjects(
-            2, waits, /*bWaitAll=*/FALSE, kValidationTimeoutMs);
-
-        std::wstring status;
-        switch (waitResult)
+        if (m_ipcThread.joinable())
         {
-        case WAIT_OBJECT_0:
-            status = L"ChildApp validated parent identity (PID " +
-                     std::to_wstring(pi.dwProcessId) + L").";
-            break;
-        case WAIT_OBJECT_0 + 1:
-            status = L"ChildApp exited before signalling validation (rejected launch).";
-            break;
-        case WAIT_TIMEOUT:
-            status = L"ChildApp validation timed out.";
-            break;
-        default:
-            status = L"WaitForMultipleObjects failed (" +
-                     std::to_wstring(::GetLastError()) + L").";
-            break;
+            m_ipcThread.join();
         }
-        StatusText().Text(status);
-
-        ::CloseHandle(validationEvent);
-        ::CloseHandle(pi.hProcess);
     }
 }

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ChildAppRoot.xaml.h"
 #include "ChildAppMainWindow.xaml.h"
+#include "..\ProcessBridge\ProcessBridge.h"
 
 #include <shellapi.h>
 #include <memory>
@@ -12,27 +13,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace
 {
-    // Must match the switch / event naming used by MultiApp's
-    // LaunchChildButton_Click handshake.
-    constexpr std::wstring_view kSwitchEvent = L"--mp-validation-event=";
-    constexpr std::wstring_view kSwitchPid   = L"--mp-validation-pid=";
-    constexpr wchar_t kExpectedParentExe[]   = L"MultiApp.exe";
-
-    bool TryGetSwitchValue(int argc, LPWSTR* argv, std::wstring_view prefix,
-                           std::wstring& out_value)
-    {
-        for (int i = 1; i < argc; ++i)
-        {
-            std::wstring_view arg{ argv[i] };
-            if (arg.size() >= prefix.size() &&
-                arg.compare(0, prefix.size(), prefix) == 0)
-            {
-                out_value.assign(arg.substr(prefix.size()));
-                return true;
-            }
-        }
-        return false;
-    }
+    // The expected parent executable — only ChildApp knows who its parent is.
+    constexpr wchar_t kExpectedParentExe[] = L"MultiApp.exe";
 
     std::wstring GetProcessImagePath(HANDLE process)
     {
@@ -45,25 +27,7 @@ namespace
         return std::wstring{ buf, size };
     }
 
-    std::wstring GetOwnDirectory()
-    {
-        wchar_t self[MAX_PATH]{};
-        DWORD len = ::GetModuleFileNameW(nullptr, self, MAX_PATH);
-        if (len == 0 || len == MAX_PATH)
-        {
-            return {};
-        }
-        std::wstring path{ self, len };
-        size_t slash = path.find_last_of(L"\\/");
-        if (slash == std::wstring::npos)
-        {
-            return {};
-        }
-        path.resize(slash + 1);
-        return path;
-    }
-
-    // Verify that this process was activated by a co-located MultiApp.exe and
+    // Verify that this process was activated by a co-located parent EXE and
     // signal the parent's named event so it knows the handshake succeeded.
     // Returns true only when the parent is legitimate. Any failure (missing
     // switches, parent gone, image-path mismatch, event open failure) is
@@ -81,8 +45,8 @@ namespace
 
         std::wstring eventName;
         std::wstring pidStr;
-        if (!TryGetSwitchValue(argc, argv, kSwitchEvent, eventName) ||
-            !TryGetSwitchValue(argc, argv, kSwitchPid, pidStr) ||
+        if (!ProcessBridge::Protocol::TryGetSwitchValue(argc, argv, ProcessBridge::Protocol::kSwitchEvent, eventName) ||
+            !ProcessBridge::Protocol::TryGetSwitchValue(argc, argv, ProcessBridge::Protocol::kSwitchPid, pidStr) ||
             eventName.empty() || pidStr.empty())
         {
             return false;
@@ -116,10 +80,9 @@ namespace
             return false;
         }
 
-        // Expected parent: MultiApp.exe sitting next to our own EXE in the
-        // package install directory. Co-location proves the parent ships in
-        // the same package as us, since CreateProcessW used a full path.
-        std::wstring ownDir = GetOwnDirectory();
+        // Expected parent: sitting next to our own EXE in the package install
+        // directory. Co-location proves the parent ships in the same package.
+        std::wstring ownDir = ProcessBridge::Protocol::GetOwnDirectory();
         if (ownDir.empty())
         {
             return false;

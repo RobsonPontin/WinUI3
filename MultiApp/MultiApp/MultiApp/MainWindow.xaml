@@ -22,6 +22,12 @@
                     HorizontalAlignment="Center" />
             <TextBlock x:Name="StatusText"
                        HorizontalAlignment="Center" />
+            <TextBlock x:Name="IpcStatusText"
+                       HorizontalAlignment="Center"
+                       Foreground="Gray" />
+            <TextBlock x:Name="ReceivedDataText"
+                       HorizontalAlignment="Center"
+                       FontSize="18" />
         </StackPanel>
     </Grid>
 </Window>

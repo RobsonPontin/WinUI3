@@ -10,9 +10,21 @@
     Title="ChildApp">
 
     <Grid>
-        <TextBlock Text="Child App 1"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="32" />
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="12">
+            <TextBlock Text="Child App 1"
+                       FontSize="32"
+                       HorizontalAlignment="Center" />
+            <Button x:Name="SendRandomButton"
+                    Content="Send Random Number"
+                    Click="SendRandomButton_Click"
+                    HorizontalAlignment="Center" />
+            <TextBlock x:Name="RandomNumberText"
+                       HorizontalAlignment="Center" />
+            <TextBlock x:Name="IpcStatusText"
+                       HorizontalAlignment="Center"
+                       Foreground="Gray" />
+        </StackPanel>
     </Grid>
 </Window>
