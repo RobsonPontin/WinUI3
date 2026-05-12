@@ -1,280 +1,98 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+# Unified .gitignore for all WinUI3 projects
+# Covers: C++/WinRT, C#, .NET, MSIX packaging, NuGet, Visual Studio artifacts
 ################################################################################
 
-/WinUI3_GenCsProjection/WinUI3_GenCsProjection/bin/x86/Debug/net6.0-windows10.0.19041.0/win10-x86
-/WinUI3_GenCsProjection/WinUI3_GenCsProjection/obj
-/WinUI3_GenCsProjection/.vs/WinUI3_GenCsProjection
-/WinUI3_GenCsProjection/Debug/WinRtComponent
-/WinUI3_GenCsProjection/packages/Microsoft.Windows.CppWinRT.2.0.220929.3/build/native
-/WinUI3_GenCsProjection/packages/Microsoft.Windows.CppWinRT.2.0.220929.3/bin
-/WinUI3_GenCsProjection/packages
-/WinUI3_GenCsProjection/WinRtComponent/Generated Files
-/WinUI3_GenCsProjection/WinRtComponent/Debug
-/WinUI3_GenCsProjection/x64/Debug/WinRtComponent
-/WinUI3_GenCsProjection/WinUI3_GenCsProjection/bin/x64/Debug/net6.0-windows10.0.19041.0/win10-x64
-/WinUI3_GenCsProjection/WinRtComponent/x64/Debug
-/WinUI3_GenCsProjection/WinRtComponentProjection/obj
-/WinUI3_GenCsProjection/WinRtComponentProjection/bin/Debug/net6.0-windows10.0.19041.0
-/WinUI3_cppcx/.vs
-/WinUI3_cppcx/packages
-/WinUI3_cppcx/WinRt_cppcx/x64/Debug
-/WinUI3_cppcx/WinRt_cppcx_projection/bin/Debug/net6.0-windows10.0.19041.0
-/WinUI3_cppcx/WinRt_cppcx_projection/obj
-/WinUI3_cppcx/WinUI3App_cs/bin/x64/Debug/net6.0-windows10.0.19041.0/win10-x64
-/WinUI3_cppcx/WinUI3App_cs/obj
-/WinUI3_cppcx/WinUI3_cppcx/Generated Files
-/WinUI3_cppcx/WinUI3_cppcx/x64/Debug
-/WinUI3_cppcx/x64/Debug
-/WinUI3_cppcx/WinRt_cppcx_projection/nuget/net6.0-windows10.0.19041.0
-/WinUI3_cppcx/WinRt_cppcx/x64/Release
-/WinUI3_cppcx/WinUI3App_cs/bin/x64/Release/net6.0-windows10.0.19041.0/win10-x64
-/WinUI3_cppcx/WinUI3_cppcx/x64/Release
-/WinUI3_cppcx/x64/Release
-/WinUI3_cppcx/WinRt_cppcx_projection/bin/Release/net6.0-windows10.0.19041.0
-/WinUI3_cppcx/WinRt_cppcx_projection/nuget/WinRt_cppcx_projection.0.1.0-prerelease.nupkg
-/WinUI3_cppcx/WinUI3App_cpp/Generated Files
-/WinUI3_cppcx/WinUI3App_cpp/x64
-/WinUI3_GenCsProjection/.vs/ProjectEvaluation
-/PackageMultipleApps/packages
-/PackageMultipleApps/x64/Debug/UwpApp
-/PackageMultipleApps/x64/Debug/WinUi3App
-/PackageMultipleApps/.vs/PackageMultipleApps
-/PackageMultipleApps/AppPackaging/bin/x64/Debug
-/PackageMultipleApps/AppPackaging/obj
-/PackageMultipleApps/UwpApp/Generated Files
-/PackageMultipleApps/UwpApp/x64/Debug
-/PackageMultipleApps/WinUi3App/Generated Files
-/PackageMultipleApps/WinUi3App/x64/Debug/App.xaml.obj
-/PackageMultipleApps/WinUi3App/x64/Debug/embed
-/PackageMultipleApps/WinUi3App/x64/Debug/Merged
-/PackageMultipleApps/WinUi3App/x64/Debug/Unmerged
-/PackageMultipleApps/WinUi3App/x64/Debug/WinUi3App.tlog
-/PackageMultipleApps/WinUi3App/x64/Debug
-*.user
-/PackageMultipleApps/UwpConsoleApp/Generated Files/winrt
-/PackageMultipleApps/UwpConsoleApp/x64/Debug
-/PackageMultipleApps/x64/Debug/UwpConsoleApp
-/AutoPlayListenerApp/AutoPlayApp/Generated Files
-/AutoPlayListenerApp/AutoPlayApp/x64/Debug
-/AutoPlayListenerApp/AutoPlayAppConsole/x64/Debug/AutoPlay.6d6892d6.tlog
-/AutoPlayListenerApp/AutoPlayAppConsole/x64/Debug
-/AutoPlayListenerApp/packages
-/AutoPlayListenerApp/x64/Debug
-/WinUI3_WinAppSDK/WinUI3_WinAppSDK/obj
-/AutoPlayListenerApp/.vs/AutoPlayListenerApp
-/.vs
-/AutoPlayListenerApp/AutoPlayAppPackage.WAP/bin/x64/Debug
-/AutoPlayListenerApp/AutoPlayAppPackage.WAP/obj
-*.cache
-/AutoPlayListenerApp/AutoPlayApp/x64/Release
-/AutoPlayListenerApp/AutoPlayAppConsole/x64/Release
-/AutoPlayListenerApp/AutoPlayAppPackage.WAP/bin/x64/Release
-/AutoPlayListenerApp/x64/Release
-/PackageMultipleApps/ControlsLib/Generated Files
-/PackageMultipleApps/ControlsLib/x64
-/PackageMultipleApps/UwpApp/x64/Release
-/PackageMultipleApps/UwpConsoleApp/x64/Release
-/PackageMultipleApps/WinUi3App/x64/Release
-/PackageMultipleApps/AppPackaging/bin/x64/Release
-/PackageMultipleApps/AppPackaging/BundleArtifacts
-/PackageMultipleApps/AppPackaging/AppPackaging.assets.cache
-/PdfJsApp/.vs
-/PdfJsApp/PdfJsApp/bin/x64/Debug/net6.0-windows10.0.19041.0/win10-x64
-/PdfJsApp/PdfJsApp/obj
-/PdfJsApp/packages
-/PdfJsApp/PdfJsApp/bin/x64/Debug
-/PdfJsApp/x64/Debug
-/PdfJsApp/WvToWinRtAdapter/Generated Files
-/PdfJsApp/WvToWinRtAdapter/x64/Debug
-/PdfJsApp/WvToWinRtAdapterCsProjection/bin/Debug
-/PdfJsApp/WvToWinRtAdapterCsProjection/obj
-/PdfJsApp/WvToWinRtHostObjectLib/Generated Files
-/PdfJsApp/WvToWinRtHostObjectLib/x64/Debug
-/PdfJsApp/PdfJsViewer/bin/x64/Debug/net7.0-windows10.0.22621.0
-/PdfJsApp/PdfJsViewer/obj
-/PdfJsApp/WvToWinRtHostObjectLib
-/PackageMultipleApps/ControlsLib.CS/bin/x64/Debug/net7.0-windows10.0.19041.0
-/PackageMultipleApps/ControlsLib.CS/obj
-/PackageMultipleApps/x64/Debug/ControlsLib
-/WinUI3_GenCsProjection/WinRtComponentProjection/bin/Debug/net7.0-windows10.0.22621.0
-/WinUI3_GenCsProjection/WinUI3_GenCsProjection/bin/x64/Debug/net7.0-windows10.0.22621.0/win10-x64
-/CsCppApp/.vs
-/CsCppApp/CsCppApp/Generated Files
-/CsCppApp/CsCppApp/x64/Debug
-/CsCppApp/CsWinRtComponent/bin/x64/Debug/net7.0-windows10.0.19041.0
-/CsCppApp/CsWinRtComponent/obj
-/CsCppApp/packages
-/CsCppApp/x64/Debug/CsCppApp
-/CsCppApp/CsApp/obj
-/CsCppApp/NativeHost/bin/x64/Debug/net7.0-windows10.0.19041.0/win-x64
-/CsCppApp/NativeHost/obj
-/NativeAotApp/NativeAotApp/Generated Files
-/NativeAotApp/NativeAotApp/Release
-/NativeAotApp/NativeAotApp/x64/Debug
-/NativeAotApp/packages
-/NativeAotApp/x64/Debug/NativeAotApp
-/NativeAotApp/MyDotNetLib/bin/Release/net7.0/win-x64
-/NativeAotApp/MyDotNetLib/obj
-/NativeAotApp/.vs/NativeAotApp
-/DotNetSelfContainedNativeApp/CsWinRtComponent/obj
-/DotNetSelfContainedNativeApp/CsWinRtComponent/bin/x64/Debug/net7.0-windows10.0.19041.0
-/DotNetSelfContainedNativeApp/NativeApp/Generated Files
-/DotNetSelfContainedNativeApp/NativeApp/x64/Debug
-/DotNetSelfContainedNativeApp/NativeHost/bin/x64/Debug/net7.0-windows10.0.19041.0/win-x64
-/DotNetSelfContainedNativeApp/NativeHost/obj
-/DotNetSelfContainedNativeApp/packages
-/DotNetSelfContainedNativeApp/x64/Debug/NativeApp
-/DotNetSelfContainedNativeApp/.vs
-/NativeAotApp/.vs/ProjectEvaluation
-/DotNetSelfContainedNativeApp/NativeHost/bin/ARM64/Debug/net7.0-windows10.0.19041.0
-/DotNetSelfContainedNativeApp/NativeHost/bin/x64/Release/net7.0-windows10.0.19041.0/win-x64
-/TrimmedApp/TrimmedApp/bin/x86/Debug/net6.0-windows10.0.19041.0/win10-x86
-/TrimmedApp/.vs/TrimmedApp
-/TrimmedApp/TrimmedApp/obj
-/TrimmedApp/TrimmedApp/bin/x64/Debug/net7.0-windows10.0.22621.0/win10-x64
-/NativeAotApp/MyDotNetLib/bin/x64/Debug/net7.0
-/PackageMultipleApps/ControlsLibCs_Dep/obj
-/PackageMultipleApps/ControlsLibCs_Dep/bin/Debug/net6.0-windows10.0.19041.0
-/PackageMultipleApps/.vs/ProjectEvaluation
-/PackageMultipleApps/ControlsLibCs_Dep/bin
-/AutoPlayListenerApp/ComServerExe/x64/Debug
-/AutoPlayListenerApp/ComServerExe/ComServerExe_i.c
-/AutoPlayListenerApp/ComServerExe/ComServerExe_i.h
-/AutoPlayListenerApp/ComServerExe/ComServerExe_p.c
-/AutoPlayListenerApp/ComServerExe/dlldata.c
-/COMServerApp/.vs/COMServerApp
-/COMServerApp/COMServerApp/COMServerApp/Generated Files
-/COMServerApp/COMServerApp/COMServerApp/x64/Debug
-/COMServerApp/COMServerApp/COMServerApp (Package)/bin/x64/Debug
-/COMServerApp/COMServerApp/COMServerApp (Package)/obj
-/COMServerApp/packages
-/COMServerApp/x64/Debug/COMServerApp
-/WasdkSelfContainedNativeApp/SelfContainedDeployment/.vs
-/WasdkSelfContainedNativeApp/SelfContainedDeployment/packages
-/WasdkSelfContainedNativeApp/LibIdentityModel/bin/Debug/net8.0-windows10.0.19041.0
-/WasdkSelfContainedNativeApp/LibIdentityModel/obj
-/WasdkSelfContainedNativeApp/LibXaml/Generated Files
-/WasdkSelfContainedNativeApp/LibXaml/x64/Debug
-/WasdkSelfContainedNativeApp/LibXaml.Common/Generated Files
-/WasdkSelfContainedNativeApp/LibXaml.Common/x64/Debug
-/WasdkSelfContainedNativeApp/SelfContainedDeployment/Generated Files
-/WasdkSelfContainedNativeApp/SelfContainedDeployment/x64/Debug
+# =============================================================================
+# Visual Studio
+# =============================================================================
+.vs/
 *.suo
-/WasdkSelfContainedNativeApp/.vs
-/WasdkSelfContainedNativeApp/packages
-/WasdkSelfContainedNativeApp/x64/Debug
-/WasdkSelfContainedNativeApp/LibIdentityModel/bin/x64/Debug/net8.0-windows10.0.19041.0
-/DotNetSelfContainedNativeApp/CsWinRtComponent/bin/x64/Release/net7.0-windows10.0.19041.0
-/DotNetSelfContainedNativeApp/CustomControlsLib/bin
-/DotNetSelfContainedNativeApp/CustomControlsLib/obj
-/DotNetSelfContainedNativeApp/NativeHost/bin/Release/net7.0-windows10.0.19041.0/NativeHost.deps.json
-/DotNetSelfContainedNativeApp/NativeHost/bin/Release/net7.0-windows10.0.19041.0/NativeHost.runtimeconfig.json
-/MultiprocessApp/Multiprocess.App/Generated Files
-/MultiprocessApp/Multiprocess.App/x64/Debug
-/MultiprocessApp/Multiprocess.Service/x64/Debug
-/MultiprocessApp/packages
-/MultiprocessApp/x64/Debug
-/MultiprocessApp/.vs
-/MultiprocessApp/Multiprocess.App2/Multiprocess.App2 (Package)/obj
-/MultiprocessApp/Multiprocess.App/Multiprocess.App/Generated Files
-/MultiprocessApp/Multiprocess.App/Multiprocess.App/x64/Debug
-/MultiprocessApp/Multiprocess.App/Multiprocess.App (Package)/bin/x64/Debug
-/MultiprocessApp/Multiprocess.App/Multiprocess.App (Package)/obj
-/MultiprocessApp/Multiprocess.App.uwp/App/Generated Files
-/MultiprocessApp/Multiprocess.App.uwp/App/x64/Debug
-/MultiprocessApp/Multiprocess.App.uwp/Package/bin/x64/Debug
-/MultiprocessApp/Multiprocess.App.uwp/Package/obj
-/COMServerApp/COMserver.ProxyStub/x64/Debug
-/COMServerApp/CrossDevice.Contracts.Streaming.ProxyStub/x64/Debug
-/COMServerApp/x64/Debug
-/COMServerApp/COMserver.ProxyStub/COMserverProxyStub_i.c
-/COMServerApp/COMserver.ProxyStub/COMserverProxyStub_i.h
-/COMServerApp/COMserver.ProxyStub/COMserverProxyStub_p.c
-/CsWinRT.App/.vs/CsWinRT.App
-/CsWinRT.App/CsWinRT.App/bin/x64/Debug/net8.0-windows10.0.22621.0/win-x64
-/CsWinRT.App/CsWinRT.App/obj
-/CsWinRT.App/MyCustomLibrary/x64/Debug
-/CsWinRT.App/MyCustomLibrary.CppWinRT/Generated Files
-/CsWinRT.App/MyCustomLibrary.CppWinRT/x64/Debug
-/CsWinRT.App/MyCustomLibrary.CsWinRT/bin/x64/Debug/net8.0-windows10.0.22621.0
-/CsWinRT.App/MyCustomLibrary.CsWinRT/obj
-/CsWinRT.App/packages
-/CsWinRT.App/x64/Debug
-/PlaygroundApp/.vs/PlaygroundApp
-/PlaygroundApp/App1/App1/Debug
-/PlaygroundApp/App1/App1/Generated Files
-/PlaygroundApp/App1/App1 (Package)/bin/x86/Debug
-/PlaygroundApp/App1/App1 (Package)/obj
-/PlaygroundApp/Debug/App1
-/PlaygroundApp/packages
-/PlaygroundApp/x64
-/PlaygroundApp/App1/App1/x64
-/PlaygroundApp/App1/App1 (Package)/bin/x64
-/PdfJsApp/PdfJsViewer/bin/x64/Debug/net8.0-windows10.0.22621.0
-/PdfJsApp/WvToWinRtAdapterCsProjection/bin/x64/Debug/net8.0-windows10.0.22621.0
-/PlaygroundApp.Cs/.vs/PlaygroundApp.Cs
-/PlaygroundApp.Cs/PlaygroundApp.Cs/PlaygroundApp.Cs/bin/x64/Debug/net8.0-windows10.0.19041.0
-/PlaygroundApp.Cs/PlaygroundApp.Cs/PlaygroundApp.Cs/obj
-/PlaygroundApp.Cs/PlaygroundApp.Cs/PlaygroundApp.Cs (Package)/bin/x64/Debug
-/PlaygroundApp.Cs/PlaygroundApp.Cs/PlaygroundApp.Cs (Package)/obj
-/PlaygroundApp.Cs/PlaygroundApp.Cs/PlaygroundApp.Cs/bin/x64/Debug/net8.0-windows10.0.22621.0
-/PlaygroundApp/Playground.Controls/x64/Debug
-/PlaygroundApp/Playground.Controls/Generated Files
-/NativeAppContainerForCs.App/.vs/NativeAppContainerForCs.App
-/NativeAppContainerForCs.App/NativeAppContainerForCs.App/Generated Files
-/NativeAppContainerForCs.App/NativeAppContainerForCs.App/x64/Debug
-/NativeAppContainerForCs.App/packages
-/NativeAppContainerForCs.App/x64/Debug/NativeAppContainerForCs.App
-/NativeAppContainerForCs.App/NativeAppContainerForCs.AppLib/Generated Files
-/NativeAppContainerForCs.App/NativeAppContainerForCs.AppLib/x64/Debug
-/NativeAppContainerForCs.App/x64/Debug/NativeAppContainerForCs.AppLib
-/NativeAppContainerForCs.App/ContainerForCs.App/Generated Files
-/NativeAppContainerForCs.App/ContainerForCs.App/x64/Debug
-/NativeAppContainerForCs.App/ContainerForCs.AppLib/Generated Files
-/NativeAppContainerForCs.App/ContainerForCs.AppLib/x64/Debug
-/NativeAppContainerForCs.App/x64/Debug
-/NativeAppContainerForCs.App/.vs/ProjectEvaluation
-/NativeAppContainerForCs.App/ContainerForCs.AppCs/bin/x64/Debug/net8.0-windows10.0.19041.0/win-x64
-/NativeAppContainerForCs.App/ContainerForCs.AppCs/Generated Files
-/NativeAppContainerForCs.App/ContainerForCs.AppCs/obj
-/NativeAppContainerForCs.App/ContainerForCs.AppLib.CsWinRT/bin/x64/Debug
-/NativeAppContainerForCs.App/ContainerForCs.AppLib.CsWinRT/Generated Files/CsWinRT
-/NativeAppContainerForCs.App/ContainerForCs.AppLib.CsWinRT/obj
-/NativeAppContainerForCs.App/ContainerForCs.AppCs/bin/x64/Debug/net8.0-windows10.0.22621.0/win-x64
-/NativeAppContainerForCs.App/ContainerForCs.CsWinRtComponent/bin/Debug/net8.0-windows10.0.22621.0
-/NativeAppContainerForCs.App/ContainerForCs.CsWinRtComponent/Generated Files/CsWinRT
-/NativeAppContainerForCs.App/ContainerForCs.CsWinRtComponent/obj
-/NativeAppContainerForCs.App/ContainerForCs.CsWinRtComponent/bin/x64/Debug/net8.0-windows10.0.22621.0
-/COMServerApp/COM.ClientApp/COM.ClientApp/Generated Files
-/COMServerApp/COM.ClientApp/COM.ClientApp/x64/Debug
-/COMServerApp/COM.ClientApp/COM.ClientApp (Package)/obj
-/COMServerApp/COM.ProxyStubs/x64/Debug
-/COMServerApp/COM.Server.Proxy/Generated Files
-/COMServerApp/COM.Server.Proxy/x64/Debug
-/COMServerApp/COM.ServerLib/Generated Files
-/COMServerApp/COM.ServerLib/x64/Debug
-/MigrationProgIdDehApp/.vs/MigrationProgIdDehApp
-/MigrationProgIdDehApp/MigrationProgIdDehApp/Generated Files
-/MigrationProgIdDehApp/MigrationProgIdDehApp/x64/Debug
-/MigrationProgIdDehApp/packages
-/MigrationProgIdDehApp/x64/Debug/MigrationProgIdDehApp
-/MigrationProgIdDehApp/MigrationProgIdDehApp/Debug
-/MigrationProgIdDehApp/Debug/MigrationProgIdDehApp
-/PlaygroundApp/App1/App1/ARM64/Debug
-/PlaygroundApp/App1/App1 (Package)/bin/ARM64/Debug
-/PlaygroundApp/ARM64/Debug
-/PlaygroundApp/Playground.Controls/ARM64/Debug
-/MultiApp/.vs/MultiApp
-/MultiApp/MultiApp/MultiApp/Generated Files
-/MultiApp/MultiApp/MultiApp/x64/Debug
-/MultiApp/MultiApp/MultiApp (Package)/bin/x64/Debug
-/MultiApp/MultiApp/MultiApp (Package)/obj
-/MultiApp/packages
-/MultiApp/x64/Debug/MultiApp
-/MultiApp/MultiApp/MultiApp (Package)/AppPackages/MultiApp (Package)_1.0.0.0_x64_Debug_Test
-/MultiApp/x64/Debug/ChildApp
-/MultiApp/MultiApp/ChildApp/Generated Files
-/MultiApp/MultiApp/ChildApp/x64/Debug
-/MultiApp/MultiApp/ProcessBridge/x64/Debug
-/MultiApp/x64/Debug/ProcessBridge
+*.user
+*.userosscache
+*.sln.docstates
+
+# =============================================================================
+# Build outputs
+# =============================================================================
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+ARM/
+ARM64/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# =============================================================================
+# C++/WinRT generated files
+# =============================================================================
+Generated Files/
+
+# =============================================================================
+# NuGet packages (restored on build)
+# =============================================================================
+packages/
+*.nupkg
+!*.nupkg.metadata
+
+# =============================================================================
+# MSIX / AppX packaging artifacts
+# =============================================================================
+AppPackages/
+BundleArtifacts/
+*.appx
+*.appxbundle
+*.msix
+*.msixbundle
+*.appxupload
+*.assets.cache
+
+# =============================================================================
+# Build caches & intermediate files
+# =============================================================================
+*.cache
+*.tlog
+*.log
+*.obj
+*.pch
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.iobj
+*.ipdb
+*.pgc
+*.pgd
+*.metagen
+*.pri
+*.winmd
+
+# =============================================================================
+# MIDL / COM generated files
+# =============================================================================
+dlldata.c
+*_i.c
+*_i.h
+*_p.c
+
+# =============================================================================
+# .NET publish / test results
+# =============================================================================
+*.deps.json
+*.runtimeconfig.json
+publish/
+TestResults/
+
+# =============================================================================
+# OS & editor files
+# =============================================================================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*.swo
+*~
